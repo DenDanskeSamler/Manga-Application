@@ -3,8 +3,8 @@ import json
 import re
 
 # Paths
-INPUT_FOLDER = r"D:\Fbamse\Python\Manga Applications 1\manga_data"
-OUTPUT_ROOT = r"D:\Fbamse\Python\Manga Applications 1\data"
+INPUT_FOLDER = r"manga_data"
+OUTPUT_ROOT = r"data"
 CATALOG_FILE = os.path.join(OUTPUT_ROOT, "catalog.json")
 
 def slug_to_folder(slug):
