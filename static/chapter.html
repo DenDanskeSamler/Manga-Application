@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Chapter</title>
+	<style>
+		body {
+			margin: 0;
+			font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, sans-serif;
+			background: #0e0e10;
+			color: #e6e6ea;
+		}
+
+		.container {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 24px;
+		}
+
+		header.site {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			background: linear-gradient(180deg, rgba(23, 23, 26, 0.95), rgba(23, 23, 26, 0.85));
+			backdrop-filter: blur(8px);
+			border-bottom: 1px solid #2a2a30;
+		}
+
+		header.site .wrap {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 14px 24px;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			font-weight: 800;
+		}
+
+		.brand .logo {
+			width: 28px;
+			height: 28px;
+			border-radius: 6px;
+			background: linear-gradient(135deg, #ff3d6e, #5cc8ff);
+			display: inline-block;
+		}
+
+		.brand a {
+			color: #e6e6ea;
+			text-decoration: none;
+			font-size: 18px;
+		}
+
+		nav a,
+		#currentUserName {
+			color: #e6e6ea;
+			text-decoration: none;
+		}
+
+		nav a:hover {
+			color: #5cc8ff;
+		}
+
+		.panel {
+			background: #17171a;
+			border: 1px solid #2a2a30;
+			border-radius: 12px;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+
+		/* Make nav-controls sticky */
+		.panel.nav-controls {
+			position: sticky;
+			top: 55px;
+			/* offset below sticky header */
+			z-index: 15;
+			background: #17171a;
+			padding: 10px 20px;
+			border-bottom: 1px solid #2a2a30;
+		}
+
+		.nav-controls {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 16px;
+			flex-wrap: wrap;
+		}
+
+		#chapterSelect {
+			min-width: 220px;
+			padding: 10px;
+			border-radius: 10px;
+			background: #22232a;
+			color: #e6e6ea;
+			border: 1px solid #2a2a30;
+			cursor: pointer;
+		}
+
+		.btn {
+			appearance: none;
+			border: 0;
+			border-radius: 10px;
+			padding: 10px 14px;
+			font-weight: 600;
+			cursor: pointer;
+		}
+
+		.btn.secondary {
+			background: #22232a;
+			color: #e6e6ea;
+			border: 1px solid #2a2a30;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		.btn.secondary:hover {
+			background: #ff3d6e;
+			color: #fff;
+		}
+
+		#pages img {
+			max-width: 100%;
+			display: block;
+			margin: 0 auto 16px;
+			border-radius: 8px;
+		}
+
+		p.muted {
+			color: #a0a0a8;
+			text-align: center;
+		}
+
+		@media (max-width: 500px) {
+			#chapterSelect {
+				min-width: 160px;
+			}
+
+			.btn {
+				padding: 8px 12px;
+				font-size: 14px;
+			}
+		}
+
+		/* Progress container */
+		#progressContainer {
+			position: fixed;
+			right: 10px;
+			/* slider on right side */
+			top: 80px;
+			/* below header */
+			width: 6px;
+			height: 50vh;
+			/* half page height */
+			background: #444;
+			border-radius: 3px;
+			z-index: 20;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		/* Percentage text centered above slider */
+		#progressPercent {
+			position: absolute;
+			/* take it out of flow */
+			top: -20px;
+			/* above slider */
+			left: 50%;
+			/* center horizontally */
+			transform: translateX(-50%);
+			/* offset half width to truly center */
+			color: #e6e6ea;
+			font-size: 12px;
+			text-align: center;
+		}
+
+		/* Filling bar */
+		#progressLine {
+			width: 100%;
+			height: 0%;
+			background: #5cc8ff;
+			border-radius: 3px;
+			transition: height 0.1s;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="site">
+		<div class="wrap">
+			<div class="brand"><span class="logo"></span><a href="/home.html">MangaReader</a></div>
+			<nav>
+				<span id="currentUserName" class="muted"></span>
+				<a href="#" id="logoutBtn">Logout</a>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Vertical progress line on the right with percentage -->
+	<div id="progressContainer">
+		<div id="progressPercent">0%</div>
+		<div id="progressLine"></div>
+	</div>
+
+	<div class="container">
+		<div class="panel nav-controls">
+			<button id="prevBtn" class="btn secondary">Prev</button>
+			<select id="chapterSelect" class="btn secondary"></select>
+			<button id="nextBtn" class="btn secondary">Next</button>
+		</div>
+		<div id="pages" class="panel"></div>
+	</div>
+
+	<script>
+		fetch('/me').then(r => r.ok ? r.json() : { username: null }).then(data => {
+			const el = document.getElementById('currentUserName');
+			if (data && data.username && el) { el.textContent = data.username; }
+		});
+		document.getElementById('logoutBtn').addEventListener('click', (e) => {
+			e.preventDefault();
+			window.location.href = '/logout';
+		});
+
+		const params = new URLSearchParams(window.location.search);
+		const slug = params.get('slug');
+		const file = params.get('file');
+		if (!file) {
+			document.getElementById('pages').innerHTML = '<p class="muted">Missing chapter.</p>';
+		}
+
+		let chapters = [];
+		let currentIndex = -1;
+		const chapterSelect = document.getElementById('chapterSelect');
+		const prevBtn = document.getElementById('prevBtn');
+		const nextBtn = document.getElementById('nextBtn');
+
+		function updateProgress() {
+			const totalHeight = document.body.scrollHeight - window.innerHeight;
+			const scrollTop = window.scrollY;
+			const progressPercent = Math.min(100, (scrollTop / totalHeight) * 100);
+			document.getElementById('progressLine').style.height = progressPercent + '%';
+			document.getElementById('progressPercent').textContent = Math.round(progressPercent) + '%';
+		}
+
+		window.addEventListener('scroll', updateProgress);
+
+		fetch(`/api/manga/${slug}`).then(r => r.json()).then(data => {
+			chapters = (data.chapters || []).map((c, idx) => ({ ...c, idx }));
+			chapterSelect.innerHTML = chapters.map(c => `<option value="${encodeURIComponent(c.file)}">Chapter ${c.number}: ${c.title}</option>`).join('');
+			currentIndex = chapters.findIndex(c => c.file === file);
+			if (currentIndex >= 0) { chapterSelect.selectedIndex = currentIndex; }
+
+			function goToIndex(i) {
+				if (i < 0 || i >= chapters.length) return;
+				const target = chapters[i];
+				window.location.href = `/chapter.html?slug=${slug}&file=${encodeURIComponent(target.file)}`;
+			}
+			prevBtn.onclick = () => goToIndex(currentIndex - 1);
+			nextBtn.onclick = () => goToIndex(currentIndex + 1);
+			chapterSelect.onchange = () => {
+				const selectedFile = chapterSelect.value;
+				window.location.href = `/chapter.html?slug=${slug}&file=${selectedFile}`;
+			};
+
+			return fetch(`/api/manga/${slug}/chapter/${file}`).then(r => r.json());
+		}).then(ch => {
+			const pages = ch.pages || [];
+			document.getElementById('pages').innerHTML = pages.map(src => `<img src="${src}" />`).join('');
+			updateProgress();
+		}).catch(() => {
+			document.getElementById('pages').innerHTML = '<p class="muted">Failed to load chapter.</p>';
+		});
+	</script>
+</body>
+
+</html>
