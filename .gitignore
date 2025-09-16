@@ -1,0 +1,26 @@
+# Ignore Python virtual environment
+.venv/
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# Ignore common build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore environment files
+.env
+*.env
+
+# Ignore logs
+*.log
+
+# Ignore selected folders (replace with your actual folders)
+save/
+manga_data/
+data/
