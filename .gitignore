@@ -22,21 +22,3 @@ manga_data/
 # Ignore everything under data/manga
 data/manga/*
 data/
-
-
-app copy 2.py
-app copy.py
-data/catalog.json
-manga_list.json
-scraper step 3 copy.py
-static/chapter copy.html
-static/home copy.html
-static/Manga/one-punch-man/ch1/p1.jpg
-static/Manga/one-punch-man/ch1/p2.jpg
-static/Manga/one-punch-man/ch1/p3.jpg
-static/Manga/one-punch-man/ch1/p4.jpg
-static/Manga/one-punch-man/ch1/p5.jpg
-static/thumbnail/one-punch-man-thumb.png
-step by step.txt
-update data.py
-users.json
