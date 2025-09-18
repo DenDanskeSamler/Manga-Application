@@ -23,6 +23,9 @@ def fetch_page(page):
             response = requests.get(url, timeout=10)
             if response.status_code == 200:
                 return response.text
+            elif response.status_code == 404:
+                print(f"Page {page} returned status 404 - stopping scraper.")
+                exit(1)
             else:
                 print(f"Page {page} returned status {response.status_code}")
         except requests.exceptions.RequestException as e:

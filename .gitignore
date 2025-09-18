@@ -18,7 +18,6 @@ dist/
 # Ignore selected folders
 save/
 manga_data/
-
-# Ignore everything under data/manga
-data/manga/*
+manga_data_updated/
 data/
+

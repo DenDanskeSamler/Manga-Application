@@ -140,21 +140,38 @@ def scrape_manga_details(manga):
 def save_manga(manga):
     slug = slugify(manga["title"])
     file_path = os.path.join(OUTPUT_FOLDER, f"{slug}.json")
-    if os.path.exists(file_path):
-        print(f"⏭ Skipping already downloaded manga: {manga['title']}")
+
+    print(f"🔎 Scraping: {manga['title']}")
+    manga_data = scrape_manga_details(manga)
+    if not manga_data:
+        print(f"⚠️ Failed to scrape: {manga['title']}")
         return
 
-    try:
-        print(f"🔎 Scraping: {manga['title']}")
-        manga_data = scrape_manga_details(manga)
-        if manga_data:
-            with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(manga_data, f, ensure_ascii=False, indent=2)
-            print(f"✅ Saved: {file_path}")
-        else:
-            print(f"⚠️ Failed to scrape: {manga['title']}")
-    except Exception as e:
-        print(f"⚠️ Exception scraping {manga['title']}: {e}")
+    # Check if file exists
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as f:
+            old_data = json.load(f)
+
+        # Update only fields that changed
+        for key in ["rank", "alternative_titles", "genres", "status", "bookmarked", "summary", "cover"]:
+            if manga_data.get(key) and manga_data[key] != old_data.get(key):
+                old_data[key] = manga_data[key]
+
+        # Merge chapters: only add new ones
+        old_chapters = {ch["chapter"]: ch for ch in old_data.get("chapters", [])}
+        for ch in manga_data.get("chapters", []):
+            if ch["chapter"] not in old_chapters:
+                old_chapters[ch["chapter"]] = ch
+        # Sort chapters
+        old_data["chapters"] = sorted(old_chapters.values(), key=lambda x: chapter_number(x["chapter"]))
+
+        manga_data = old_data
+
+    # Save updated data
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(manga_data, f, ensure_ascii=False, indent=2)
+    print(f"✅ Saved/Updated: {file_path}")
+
 
 # Multithreading
 with ThreadPoolExecutor(max_workers=NUM_THREADS) as executor:
