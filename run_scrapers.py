@@ -14,4 +14,11 @@ if result2.returncode != 0:
     print(f"scraper step 2.py failed with return code {result2.returncode}")
     sys.exit(1)
 
+# Then run scraper step 3.py
+print("Running scraper step 3.py...")
+result3 = subprocess.run([sys.executable, "scraper step 3.py"])
+if result3.returncode != 0:
+    print(f"scraper step 3.py failed with return code {result3.returncode}")
+    sys.exit(1)
+
 print("Scripts execution completed.")
