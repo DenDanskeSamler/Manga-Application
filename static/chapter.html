@@ -219,64 +219,85 @@
 	</div>
 
 	<script>
-		fetch('/me').then(r => r.ok ? r.json() : { username: null }).then(data => {
-			const el = document.getElementById('currentUserName');
-			if (data && data.username && el) { el.textContent = data.username; }
-		});
-		document.getElementById('logoutBtn').addEventListener('click', (e) => {
-			e.preventDefault();
-			window.location.href = '/logout';
-		});
+/* --- User info --- */
+fetch('/me')
+  .then(r => r.ok ? r.json() : { username: null })
+  .then(data => {
+    const el = document.getElementById('currentUserName');
+    if (data && data.username && el) el.textContent = data.username;
+  });
 
-		const params = new URLSearchParams(window.location.search);
-		const slug = params.get('slug');
-		const file = params.get('file');
-		if (!file) {
-			document.getElementById('pages').innerHTML = '<p class="muted">Missing chapter.</p>';
-		}
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.location.href = '/logout';
+});
 
-		let chapters = [];
-		let currentIndex = -1;
-		const chapterSelect = document.getElementById('chapterSelect');
-		const prevBtn = document.getElementById('prevBtn');
-		const nextBtn = document.getElementById('nextBtn');
+/* --- URL parameters --- */
+const params = new URLSearchParams(window.location.search);
+const slug = params.get('slug'); // manga slug
+const fileParam = params.get('file'); // optional chapter file
 
-		function updateProgress() {
-			const totalHeight = document.body.scrollHeight - window.innerHeight;
-			const scrollTop = window.scrollY;
-			const progressPercent = Math.min(100, (scrollTop / totalHeight) * 100);
-			document.getElementById('progressLine').style.height = progressPercent + '%';
-			document.getElementById('progressPercent').textContent = Math.round(progressPercent) + '%';
-		}
+/* --- DOM elements --- */
+const chapterSelect = document.getElementById('chapterSelect');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const pagesContainer = document.getElementById('pages');
 
-		window.addEventListener('scroll', updateProgress);
+/* --- State --- */
+let chapters = [];
+let currentIndex = 0;
 
-		fetch(`/api/manga/${slug}`).then(r => r.json()).then(data => {
-			chapters = (data.chapters || []).map((c, idx) => ({ ...c, idx }));
-			chapterSelect.innerHTML = chapters.map(c => `<option value="${encodeURIComponent(c.file)}">Chapter ${c.number}: ${c.title}</option>`).join('');
-			currentIndex = chapters.findIndex(c => c.file === file);
-			if (currentIndex >= 0) { chapterSelect.selectedIndex = currentIndex; }
+/* --- Progress bar --- */
+function updateProgress() {
+  const totalHeight = document.body.scrollHeight - window.innerHeight;
+  const scrollTop = window.scrollY;
+  const progressPercent = Math.min(100, (scrollTop / totalHeight) * 100);
+  document.getElementById('progressLine').style.height = progressPercent + '%';
+  document.getElementById('progressPercent').textContent = Math.round(progressPercent) + '%';
+}
+window.addEventListener('scroll', updateProgress);
 
-			function goToIndex(i) {
-				if (i < 0 || i >= chapters.length) return;
-				const target = chapters[i];
-				window.location.href = `/chapter.html?slug=${slug}&file=${encodeURIComponent(target.file)}`;
-			}
-			prevBtn.onclick = () => goToIndex(currentIndex - 1);
-			nextBtn.onclick = () => goToIndex(currentIndex + 1);
-			chapterSelect.onchange = () => {
-				const selectedFile = chapterSelect.value;
-				window.location.href = `/chapter.html?slug=${slug}&file=${selectedFile}`;
-			};
+/* --- Load all chapters --- */
+fetch(`/api/manga/${slug}/all_chapters`)
+  .then(r => r.json())
+  .then(data => {
+    chapters = data.chapters || [];
+    if (!chapters.length) {
+      pagesContainer.innerHTML = '<p class="muted">No chapters found.</p>';
+      return;
+    }
 
-			return fetch(`/api/manga/${slug}/chapter/${file}`).then(r => r.json());
-		}).then(ch => {
-			const pages = ch.pages || [];
-			document.getElementById('pages').innerHTML = pages.map(src => `<img src="${src}" />`).join('');
-			updateProgress();
-		}).catch(() => {
-			document.getElementById('pages').innerHTML = '<p class="muted">Failed to load chapter.</p>';
-		});
+    /* Populate chapter dropdown */
+    chapterSelect.innerHTML = chapters.map((c, idx) => 
+      `<option value="${idx}">Chapter ${c.number}: ${c.title}</option>`
+    ).join('');
+
+    /* Determine current chapter */
+    currentIndex = chapters.findIndex(c => c.file === fileParam);
+    if (currentIndex === -1) currentIndex = 0;
+    chapterSelect.selectedIndex = currentIndex;
+
+    /* Show chapter by index */
+    function showChapter(index) {
+      if (index < 0 || index >= chapters.length) return;
+      currentIndex = index;
+      const chapter = chapters[currentIndex];
+      pagesContainer.innerHTML = chapter.pages.map(p => `<img src="${p}" />`).join('');
+      chapterSelect.selectedIndex = currentIndex;
+      updateProgress();
+    }
+
+    /* Navigation buttons */
+    prevBtn.onclick = () => showChapter(currentIndex - 1);
+    nextBtn.onclick = () => showChapter(currentIndex + 1);
+    chapterSelect.onchange = () => showChapter(parseInt(chapterSelect.value));
+
+    /* Show initial chapter */
+    showChapter(currentIndex);
+  })
+  .catch(() => {
+    pagesContainer.innerHTML = '<p class="muted">Failed to load chapters.</p>';
+  });
 	</script>
 </body>
 

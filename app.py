@@ -219,6 +219,33 @@ def api_manga_chapter(slug: str, chapter_file: str):
 		return jsonify({}), 404
 
 
+@app.get("/api/manga/<slug>/all_chapters")
+def api_manga_all_chapters(slug: str):
+	folder_name = "".join([c for c in slug if c.isalnum()]).title()
+	manga_dir = BASE_DIR / "data" / "manga" / folder_name
+	manga_file = manga_dir / f"{folder_name}.json"  # single file with all chapters
+
+	if not manga_file.exists():
+		return jsonify({}), 404
+
+	try:
+		data = json.loads(manga_file.read_text(encoding="utf-8"))
+
+		# Rewrite local pages to absolute URLs if needed
+		for chapter in data.get("chapters", []):
+			if "pages" in chapter:
+				chapter["pages"] = [
+					p if p.startswith("http") else f"/Manga/{slug}/{p.lstrip('/')}" 
+					for p in chapter["pages"]
+				]
+
+		return jsonify(data)
+	except Exception as e:
+		print(f"Error loading chapters: {e}")
+		return jsonify({}), 500
+
+
+
 # --- Serve local manga images ---
 @app.route("/Manga/<slug>/<path:filename>")
 def serve_manga_images(slug, filename):
@@ -236,4 +263,5 @@ def serve_manga_images(slug, filename):
 if __name__ == "__main__":
 	print(f"[server] Static dir: {STATIC_DIR}")
 	print(f"[server] Users file: {USERS_FILE}")
-	app.run(host="127.0.0.1", port=8000, debug=False)
+	#app.run(host="127.0.0.1", port=8000, debug=False)
+	app.run(host="0.0.0.0", port=8000, debug=False)
