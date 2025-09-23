@@ -11,7 +11,7 @@ import time
 MANGA_LIST_FILE = "manga_list.json"
 OUTPUT_FOLDER = "manga_data"
 NUM_THREADS = 10
-MAX_RETRIES = 3
+MAX_RETRIES = 5
 RETRY_DELAY = 5  # seconds between retries
 
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
@@ -27,7 +27,7 @@ with open(MANGA_LIST_FILE, "r", encoding="utf-8") as f:
 def fetch_html(url):
     for attempt in range(1, MAX_RETRIES + 1):
         try:
-            r = requests.get(url, timeout=15)
+            r = requests.get(url, timeout=5)
             if r.status_code == 200:
                 return r.text
             else:
@@ -158,10 +158,12 @@ def save_manga(manga):
                 old_data[key] = manga_data[key]
 
         # Merge chapters: only add new ones
-        old_chapters = {ch["chapter"]: ch for ch in old_data.get("chapters", [])}
+        old_chapters = { (ch["chapter"].strip(), ch["url"].strip()) : ch for ch in old_data.get("chapters", []) }
         for ch in manga_data.get("chapters", []):
-            if ch["chapter"] not in old_chapters:
-                old_chapters[ch["chapter"]] = ch
+            key = (ch["chapter"].strip(), ch["url"].strip())
+            if key not in old_chapters:
+                old_chapters[key] = ch
+
         # Sort chapters
         old_data["chapters"] = sorted(old_chapters.values(), key=lambda x: chapter_number(x["chapter"]))
 

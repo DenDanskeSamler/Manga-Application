@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 OUTPUT_FOLDER = "manga_data"
 LOG_FILE = "manga_log.txt"
-MAX_RETRIES = 3
+MAX_RETRIES = 5
 THREADS = 10  # Number of concurrent chapter fetches
 
 # --- Setup logging ---
@@ -35,7 +35,7 @@ def fetch_html(url, retries=MAX_RETRIES):
     """Fetch HTML with retries"""
     for attempt in range(1, retries + 1):
         try:
-            r = requests.get(url, timeout=15)
+            r = requests.get(url, timeout=5)
             r.raise_for_status()
             return r.text
         except Exception as e:
@@ -198,8 +198,12 @@ def update_manga_chapters(manga_data, manga_url, manga_name):
 
 # --- Process one manga JSON file ---
 def process_manga_file(file_path, manga_index, total_manga):
-    with open(file_path, "r", encoding="utf-8") as f:
-        manga_data = json.load(f)
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            manga_data = json.load(f)
+    except json.JSONDecodeError as e:
+        logger.error(f"❌ Failed to load {file_path}: {e}")
+        return
 
     manga_name = os.path.basename(file_path)
     manga_url = manga_data.get("url")
