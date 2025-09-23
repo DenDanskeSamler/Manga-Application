@@ -151,51 +151,58 @@
 		/* Progress container */
 		#progressContainer {
 			position: fixed;
-			right: 10px;
-			/* slider on right side */
-			top: 80px;
-			/* below header */
-			width: 6px;
-			height: 50vh;
-			/* half page height */
-			background: #444;
-			border-radius: 3px;
+			right: 20px;
+			top: 50%;                   /* center vertically */
+			transform: translateY(-50%); /* offset by half its height */
+			width: 12px;
+			height: 60vh;
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 8px;
 			z-index: 20;
 			display: flex;
 			flex-direction: column;
+			justify-content: flex-start; /* bar grows from top */
 			align-items: center;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 		}
 
-		/* Percentage text centered above slider */
+		/* Percentage text above slider */
 		#progressPercent {
 			position: absolute;
-			/* take it out of flow */
-			top: -20px;
-			/* above slider */
+			top: -25px;
 			left: 50%;
-			/* center horizontally */
 			transform: translateX(-50%);
-			/* offset half width to truly center */
-			color: #e6e6ea;
+			color: #5cc8ff;
+			font-weight: 600;
 			font-size: 12px;
-			text-align: center;
+			background: rgba(23, 23, 26, 0.8);
+			padding: 2px 6px;
+			border-radius: 4px;
+			transition: transform 0.2s ease;
 		}
 
 		/* Filling bar */
 		#progressLine {
 			width: 100%;
 			height: 0%;
-			background: #5cc8ff;
-			border-radius: 3px;
-			transition: height 0.1s;
+			background: linear-gradient(180deg, #ff3d6e, #5cc8ff);
+			border-radius: 8px;
+			transition: height 0.3s ease;
 		}
+
+
+		/* Optional: hover effect */
+		#progressContainer:hover #progressPercent {
+			transform: translateX(-50%) translateY(-5px);
+		}
+
 	</style>
 </head>
 
 <body>
 	<header class="site">
 		<div class="wrap">
-			<div class="brand"><span class="logo"></span><a href="/home.html">MangaReader</a></div>
+			<div class="brand"><span class="logo"></span><a href="/home">MangaReader</a></div>
 			<nav>
 				<span id="currentUserName" class="muted"></span>
 				<a href="#" id="logoutBtn">Logout</a>
@@ -218,24 +225,30 @@
 		<div id="pages" class="panel"></div>
 	</div>
 
-	<script>
+<script>
 /* --- User info --- */
 fetch('/me')
   .then(r => r.ok ? r.json() : { username: null })
   .then(data => {
     const el = document.getElementById('currentUserName');
-    if (data && data.username && el) el.textContent = data.username;
+    if (data?.username && el) el.textContent = data.username;
   });
 
-document.getElementById('logoutBtn').addEventListener('click', (e) => {
+document.getElementById('logoutBtn').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = '/logout';
 });
 
-/* --- URL parameters --- */
-const params = new URLSearchParams(window.location.search);
-const slug = params.get('slug'); // manga slug
-const fileParam = params.get('file'); // optional chapter file
+/* --- Parse slug & chapter number from URL path --- */
+// URL format: /manga/<slug>/<chapterNumber>
+const pathParts = window.location.pathname.split("/");
+const slug = pathParts[2]; // manga slug
+let chapterPart = pathParts[3]; // e.g., "chapter-"
+let chapterNumber = 1;
+if (chapterPart && chapterPart.startsWith("chapter-")) {
+    chapterNumber = parseInt(chapterPart.replace("chapter-", ""), 10) || 1;
+}
+
 
 /* --- DOM elements --- */
 const chapterSelect = document.getElementById('chapterSelect');
@@ -268,12 +281,12 @@ fetch(`/api/manga/${slug}/all_chapters`)
     }
 
     /* Populate chapter dropdown */
-    chapterSelect.innerHTML = chapters.map((c, idx) => 
-      `<option value="${idx}">Chapter ${c.number}: ${c.title}</option>`
+    chapterSelect.innerHTML = chapters.map((c, idx) =>
+      `<option value="${idx}">Chapter ${c.number}: ${c.title || ''}</option>`
     ).join('');
 
-    /* Determine current chapter */
-    currentIndex = chapters.findIndex(c => c.file === fileParam);
+    /* Find index of the current chapter */
+    currentIndex = chapters.findIndex(c => c.number === chapterNumber);
     if (currentIndex === -1) currentIndex = 0;
     chapterSelect.selectedIndex = currentIndex;
 
@@ -282,9 +295,16 @@ fetch(`/api/manga/${slug}/all_chapters`)
       if (index < 0 || index >= chapters.length) return;
       currentIndex = index;
       const chapter = chapters[currentIndex];
+
+      // Update the URL without reloading
+      history.replaceState(null, '', `/manga/${slug}/chapter-${chapter.number}`);
+
+      // Render pages
       pagesContainer.innerHTML = chapter.pages.map(p => `<img src="${p}" />`).join('');
       chapterSelect.selectedIndex = currentIndex;
+
       updateProgress();
+      window.scrollTo({ top: 0 }); // scroll to top when changing chapter
     }
 
     /* Navigation buttons */
@@ -298,7 +318,8 @@ fetch(`/api/manga/${slug}/all_chapters`)
   .catch(() => {
     pagesContainer.innerHTML = '<p class="muted">Failed to load chapters.</p>';
   });
-	</script>
+</script>
+
 </body>
 
 </html>

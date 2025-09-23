@@ -1,349 +1,431 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Manga</title>
-  <style>
-    :root {
-      --bg: #0e0e10;
-      --panel: #17171a;
-      --text: #e6e6ea;
-      --muted: #a0a0a8;
-      --accent: #ff3d6e;
-      --accent-2: #5cc8ff;
-      --border: #2a2a30;
-    }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    header.site {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: linear-gradient(180deg, rgba(23,23,26,0.95), rgba(23,23,26,0.85));
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-    header.site .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 24px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-    }
-    .brand .logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      display: inline-block;
-    }
-    .brand a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 18px;
-    }
-    nav a, #currentUserName {
-      color: var(--text);
-      text-decoration: none;
-    }
-    nav a:hover {
-      color: var(--accent-2);
-    }
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Manga</title>
+	<style>
+		:root {
+			--bg: #0e0e10;
+			--panel: #17171a;
+			--text: #e6e6ea;
+			--muted: #a0a0a8;
+			--accent: #ff3d6e;
+			--accent-2: #5cc8ff;
+			--border: #2a2a30;
+		}
 
-    /* Manga info layout */
-    .manga-info {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    .cover img {
-      width: 200px;
-      height: auto;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    .info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .info h1 {
-      font-size: 28px;
-      font-weight: 800;
-      margin: 0;
-    }
-    .info .muted {
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .info .meta {
-      font-size: 14px;
-      color: #c0c0c8;
-    }
-    .info .meta strong {
-      color: var(--text);
-    }
+		body {
+			background: var(--bg);
+			color: var(--text);
+			font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
 
-    /* Summary */
-    #summary {
-      font-size: 16px;
-      line-height: 1.5;
-      color: var(--text);
-      margin-top: 12px;
-    }
+		.container {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 24px;
+		}
 
-    /* Chapters container */
-    .chapters-wrapper {
-      max-height: 480px;
-      overflow-y: auto;
-      padding: 16px;
-    }
+		.panel {
+			background: var(--panel);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
 
-    /* Chapters Grid / Row */
-    #chapters.card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-    }
-    #chapters.row-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-      gap: 16px;
-    }
-    @media (max-width: 600px) {
-      #chapters.row-grid { grid-template-columns: 1fr; }
-    }
+		header.site {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			background: linear-gradient(180deg, rgba(23, 23, 26, 0.95), rgba(23, 23, 26, 0.85));
+			backdrop-filter: blur(8px);
+			border-bottom: 1px solid var(--border);
+		}
 
-    /* Chapter card */
-    .chapter-card {
-      display: flex;
-      flex-direction: column;
-      border-radius: 12px;
-      background: #121216;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      padding: 12px;
-    }
-    .row-grid .chapter-card {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .chapter-title {
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .chapter-date {
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .read-btn {
-      background: #22232a;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .read-btn:hover {
-      background: var(--accent);
-      color: #fff;
-    }
+		header.site .wrap {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 14px 24px;
+		}
 
-    /* Toggle button */
-    #toggleChaptersViewBtn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 16px;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-    #toggleChaptersViewBtn:hover {
-      transform: scale(1.05);
-      opacity: 0.9;
-    }
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			font-weight: 800;
+		}
 
-    @media (max-width: 600px) {
-      .manga-info { flex-direction: column; align-items: center; }
-      .cover img { width: 150px; }
-      .info h1 { font-size: 24px; }
-    }
+		.brand .logo {
+			width: 28px;
+			height: 28px;
+			border-radius: 6px;
+			background: linear-gradient(135deg, var(--accent), var(--accent-2));
+			display: inline-block;
+		}
 
-	#reverseChaptersBtn {
-		padding: 10px 20px;
-		border: none;
-		border-radius: 12px;
-		background: linear-gradient(135deg, #5cc8ff, #ff3d6e);
-		color: #fff;
-		font-weight: bold;
-		cursor: pointer;
-		margin-left: 8px;
-		transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
-	}
+		.brand a {
+			color: var(--text);
+			text-decoration: none;
+			font-size: 18px;
+		}
 
-	#reverseChaptersBtn:hover {
-		transform: scale(1.05);
-		opacity: 0.9;
-		box-shadow: 0 0 12px rgba(255, 61, 110, 0.6), 0 0 12px rgba(92, 200, 255, 0.6);
-	}
+		nav a,
+		#currentUserName {
+			color: var(--text);
+			text-decoration: none;
+		}
 
-  </style>
+		nav a:hover {
+			color: var(--accent-2);
+		}
+
+		/* Manga info layout */
+		.manga-info {
+			display: flex;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+
+		.cover img {
+			width: 200px;
+			height: auto;
+			border-radius: 8px;
+			object-fit: cover;
+		}
+
+		.info {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		.info h1 {
+			font-size: 28px;
+			font-weight: 800;
+			margin: 0;
+		}
+
+		.info .muted {
+			color: var(--muted);
+			font-size: 14px;
+		}
+
+		.info .meta {
+			font-size: 14px;
+			color: #c0c0c8;
+		}
+
+		.info .meta strong {
+			color: var(--text);
+		}
+
+		/* Summary */
+		#summary {
+			font-size: 16px;
+			line-height: 1.5;
+			color: var(--text);
+			margin-top: 12px;
+		}
+
+		/* Chapters container */
+		.chapters-wrapper {
+			padding: 16px;
+			max-height: none;
+			/* allow it to grow naturally */
+			overflow-y: visible;
+			/* don’t scroll */
+		}
+
+		#altTitles {
+			display: flex;
+			flex-direction: column;
+			/* stack titles vertically */
+			gap: 4px;
+			/* small space between lines */
+			font-size: 14px;
+			/* same as .meta */
+			color: var(--muted);
+			/* consistent muted color */
+		}
+
+		/* Chapters Grid / Row */
+		#chapters.card-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+			gap: 16px;
+		}
+
+		#chapters.row-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+			gap: 16px;
+		}
+
+		@media (max-width: 600px) {
+			#chapters.row-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		/* Chapter card */
+		.chapter-card {
+			display: flex;
+			flex-direction: column;
+			border-radius: 12px;
+			background: #121216;
+			border: 1px solid var(--border);
+			overflow: hidden;
+			padding: 12px;
+		}
+
+		.row-grid .chapter-card {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+		}
+
+		.chapter-title {
+			font-weight: 600;
+			margin-bottom: 6px;
+		}
+
+		.chapter-date {
+			font-size: 13px;
+			color: var(--muted);
+		}
+
+		.read-btn {
+			background: #22232a;
+			color: var(--text);
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			padding: 8px 12px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		.read-btn:hover {
+			background: var(--accent);
+			color: #fff;
+		}
+
+		/* Toggle button */
+		#toggleChaptersViewBtn {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 12px;
+			background: linear-gradient(135deg, var(--accent), var(--accent-2));
+			color: #fff;
+			font-weight: bold;
+			cursor: pointer;
+			margin-bottom: 16px;
+			transition: transform 0.2s, opacity 0.2s;
+		}
+
+		#toggleChaptersViewBtn:hover {
+			transform: scale(1.05);
+			opacity: 0.9;
+		}
+
+		@media (max-width: 600px) {
+			.manga-info {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cover img {
+				width: 150px;
+			}
+
+			.info h1 {
+				font-size: 24px;
+			}
+		}
+
+		#reverseChaptersBtn {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #5cc8ff, #ff3d6e);
+			color: #fff;
+			font-weight: bold;
+			cursor: pointer;
+			margin-left: 8px;
+			transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+		}
+
+		#reverseChaptersBtn:hover {
+			transform: scale(1.05);
+			opacity: 0.9;
+			box-shadow: 0 0 12px rgba(255, 61, 110, 0.6), 0 0 12px rgba(92, 200, 255, 0.6);
+		}
+	</style>
 </head>
+
 <body>
-  <header class="site">
-    <div class="wrap">
-      <div class="brand"><span class="logo"></span><a href="/home.html">MangaReader</a></div>
-      <nav>
-        <span id="currentUserName" class="muted"></span>
-        <a href="#" id="logoutBtn">Logout</a>
-      </nav>
-    </div>
-  </header>
+	<header class="site">
+		<div class="wrap">
+			<div class="brand"><span class="logo"></span><a href="/home">MangaReader</a></div>
+			<nav>
+				<span id="currentUserName" class="muted"></span>
+				<a href="#" id="logoutBtn">Logout</a>
+			</nav>
+		</div>
+	</header>
 
-  <div class="container">
-    <div class="panel">
-      <div class="manga-info">
-        <div class="cover">
-          <img id="coverImg" src="" alt="Cover image">
-        </div>
-        <div class="info">
-          <h1 id="title">Loading...</h1>
-          <p id="author" class="muted"></p>
-          <div class="meta"><strong>Status:</strong> <span id="status"></span></div>
-          <div class="meta"><strong>Rank:</strong> <span id="rank"></span></div>
-          <div class="meta"><strong>Bookmarked:</strong> <span id="bookmarked"></span></div>
-          <div class="meta"><strong>Genres:</strong> <span id="genres"></span></div>
-          <div class="meta"><strong>Alternative Titles:</strong> <span id="altTitles"></span></div>
-          <div class="meta"><strong>Source:</strong> <a id="sourceLink" target="_blank" rel="noopener noreferrer">Visit</a></div>
-        </div>
-      </div>
-      <div id="summary">
-        <strong>Summary:</strong>
-        <p id="desc"></p>
-      </div>
-    </div>
+	<div class="container">
+		<div class="panel">
+			<div class="manga-info">
+				<div class="cover">
+					<img id="coverImg" src="" alt="Cover image">
+				</div>
+				<div class="info">
+					<h1 id="title">Loading...</h1>
+					<p id="author" class="muted"></p>
+					<div class="meta"><strong>Status:</strong> <span id="status"></span></div>
+					<div class="meta"><strong>Rank:</strong> <span id="rank"></span></div>
+					<div class="meta"><strong>Bookmarked:</strong> <span id="bookmarked"></span></div>
+					<div class="meta"><strong>Genres:</strong> <span id="genres"></span></div>
+					<div class="meta"><strong>Alternative Titles:</strong> <span id="altTitles"></span></div>
+					<div class="meta"><strong>Source:</strong> <a id="sourceLink" target="_blank"
+							rel="noopener noreferrer">Visit</a></div>
+				</div>
+			</div>
+			<div id="summary">
+				<strong>Summary:</strong>
+				<p id="desc"></p>
+			</div>
+		</div>
 
-    <h2 class="panel" style="padding:20px;">Chapters</h2>
-    <div class="chapters-wrapper panel">
-      <button id="toggleChaptersViewBtn">Switch to Row Grid</button>
-	  <button id="reverseChaptersBtn" style="margin-left: 8px;">Reverse Order</button>
-      <div id="chapters" class="card-grid"></div>
-    </div>
-  </div>
+		<h2 class="panel" style="padding:20px;">Chapters</h2>
+		<div class="chapters-wrapper panel">
+			<button id="toggleChaptersViewBtn">Switch to Row Grid</button>
+			<button id="reverseChaptersBtn" style="margin-left: 8px;">Reverse Order</button>
+			<div id="chapters" class="card-grid"></div>
+		</div>
+	</div>
 
-<script>
-  // Navbar info
-  fetch('/me')
-    .then(r => r.ok ? r.json() : { username: null })
-    .then(data => {
-      const el = document.getElementById('currentUserName');
-      if (data && data.username && el) el.textContent = data.username;
-    }).catch(() => {});
-  document.getElementById('logoutBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    window.location.href = '/logout';
-  });
+	<script>
+		// ====== Navbar & User Info ======
+		fetch('/me')
+			.then(r => r.ok ? r.json() : { username: null })
+			.then(data => {
+				const el = document.getElementById('currentUserName');
+				if (data?.username && el) el.textContent = data.username;
+			}).catch(() => { });
 
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get('slug');
+		document.getElementById('logoutBtn').addEventListener('click', e => {
+			e.preventDefault();
+			window.location.href = '/logout';
+		});
 
-  const chaptersGrid = document.getElementById('chapters');
-  const toggleBtn = document.getElementById('toggleChaptersViewBtn');
-  const reverseBtn = document.getElementById('reverseChaptersBtn');
+		// ====== Get slug from URL path ======
+		const pathParts = window.location.pathname.split("/");
+		const slug = pathParts[2]; // /manga/<slug>
+		if (!slug) {
+			document.querySelector('.container').innerHTML =
+				'<p class="muted">Invalid manga URL.</p>';
+		}
 
-  let savedView = localStorage.getItem('chaptersView');
-  let isCardGrid = savedView !== 'row';
+		// ====== DOM Elements ======
+		const chaptersGrid = document.getElementById('chapters');
+		const toggleBtn = document.getElementById('toggleChaptersViewBtn');
+		const reverseBtn = document.getElementById('reverseChaptersBtn');
 
-  let isReversed = false; // chapter order flag
-  let currentChapters = []; // store loaded chapters
+		// ====== State ======
+		let isCardGrid = localStorage.getItem('chaptersView') !== 'row'; // grid default
+		let isReversed = false;
+		let currentChapters = [];
 
-  // Apply grid/row view
-  function applyView() {
-    chaptersGrid.className = isCardGrid ? 'card-grid' : 'row-grid';
-    toggleBtn.textContent = isCardGrid ? 'Switch to Row Grid' : 'Switch to Card Grid';
-  }
-  applyView();
+		// ====== Apply grid/row view ======
+		function applyView() {
+			chaptersGrid.className = isCardGrid ? 'card-grid' : 'row-grid';
+			toggleBtn.textContent = isCardGrid ? 'Switch to Row Grid' : 'Switch to Card Grid';
+		}
+		applyView();
 
-  toggleBtn.addEventListener('click', () => {
-    isCardGrid = !isCardGrid;
-    applyView();
-    localStorage.setItem('chaptersView', isCardGrid ? 'card' : 'row');
-  });
+		toggleBtn.addEventListener('click', () => {
+			isCardGrid = !isCardGrid;
+			applyView();
+			localStorage.setItem('chaptersView', isCardGrid ? 'card' : 'row');
+		});
 
-  // Reverse order button
-  reverseBtn.addEventListener('click', () => {
-    isReversed = !isReversed;
-    renderChapters(currentChapters, slug);
-    reverseBtn.textContent = isReversed ? 'Normal Order' : 'Reverse Order';
-  });
+		// ====== Reverse chapters ======
+		reverseBtn.addEventListener('click', () => {
+			isReversed = !isReversed;
+			renderChapters(currentChapters);
+			reverseBtn.textContent = isReversed ? 'Normal Order' : 'Reverse Order';
+		});
 
-  // Render chapters
-  function renderChapters(list, slug) {
-    currentChapters = list || [];
-    const chaptersToRender = isReversed ? [...currentChapters].reverse() : currentChapters;
+		// ====== Render chapters ======
+		function renderChapters(list) {
+			currentChapters = list || [];
+			const chaptersToRender = isReversed ? [...currentChapters].reverse() : currentChapters;
 
-    chaptersGrid.innerHTML = chaptersToRender.map(c => `
-      <div class="chapter-card">
-        <div>
-          <div class="chapter-title">Chapter ${c.number}: ${c.title || ''}</div>
-          <div class="chapter-date">${c.release_date || ''}</div>
-        </div>
-        <button class="read-btn" onclick="window.location.href='/chapter.html?slug=${slug}&file=${encodeURIComponent(c.file)}'">Read</button>
-      </div>
-    `).join('');
-  }
+			chaptersGrid.innerHTML = chaptersToRender.map(c => `
+		<div class="chapter-card">
+			<div>
+				<div class="chapter-title">Chapter: ${c.number}<br>Title: ${c.title || ''}</div>
+				<div class="chapter-date">${c.release_date || ''}</div>
+			</div>
+			<br>
+			<button class="read-btn" onclick="window.location.href='/manga/${slug}/chapter-${c.number}'">Read</button>
+		</div>
+		`).join('');
+		}
 
-  // Load manga info
-  fetch(`/api/manga/${slug}`)
-    .then(r => r.json())
-    .then(data => {
-      document.getElementById('title').textContent = data.title || 'Unknown';
-      document.getElementById('author').textContent = data.author || '';
-      document.getElementById('status').textContent = data.status || 'Unknown';
-      document.getElementById('rank').textContent = data.rank || 'N/A';
-      document.getElementById('bookmarked').textContent = data.bookmarked || 0;
-      document.getElementById('genres').textContent = (data.genres || []).join(', ');
-      document.getElementById('altTitles').textContent = (data.alternative_titles || []).join(' | ');
-      document.getElementById('sourceLink').href = data.url || '#';
-      document.getElementById('desc').textContent = data.description || '';
-      document.getElementById('coverImg').src = data.thumbnail || '';
-      document.getElementById('coverImg').alt = data.title || 'Cover';
+		// ====== Load manga info from API ======
+		// ====== Load manga info from API ======
+		fetch(`/api/manga/${slug}`)
+			.then(r => r.ok ? r.json() : {})
+			.then(data => {
+				if (!data || !data.title) {
+					document.querySelector('.container').innerHTML =
+						'<p class="muted">Failed to load manga details.</p>';
+					return;
+				}
 
-      currentChapters = data.chapters || [];
-      renderChapters(currentChapters, slug);
-    });
-</script>
+				document.getElementById('title').textContent = data.title;
+				document.getElementById('author').textContent = data.author || '';
+				document.getElementById('status').textContent = data.status || 'Unknown';
+				document.getElementById('rank').textContent = data.rank || 'N/A';
+				document.getElementById('bookmarked').textContent = data.bookmarked || 0;
+				document.getElementById('genres').textContent = (data.genres || []).join(', ');
+				document.getElementById('altTitles').innerHTML =
+					(data.alternative_titles || []).map(t => `<span>${t}</span>`).join('');
+				document.getElementById('desc').textContent = data.description || '';
+				document.getElementById('coverImg').src = data.thumbnail || '';
+				document.getElementById('coverImg').alt = data.title;
+
+				// ====== Handle source link conditionally ======
+				const sourceDiv = document.getElementById('sourceLink').parentElement;
+				if (data.url) {
+					document.getElementById('sourceLink').href = data.url;
+					sourceDiv.style.display = 'block';
+				} else {
+					sourceDiv.style.display = 'none';
+				}
+
+				currentChapters = data.chapters || [];
+				renderChapters(currentChapters);
+			})
+			.catch(() => {
+				document.querySelector('.container').innerHTML =
+					'<p class="muted">Failed to load manga info.</p>';
+			});
+
+	</script>
+
 
 </body>
+
 </html>

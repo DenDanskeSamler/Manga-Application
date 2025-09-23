@@ -253,7 +253,7 @@
         <div class="wrap">
             <div class="brand">
                 <span class="logo"></span>
-                <a href="/home.html">MangaReader</a>
+                <a href="/home">MangaReader</a>
             </div>
             <nav>
                 <span id="currentUserName" class="muted"></span>
@@ -316,7 +316,8 @@
             <img class="thumb lazy" data-src="${m.thumbnail}" alt="${m.title}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" />
             <div class="meta">
                 <div class="title">${m.title}</div>
-                <button class="read-btn" onclick="window.location.href='/manga.html?slug=${m.slug}'">Read</button>
+                <button class="read-btn" onclick="window.location.href='/manga/${m.slug}'">Read</button>
+
             </div>
         </div>
     `).join('');

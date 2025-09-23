@@ -67,11 +67,12 @@ def root():
 	return send_from_directory(STATIC_DIR, "index.html")
 
 
-@app.route("/home.html")
-def home():
-	if not is_logged_in():
-		return redirect(url_for("root"))
-	return send_from_directory(STATIC_DIR, "home.html")
+@app.route("/home")
+def home_page():
+    if not is_logged_in():
+        return redirect(url_for("root"))
+    return send_from_directory(STATIC_DIR, "home.html")
+
 
 
 @app.route("/signup.html")
@@ -81,18 +82,18 @@ def signup_page():
 	return send_from_directory(STATIC_DIR, "signup.html")
 
 
-@app.route("/manga.html")
-def manga_page():
-	if not is_logged_in():
-		return redirect(url_for("root"))
-	return send_from_directory(STATIC_DIR, "manga.html")
+@app.route("/manga/<slug>")
+def manga_page(slug):
+    if not is_logged_in():
+        return redirect(url_for("root"))
+    return send_from_directory(STATIC_DIR, "manga.html")
 
 
-@app.route("/chapter.html")
-def chapter_page():
-	if not is_logged_in():
-		return redirect(url_for("root"))
-	return send_from_directory(STATIC_DIR, "chapter.html")
+@app.route("/manga/<slug>/chapter-<int:chapter_num>")
+def chapter_page(slug, chapter_num):
+    if not is_logged_in():
+        return redirect(url_for("root"))
+    return send_from_directory(STATIC_DIR, "chapter.html")
 
 
 @app.get("/me")
@@ -188,37 +189,6 @@ def api_manga(slug: str):
 		return jsonify({}), 404
 
 
-@app.get("/api/manga/<slug>/chapter/<path:chapter_file>")
-def api_manga_chapter(slug: str, chapter_file: str):
-	folder_name = "".join([c for c in slug if c.isalnum()]).title()
-	root = BASE_DIR / "data" / "manga" / folder_name
-	path = (root / chapter_file).resolve()
-
-	if not str(path).startswith(str(root.resolve())):
-		return jsonify({}), 404
-	if not path.exists():
-		return jsonify({}), 404
-
-	try:
-		data = json.loads(path.read_text(encoding="utf-8"))
-
-		# rewrite local pages -> /Manga/ URLs
-		def rewrite_page(p):
-			if p.startswith("http://") or p.startswith("https://"):
-				return p
-			# ensure leading slash
-			if not p.startswith("/"):
-				p = "/" + p
-			return p
-
-		if "pages" in data:
-			data["pages"] = [rewrite_page(p) for p in data["pages"]]
-
-		return jsonify(data)
-	except Exception:
-		return jsonify({}), 404
-
-
 @app.get("/api/manga/<slug>/all_chapters")
 def api_manga_all_chapters(slug: str):
 	folder_name = "".join([c for c in slug if c.isalnum()]).title()
@@ -249,15 +219,16 @@ def api_manga_all_chapters(slug: str):
 # --- Serve local manga images ---
 @app.route("/Manga/<slug>/<path:filename>")
 def serve_manga_images(slug, filename):
-	manga_dir = BASE_DIR / "data" / "manga" / slug
-	path = (manga_dir / filename).resolve()
+    manga_dir = BASE_DIR / "static" / "manga" / slug
+    path = (manga_dir / filename).resolve()
 
-	if not str(path).startswith(str(manga_dir.resolve())):
-		return "Not allowed", 403
-	if not path.exists():
-		return "Not found", 404
+    if not str(path).startswith(str(manga_dir.resolve())):
+        return "Not allowed", 403
+    if not path.exists():
+        return "Not found", 404
 
-	return send_file(path)
+    return send_file(path)
+
 
 
 if __name__ == "__main__":
@@ -265,3 +236,4 @@ if __name__ == "__main__":
 	print(f"[server] Users file: {USERS_FILE}")
 	#app.run(host="127.0.0.1", port=8000, debug=False)
 	app.run(host="0.0.0.0", port=8000, debug=False)
+	
