@@ -17,15 +17,8 @@
             --border: #2a2a30;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
+        * { box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
             margin: 0;
             font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, sans-serif;
@@ -33,10 +26,7 @@
             color: var(--text);
         }
 
-        .container {
-            margin: 0 auto;
-            padding: 24px;
-        }
+        .container { margin: 0 auto; padding: 24px; }
 
         header.site {
             position: sticky;
@@ -47,21 +37,9 @@
             border-bottom: 1px solid var(--border);
         }
 
-        header.site .wrap {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 24px;
-        }
+        header.site .wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 800;
-            letter-spacing: .5px;
-        }
-
+        .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .5px; }
         .brand .logo {
             width: 28px;
             height: 28px;
@@ -69,29 +47,9 @@
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
             display: inline-block;
         }
+        .brand a { color: var(--text); text-decoration: none; font-size: 18px; }
 
-        .brand a {
-            color: var(--text);
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        nav a,
-        #currentUserName {
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        nav a:hover {
-            color: var(--accent-2);
-        }
-
-        .search-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
+        .search-wrapper { display: flex; justify-content: center; margin-bottom: 24px; }
         .search-wrapper input {
             width: 100%;
             max-width: 400px;
@@ -103,16 +61,13 @@
             font-size: 15px;
             transition: border 0.2s, box-shadow 0.2s;
         }
-
         .search-wrapper input:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 8px rgba(255, 61, 110, 0.5);
         }
 
-        h1 {
-            margin-bottom: 16px;
-        }
+        h1 { margin-bottom: 16px; }
 
         #toggleViewBtn {
             padding: 10px 20px;
@@ -125,29 +80,12 @@
             margin-bottom: 16px;
             transition: transform 0.2s, opacity 0.2s;
         }
+        #toggleViewBtn:hover { transform: scale(1.05); opacity: 0.9; }
 
-        #toggleViewBtn:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+        .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); gap: 16px; }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px;
-        }
-
-        .list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
-            gap: 16px;
-        }
-
-        @media (max-width: 600px) {
-            .list {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 600px) { .list { grid-template-columns: 1fr; } }
 
         .card {
             display: flex;
@@ -159,31 +97,10 @@
             position: relative;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-        }
-
-        .card .thumb {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            border-radius: 6px;
-            transition: transform 0.2s;
-        }
-
-        .card:hover .thumb {
-            transform: scale(1.05);
-        }
-
-        .card .meta {
-            display: flex;
-            flex-direction: column;
-            padding: 12px;
-            flex: 1;
-        }
-
+        .card:hover { transform: scale(1.03); box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+        .card .thumb { width: 100%; height: auto; object-fit: cover; border-radius: 6px; transition: transform 0.2s; }
+        .card:hover .thumb { transform: scale(1.05); }
+        .card .meta { display: flex; flex-direction: column; padding: 12px; flex: 1; }
         .card .title {
             font-family: 'Comic Sans MS', cursive, sans-serif;
             font-weight: 700;
@@ -192,17 +109,8 @@
             margin-bottom: 6px;
             font-size: 16px;
         }
-
-        .list .card .title {
-            text-align: left;
-        }
-
-        .card .tags {
-            margin-top: 8px;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
+        .list .card .title { text-align: left; }
+        .card .tags { margin-top: 8px; display: flex; flex-wrap: wrap; }
         .tag {
             display: inline-block;
             background: var(--accent);
@@ -212,7 +120,6 @@
             margin: 2px 2px 0 0;
             border-radius: 6px;
         }
-
         .chapter-count {
             position: absolute;
             top: 8px;
@@ -223,28 +130,10 @@
             padding: 2px 6px;
             border-radius: 6px;
         }
-
-        .list .card {
-            flex-direction: row;
-            align-items: flex-start;
-            padding: 12px;
-        }
-
-        .list .card .thumb {
-            width: 120px;
-            margin-right: 16px;
-            margin-bottom: 0;
-        }
-
-        .list .card .chapter-count {
-            right: auto;
-            left: 8px;
-        }
-
-        .list .card .meta {
-            padding: 0;
-        }
-
+        .list .card { flex-direction: row; align-items: flex-start; padding: 12px; }
+        .list .card .thumb { width: 120px; margin-right: 16px; margin-bottom: 0; }
+        .list .card .chapter-count { right: auto; left: 8px; }
+        .list .card .meta { padding: 0; }
         .read-btn {
             width: 100%;
             margin-top: auto;
@@ -257,28 +146,11 @@
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
         }
+        .list .card .read-btn { width: auto; align-self: flex-start; margin-top: 4px; }
+        .read-btn:hover { background: var(--accent); color: #fff; }
 
-        .list .card .read-btn {
-            width: auto;
-            align-self: flex-start;
-            margin-top: 4px;
-        }
-
-        .read-btn:hover {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        .footer {
-            text-align: center;
-            color: var(--muted);
-            padding: 28px;
-        }
-
-        p.muted {
-            color: var(--muted);
-            text-align: center;
-        }
+        .footer { text-align: center; color: var(--muted); padding: 28px; }
+        p.muted { color: var(--muted); text-align: center; }
     </style>
 </head>
 
@@ -289,10 +161,6 @@
                 <span class="logo"></span>
                 <a href="/home">MangaReader</a>
             </div>
-            <nav>
-                <span id="currentUserName" class="muted"></span>
-                <a href="#" id="logoutBtn">Logout</a>
-            </nav>
         </div>
     </header>
 
@@ -308,18 +176,6 @@
 
     <script>
         let catalog = [];
-
-        document.getElementById('logoutBtn').addEventListener('click', e => {
-            e.preventDefault();
-            window.location.href = '/logout';
-        });
-
-        fetch('/me')
-            .then(r => r.ok ? r.json() : { username: null })
-            .then(data => {
-                const el = document.getElementById('currentUserName');
-                if (data && data.username && el) el.textContent = data.username;
-            }).catch(() => { });
 
         const grid = document.getElementById('grid');
         const toggleBtn = document.getElementById('toggleViewBtn');
@@ -339,23 +195,17 @@
         });
 
         function renderCatalog(list) {
-            grid.innerHTML = (list || []).map(m => {
-                const chapterCount = (m.chapters || []).length;
-                return `
+            grid.innerHTML = (list || []).map(m => `
         <div class="card">
             <img class="thumb lazy" data-src="${m.thumbnail}" alt="${m.title}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==">
             <div class="chapter-count">${m.total_chapters} chapters</div>
             <div class="meta">
                 <div class="title">${m.title}</div>
-                <div class="tags">
-                    ${(m.genres || []).map(g => `<span class="tag">${g}</span>`).join('')}
-                </div>
+                <div class="tags">${(m.genres || []).map(g => `<span class="tag">${g}</span>`).join('')}</div>
                 <br>
                 <button class="read-btn" onclick="window.location.href='/manga/${m.slug}'">Read</button>
             </div>
-        </div>
-        `;
-            }).join('');
+        </div>`).join('');
             lazyLoadImages();
         }
 
@@ -380,20 +230,14 @@
 
         fetch('/api/catalog')
             .then(r => r.json())
-            .then(list => {
-                catalog = list || [];
-                renderCatalog(catalog);
-            })
-            .catch(() => {
-                grid.innerHTML = '<p class="muted">Failed to load catalog.</p>';
-            });
+            .then(list => { catalog = list || []; renderCatalog(catalog); })
+            .catch(() => { grid.innerHTML = '<p class="muted">Failed to load catalog.</p>'; });
 
         document.getElementById('searchInput').addEventListener('input', e => {
             const q = e.target.value.toLowerCase();
             const filtered = catalog.filter(m => m.title.toLowerCase().includes(q));
             renderCatalog(filtered);
         });
-
     </script>
 </body>
 

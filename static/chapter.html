@@ -13,189 +13,29 @@
 			color: #e6e6ea;
 		}
 
-		.container {
-			max-width: 900px;
-			margin: 0 auto;
-			padding: 24px;
-		}
-
-		header.site {
-			position: sticky;
-			top: 0;
-			z-index: 10;
-			background: linear-gradient(180deg, rgba(23, 23, 26, 0.95), rgba(23, 23, 26, 0.85));
-			backdrop-filter: blur(8px);
-			border-bottom: 1px solid #2a2a30;
-		}
-
-		header.site .wrap {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 14px 24px;
-		}
-
-		.brand {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			font-weight: 800;
-		}
-
-		.brand .logo {
-			width: 28px;
-			height: 28px;
-			border-radius: 6px;
-			background: linear-gradient(135deg, #ff3d6e, #5cc8ff);
-			display: inline-block;
-		}
-
-		.brand a {
-			color: #e6e6ea;
-			text-decoration: none;
-			font-size: 18px;
-		}
-
-		nav a,
-		#currentUserName {
-			color: #e6e6ea;
-			text-decoration: none;
-		}
-
-		nav a:hover {
-			color: #5cc8ff;
-		}
-
-		.panel {
-			background: #17171a;
-			border: 1px solid #2a2a30;
-			border-radius: 12px;
-			padding: 20px;
-			margin-bottom: 20px;
-		}
-
-		/* Make nav-controls sticky */
-		.panel.nav-controls {
-			position: sticky;
-			top: 55px;
-			/* offset below sticky header */
-			z-index: 15;
-			background: #17171a;
-			padding: 10px 20px;
-			border-bottom: 1px solid #2a2a30;
-		}
-
-		.nav-controls {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			gap: 12px;
-			margin-bottom: 16px;
-			flex-wrap: wrap;
-		}
-
-		#chapterSelect {
-			min-width: 220px;
-			padding: 10px;
-			border-radius: 10px;
-			background: #22232a;
-			color: #e6e6ea;
-			border: 1px solid #2a2a30;
-			cursor: pointer;
-		}
-
-		.btn {
-			appearance: none;
-			border: 0;
-			border-radius: 10px;
-			padding: 10px 14px;
-			font-weight: 600;
-			cursor: pointer;
-		}
-
-		.btn.secondary {
-			background: #22232a;
-			color: #e6e6ea;
-			border: 1px solid #2a2a30;
-			transition: background 0.2s, color 0.2s;
-		}
-
-		.btn.secondary:hover {
-			background: #ff3d6e;
-			color: #fff;
-		}
-
-		#pages img {
-			max-width: 100%;
-			display: block;
-			margin: 0 auto 16px;
-			border-radius: 8px;
-		}
-
-		p.muted {
-			color: #a0a0a8;
-			text-align: center;
-		}
-
+		.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+		header.site { position: sticky; top: 0; z-index: 10; background: linear-gradient(180deg, rgba(23, 23, 26, 0.95), rgba(23, 23, 26, 0.85)); backdrop-filter: blur(8px); border-bottom: 1px solid #2a2a30; }
+		header.site .wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+		.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+		.brand .logo { width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #ff3d6e, #5cc8ff); display: inline-block; }
+		.brand a { color: #e6e6ea; text-decoration: none; font-size: 18px; }
+		.panel { background: #17171a; border: 1px solid #2a2a30; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+		.panel.nav-controls { position: sticky; top: 55px; z-index: 15; background: #17171a; padding: 10px 20px; border-bottom: 1px solid #2a2a30; }
+		.nav-controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+		#chapterSelect { min-width: 220px; padding: 10px; border-radius: 10px; background: #22232a; color: #e6e6ea; border: 1px solid #2a2a30; cursor: pointer; }
+		.btn { appearance: none; border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; }
+		.btn.secondary { background: #22232a; color: #e6e6ea; border: 1px solid #2a2a30; transition: background 0.2s, color 0.2s; }
+		.btn.secondary:hover { background: #ff3d6e; color: #fff; }
+		#pages img { max-width: 100%; display: block; margin: 0 auto 16px; border-radius: 8px; }
+		p.muted { color: #a0a0a8; text-align: center; }
 		@media (max-width: 500px) {
-			#chapterSelect {
-				min-width: 160px;
-			}
-
-			.btn {
-				padding: 8px 12px;
-				font-size: 14px;
-			}
+			#chapterSelect { min-width: 160px; }
+			.btn { padding: 8px 12px; font-size: 14px; }
 		}
-
-		/* Progress container */
-		#progressContainer {
-			position: fixed;
-			right: 20px;
-			top: 50%;                   /* center vertically */
-			transform: translateY(-50%); /* offset by half its height */
-			width: 12px;
-			height: 60vh;
-			background: rgba(255, 255, 255, 0.05);
-			border-radius: 8px;
-			z-index: 20;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start; /* bar grows from top */
-			align-items: center;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-		}
-
-		/* Percentage text above slider */
-		#progressPercent {
-			position: absolute;
-			top: -25px;
-			left: 50%;
-			transform: translateX(-50%);
-			color: #5cc8ff;
-			font-weight: 600;
-			font-size: 12px;
-			background: rgba(23, 23, 26, 0.8);
-			padding: 2px 6px;
-			border-radius: 4px;
-			transition: transform 0.2s ease;
-		}
-
-		/* Filling bar */
-		#progressLine {
-			width: 100%;
-			height: 0%;
-			background: linear-gradient(180deg, #ff3d6e, #5cc8ff);
-			border-radius: 8px;
-			transition: height 0.3s ease;
-		}
-
-
-		/* Optional: hover effect */
-		#progressContainer:hover #progressPercent {
-			transform: translateX(-50%) translateY(-5px);
-		}
-
+		#progressContainer { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); width: 12px; height: 60vh; background: rgba(255, 255, 255, 0.05); border-radius: 8px; z-index: 20; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+		#progressPercent { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); color: #5cc8ff; font-weight: 600; font-size: 12px; background: rgba(23, 23, 26, 0.8); padding: 2px 6px; border-radius: 4px; transition: transform 0.2s ease; }
+		#progressLine { width: 100%; height: 0%; background: linear-gradient(180deg, #ff3d6e, #5cc8ff); border-radius: 8px; transition: height 0.3s ease; }
+		#progressContainer:hover #progressPercent { transform: translateX(-50%) translateY(-5px); }
 	</style>
 </head>
 
@@ -203,10 +43,6 @@
 	<header class="site">
 		<div class="wrap">
 			<div class="brand"><span class="logo"></span><a href="/home">MangaReader</a></div>
-			<nav>
-				<span id="currentUserName" class="muted"></span>
-				<a href="#" id="logoutBtn">Logout</a>
-			</nav>
 		</div>
 	</header>
 
@@ -225,101 +61,73 @@
 		<div id="pages" class="panel"></div>
 	</div>
 
-<script>
-/* --- User info --- */
-fetch('/me')
-  .then(r => r.ok ? r.json() : { username: null })
-  .then(data => {
-    const el = document.getElementById('currentUserName');
-    if (data?.username && el) el.textContent = data.username;
-  });
+	<script>
+		// Parse slug & chapter number from URL path
+		const pathParts = window.location.pathname.split("/");
+		const slug = pathParts[2];
+		let chapterPart = pathParts[3];
+		let chapterNumber = 1;
+		if (chapterPart && chapterPart.startsWith("chapter-")) {
+			chapterNumber = parseInt(chapterPart.replace("chapter-", ""), 10) || 1;
+		}
 
-document.getElementById('logoutBtn').addEventListener('click', e => {
-  e.preventDefault();
-  window.location.href = '/logout';
-});
+		const chapterSelect = document.getElementById('chapterSelect');
+		const prevBtn = document.getElementById('prevBtn');
+		const nextBtn = document.getElementById('nextBtn');
+		const pagesContainer = document.getElementById('pages');
 
-/* --- Parse slug & chapter number from URL path --- */
-// URL format: /manga/<slug>/<chapterNumber>
-const pathParts = window.location.pathname.split("/");
-const slug = pathParts[2]; // manga slug
-let chapterPart = pathParts[3]; // e.g., "chapter-"
-let chapterNumber = 1;
-if (chapterPart && chapterPart.startsWith("chapter-")) {
-    chapterNumber = parseInt(chapterPart.replace("chapter-", ""), 10) || 1;
-}
+		let chapters = [];
+		let currentIndex = 0;
 
+		function updateProgress() {
+			const totalHeight = document.body.scrollHeight - window.innerHeight;
+			const scrollTop = window.scrollY;
+			const progressPercent = Math.min(100, (scrollTop / totalHeight) * 100);
+			document.getElementById('progressLine').style.height = progressPercent + '%';
+			document.getElementById('progressPercent').textContent = Math.round(progressPercent) + '%';
+		}
+		window.addEventListener('scroll', updateProgress);
 
-/* --- DOM elements --- */
-const chapterSelect = document.getElementById('chapterSelect');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const pagesContainer = document.getElementById('pages');
+		// Load chapters
+		fetch(`/api/manga/${slug}/all_chapters`)
+			.then(r => r.json())
+			.then(data => {
+				chapters = data.chapters || [];
+				if (!chapters.length) {
+					pagesContainer.innerHTML = '<p class="muted">No chapters found.</p>';
+					return;
+				}
 
-/* --- State --- */
-let chapters = [];
-let currentIndex = 0;
+				chapterSelect.innerHTML = chapters.map((c, idx) =>
+					`<option value="${idx}">Chapter ${c.number}: ${c.title || ''}</option>`
+				).join('');
 
-/* --- Progress bar --- */
-function updateProgress() {
-  const totalHeight = document.body.scrollHeight - window.innerHeight;
-  const scrollTop = window.scrollY;
-  const progressPercent = Math.min(100, (scrollTop / totalHeight) * 100);
-  document.getElementById('progressLine').style.height = progressPercent + '%';
-  document.getElementById('progressPercent').textContent = Math.round(progressPercent) + '%';
-}
-window.addEventListener('scroll', updateProgress);
+				currentIndex = chapters.findIndex(c => c.number === chapterNumber);
+				if (currentIndex === -1) currentIndex = 0;
+				chapterSelect.selectedIndex = currentIndex;
 
-/* --- Load all chapters --- */
-fetch(`/api/manga/${slug}/all_chapters`)
-  .then(r => r.json())
-  .then(data => {
-    chapters = data.chapters || [];
-    if (!chapters.length) {
-      pagesContainer.innerHTML = '<p class="muted">No chapters found.</p>';
-      return;
-    }
+				function showChapter(index) {
+					if (index < 0 || index >= chapters.length) return;
+					currentIndex = index;
+					const chapter = chapters[currentIndex];
 
-    /* Populate chapter dropdown */
-    chapterSelect.innerHTML = chapters.map((c, idx) =>
-      `<option value="${idx}">Chapter ${c.number}: ${c.title || ''}</option>`
-    ).join('');
+					history.replaceState(null, '', `/manga/${slug}/chapter-${chapter.number}`);
+					pagesContainer.innerHTML = chapter.pages.map(p => `<img src="${p}" />`).join('');
+					chapterSelect.selectedIndex = currentIndex;
+					updateProgress();
+					window.scrollTo({ top: 0 });
+				}
 
-    /* Find index of the current chapter */
-    currentIndex = chapters.findIndex(c => c.number === chapterNumber);
-    if (currentIndex === -1) currentIndex = 0;
-    chapterSelect.selectedIndex = currentIndex;
+				prevBtn.onclick = () => showChapter(currentIndex - 1);
+				nextBtn.onclick = () => showChapter(currentIndex + 1);
+				chapterSelect.onchange = () => showChapter(parseInt(chapterSelect.value));
 
-    /* Show chapter by index */
-    function showChapter(index) {
-      if (index < 0 || index >= chapters.length) return;
-      currentIndex = index;
-      const chapter = chapters[currentIndex];
-
-      // Update the URL without reloading
-      history.replaceState(null, '', `/manga/${slug}/chapter-${chapter.number}`);
-
-      // Render pages
-      pagesContainer.innerHTML = chapter.pages.map(p => `<img src="${p}" />`).join('');
-      chapterSelect.selectedIndex = currentIndex;
-
-      updateProgress();
-      window.scrollTo({ top: 0 }); // scroll to top when changing chapter
-    }
-
-    /* Navigation buttons */
-    prevBtn.onclick = () => showChapter(currentIndex - 1);
-    nextBtn.onclick = () => showChapter(currentIndex + 1);
-    chapterSelect.onchange = () => showChapter(parseInt(chapterSelect.value));
-
-    /* Show initial chapter */
-    showChapter(currentIndex);
-  })
-  .catch(() => {
-    pagesContainer.innerHTML = '<p class="muted">Failed to load chapters.</p>';
-  });
-</script>
-
+				showChapter(currentIndex);
+			})
+			.catch(() => {
+				pagesContainer.innerHTML = '<p class="muted">Failed to load chapters.</p>';
+			});
+	</script>
 </body>
 
 </html>
