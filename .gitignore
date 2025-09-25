@@ -16,12 +16,7 @@ dist/
 *.log
 
 # Ignore selected folders
-save/
 manga_data/
-manga_data_updated/
-data1/
-data2/
-data3/
 
 manga_log.txt
 venv/
