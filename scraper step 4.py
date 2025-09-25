@@ -47,12 +47,26 @@ def convert_manga_file(input_file, catalog):
     status = manga.get("status", "")
     bookmarked = manga.get("bookmarked", 0)
 
+    # Merge all chapters into single JSON
+    chapters_data = []
+    for idx, ch in enumerate(manga.get("chapters", []), start=1):
+        chapters_data.append({
+            "number": idx,
+            "title": ch.get("chapter", f"Chapter {idx}"),
+            "release_date": ch.get("release_date", ""),
+            "pages": ch.get("images", [])
+        })
+
+    # Calculate total chapters
+    total_chapters = len(chapters_data)
+
     # Update catalog
     entry = next((entry for entry in catalog if entry["slug"] == slug), None)
     if entry:
         updated = False
         for key, value in [("title", title), ("author", author), ("thumbnail", thumbnail),
-                           ("status", status), ("genres", genres), ("bookmarked", bookmarked)]:
+                           ("status", status), ("genres", genres), ("bookmarked", bookmarked),
+                           ("total_chapters", total_chapters)]:  # added total_chapters
             if entry.get(key) != value:
                 entry[key] = value
                 updated = True
@@ -66,7 +80,8 @@ def convert_manga_file(input_file, catalog):
             "thumbnail": thumbnail,
             "status": status,
             "genres": genres,
-            "bookmarked": bookmarked
+            "bookmarked": bookmarked,
+            "total_chapters": total_chapters  # added total_chapters
         })
         print(f"📚 Added {title} to catalog.json")
 
@@ -75,16 +90,7 @@ def convert_manga_file(input_file, catalog):
     manga_dir = os.path.join(OUTPUT_ROOT, "manga", folder_name)
     os.makedirs(manga_dir, exist_ok=True)
 
-    # Merge all chapters into single JSON
-    chapters_data = []
-    for idx, ch in enumerate(manga.get("chapters", []), start=1):
-        chapters_data.append({
-            "number": idx,
-            "title": ch.get("chapter", f"Chapter {idx}"),
-            "release_date": ch.get("release_date", ""),
-            "pages": ch.get("images", [])
-        })
-
+    # Save merged manga JSON
     manga_json = {
         "slug": slug,
         "title": title,
@@ -97,10 +103,10 @@ def convert_manga_file(input_file, catalog):
         "genres": list(dict.fromkeys(genres)),
         "status": status,
         "bookmarked": bookmarked,
+        "total_chapters": total_chapters,  # added total_chapters
         "chapters": chapters_data
     }
 
-    # Save single manga JSON file
     manga_file = os.path.join(manga_dir, f"{folder_name}.json")
     if save_json_if_changed(manga_file, manga_json):
         print(f"✅ Saved merged manga.json for {title}")

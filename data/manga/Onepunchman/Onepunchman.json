@@ -1,0 +1,28 @@
+{
+	"slug": "one-punch-man",
+	"title": "One Punch Man",
+	"author": "ONE / Yusuke Murata",
+	"description": "Saitama can defeat any enemy with a single punch... but being a hero is boring when you're too strong.",
+	"thumbnail": "/static/thumbnail/one-punch-man-thumb.png",
+	"url": "",
+	"rank": "",
+	"alternative_titles": [
+		""
+	],
+	"genres": [
+		""
+	],
+	"status": "",
+	"bookmarked": "",
+	"chapters": [
+		{
+			"number": 1,
+			"title": "The Strongest Man",
+			"pages": [
+				"/ch1/p1.jpg",
+				"/ch1/p2.jpg",
+				"/ch1/p3.jpg"
+			]
+		}
+	]
+}

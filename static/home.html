@@ -29,7 +29,7 @@
         body {
             margin: 0;
             font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, sans-serif;
-            background: var(--bg);
+            background: linear-gradient(180deg, #0e0e10 0%, #1a1a1f 100%);
             color: var(--text);
         }
 
@@ -114,7 +114,6 @@
             margin-bottom: 16px;
         }
 
-        /* Toggle Button Styles */
         #toggleViewBtn {
             padding: 10px 20px;
             border: none;
@@ -132,21 +131,18 @@
             opacity: 0.9;
         }
 
-        /* Grid view */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 16px;
         }
 
-        /* List view */
         .list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
             gap: 16px;
         }
 
-        /* Responsive for list mode on small screens */
         @media (max-width: 600px) {
             .list {
                 grid-template-columns: 1fr;
@@ -160,29 +156,25 @@
             background: #121216;
             border: 1px solid var(--border);
             overflow: hidden;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        /* List card horizontal layout */
-        .list .card {
-            flex-direction: row;
-            align-items: flex-start;
-            padding: 12px;
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
         }
 
         .card .thumb {
             width: 100%;
             height: auto;
-            object-fit: contain;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            display: block;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 0.2s;
         }
 
-        .list .card .thumb {
-            width: 120px;
-            height: auto;
-            margin-bottom: 0;
-            margin-right: 16px;
+        .card:hover .thumb {
+            transform: scale(1.05);
         }
 
         .card .meta {
@@ -192,21 +184,65 @@
             flex: 1;
         }
 
-        .list .card .meta {
-            padding: 0;
-        }
-
         .card .title {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 12px;
-            word-wrap: break-word;
-            overflow: hidden;
+            color: #fff;
+            margin-bottom: 6px;
+            font-size: 16px;
         }
 
         .list .card .title {
             text-align: left;
-            margin-bottom: 8px;
+        }
+
+        .card .tags {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 6px;
+            margin: 2px 2px 0 0;
+            border-radius: 6px;
+        }
+
+        .chapter-count {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent-2);
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .list .card {
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 12px;
+        }
+
+        .list .card .thumb {
+            width: 120px;
+            margin-right: 16px;
+            margin-bottom: 0;
+        }
+
+        .list .card .chapter-count {
+            right: auto;
+            left: 8px;
+        }
+
+        .list .card .meta {
+            padding: 0;
         }
 
         .read-btn {
@@ -224,9 +260,7 @@
 
         .list .card .read-btn {
             width: auto;
-            /* don't stretch full width */
             align-self: flex-start;
-            /* button under title */
             margin-top: 4px;
         }
 
@@ -275,13 +309,11 @@
     <script>
         let catalog = [];
 
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+        document.getElementById('logoutBtn').addEventListener('click', e => {
             e.preventDefault();
             window.location.href = '/logout';
         });
 
-        // Current user
         fetch('/me')
             .then(r => r.ok ? r.json() : { username: null })
             .then(data => {
@@ -289,19 +321,16 @@
                 if (data && data.username && el) el.textContent = data.username;
             }).catch(() => { });
 
-        // Grid/List toggle with localStorage
         const grid = document.getElementById('grid');
         const toggleBtn = document.getElementById('toggleViewBtn');
-
-        // Load saved view mode from localStorage
         let savedView = localStorage.getItem('viewMode');
-        let isGrid = savedView !== 'list'; // default to grid if nothing saved
+        let isGrid = savedView !== 'list';
 
         function applyView() {
             grid.className = isGrid ? 'grid' : 'list';
             toggleBtn.textContent = isGrid ? 'Switch to List' : 'Switch to Grid';
         }
-        applyView(); // apply on page load
+        applyView();
 
         toggleBtn.addEventListener('click', () => {
             isGrid = !isGrid;
@@ -309,23 +338,27 @@
             localStorage.setItem('viewMode', isGrid ? 'grid' : 'list');
         });
 
-        // Render catalog
         function renderCatalog(list) {
-            grid.innerHTML = (list || []).map(m => `
+            grid.innerHTML = (list || []).map(m => {
+                const chapterCount = (m.chapters || []).length;
+                return `
         <div class="card">
-            <img class="thumb lazy" data-src="${m.thumbnail}" alt="${m.title}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" />
+            <img class="thumb lazy" data-src="${m.thumbnail}" alt="${m.title}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==">
+            <div class="chapter-count">${m.total_chapters} chapters</div>
             <div class="meta">
                 <div class="title">${m.title}</div>
+                <div class="tags">
+                    ${(m.genres || []).map(g => `<span class="tag">${g}</span>`).join('')}
+                </div>
+                <br>
                 <button class="read-btn" onclick="window.location.href='/manga/${m.slug}'">Read</button>
-
             </div>
         </div>
-    `).join('');
-
+        `;
+            }).join('');
             lazyLoadImages();
         }
 
-        // Lazy load images
         function lazyLoadImages() {
             const lazyImages = document.querySelectorAll('img.lazy');
             if ('IntersectionObserver' in window) {
@@ -339,14 +372,12 @@
                         }
                     });
                 }, { rootMargin: "200px 0px" });
-
                 lazyImages.forEach(img => observer.observe(img));
             } else {
                 lazyImages.forEach(img => img.src = img.dataset.src);
             }
         }
 
-        // Load catalog
         fetch('/api/catalog')
             .then(r => r.json())
             .then(list => {
@@ -357,8 +388,7 @@
                 grid.innerHTML = '<p class="muted">Failed to load catalog.</p>';
             });
 
-        // Search filter
-        document.getElementById('searchInput').addEventListener('input', (e) => {
+        document.getElementById('searchInput').addEventListener('input', e => {
             const q = e.target.value.toLowerCase();
             const filtered = catalog.filter(m => m.title.toLowerCase().includes(q));
             renderCatalog(filtered);

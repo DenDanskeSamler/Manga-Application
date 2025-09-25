@@ -153,14 +153,23 @@ def logout():
 # --- Catalog and manga APIs ---
 @app.get("/api/catalog")
 def api_catalog():
-	catalog_path = BASE_DIR / "data" / "catalog.json"
-	if not catalog_path.exists():
-		return jsonify([])
-	try:
-		data = json.loads(catalog_path.read_text(encoding="utf-8"))
-	except Exception:
-		data = []
-	return jsonify(data)
+    catalog_path = BASE_DIR / "data" / "catalog.json"
+    if not catalog_path.exists():
+        return jsonify([])
+
+    try:
+        data = json.loads(catalog_path.read_text(encoding="utf-8"))
+        # Add latest_chapter number to each manga entry
+        for manga in data:
+            chapters = manga.get("chapters", [])
+            if chapters:
+                manga["latest_chapter"] = max(c.get("number", 0) for c in chapters)
+            else:
+                manga["latest_chapter"] = 0
+        return jsonify(data)
+    except Exception:
+        return jsonify([])
+
 
 
 @app.get("/api/manga/<slug>")
