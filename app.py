@@ -224,19 +224,20 @@ def api_manga_all_chapters(slug: str):
 		return jsonify({}), 500
 
 
-
 # --- Serve local manga images ---
 @app.route("/Manga/<slug>/<path:filename>")
 def serve_manga_images(slug, filename):
-    manga_dir = BASE_DIR / "static" / "manga" / slug
+    manga_dir = STATIC_DIR / "Manga" / slug
     path = (manga_dir / filename).resolve()
 
+    # Prevent path traversal
     if not str(path).startswith(str(manga_dir.resolve())):
         return "Not allowed", 403
     if not path.exists():
         return "Not found", 404
 
     return send_file(path)
+
 
 @app.route("/Manga/<path:filename>")
 def manga_static(filename):
