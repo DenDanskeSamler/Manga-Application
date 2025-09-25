@@ -1,0 +1,15 @@
+run server:
+nohup python3 app.py &
+
+
+kill server
+step 1 find it:
+ps uxa | grep python
+step2 kill the process:
+kill 141381
+
+
+
+
+update repo:
+git pull origin main
