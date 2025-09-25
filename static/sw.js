@@ -1,20 +1,19 @@
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open('v1').then(cache => {
-      return cache.addAll([
-        '/',
-        '/home.html',
-        '/manifest.json',
-        '/icon-192.png',
-        '/icon-512.png'
-        // Add other assets you want offline
-      ]);
-    })
-  );
+self.addEventListener('install', e => {
+    e.waitUntil(
+        caches.open('v1').then(cache => {
+            return cache.addAll([
+                '/home',
+                '/static/home.html',
+                '/static/manifest.json',
+                '/static/icon-192.png',
+                '/static/icon-512.png'
+            ]);
+        })
+    );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
-  );
+self.addEventListener('fetch', e => {
+    e.respondWith(
+        caches.match(e.request).then(r => r || fetch(e.request))
+    );
 });

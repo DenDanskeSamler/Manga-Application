@@ -107,4 +107,7 @@ def serve_manga_images(slug, filename):
 
 if __name__ == "__main__":
     print(f"[server] Static dir: {STATIC_DIR}")
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    #app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True, ssl_context='adhoc')
+
+
