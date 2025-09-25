@@ -238,6 +238,18 @@ def serve_manga_images(slug, filename):
 
     return send_file(path)
 
+@app.route("/Manga/<path:filename>")
+def manga_static(filename):
+    manga_dir = STATIC_DIR / "Manga"
+    path = (manga_dir / filename).resolve()
+
+    if not str(path).startswith(str(manga_dir.resolve())):
+        return "Not allowed", 403
+    if not path.exists():
+        return "Not found", 404
+
+    return send_file(path)
+
 
 
 if __name__ == "__main__":
