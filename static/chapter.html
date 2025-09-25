@@ -19,9 +19,16 @@
 		.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
 		.brand .logo { width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #ff3d6e, #5cc8ff); display: inline-block; }
 		.brand a { color: #e6e6ea; text-decoration: none; font-size: 18px; }
-		.panel { background: #17171a; border: 1px solid #2a2a30; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+		.panel { background: #17171a; border: 1px solid #2a2a30; border-radius: 12px; padding: 20px; margin-bottom: 20px; min-width: 250px;}
 		.panel.nav-controls { position: sticky; top: 55px; z-index: 15; background: #17171a; padding: 10px 20px; border-bottom: 1px solid #2a2a30; }
-		.nav-controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+		.nav-controls {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 12px;
+			flex-wrap: wrap;
+			min-width: 250px;
+		}
 		#chapterSelect { min-width: 220px; padding: 10px; border-radius: 10px; background: #22232a; color: #e6e6ea; border: 1px solid #2a2a30; cursor: pointer; }
 		.btn { appearance: none; border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; }
 		.btn.secondary { background: #22232a; color: #e6e6ea; border: 1px solid #2a2a30; transition: background 0.2s, color 0.2s; }
@@ -29,8 +36,28 @@
 		#pages img { max-width: 100%; display: block; margin: 0 auto 16px; border-radius: 8px; }
 		p.muted { color: #a0a0a8; text-align: center; }
 		@media (max-width: 500px) {
-			#chapterSelect { min-width: 160px; }
-			.btn { padding: 8px 12px; font-size: 14px; }
+			.nav-controls {
+				flex-direction: row; /* keep buttons side by side */
+				flex-wrap: wrap;     /* allow wrapping */
+				justify-content: center;
+				gap: 8px; /* spacing between elements */
+			}
+
+			#chapterSelect {
+				order: -1;        /* put dropdown first */
+				width: 100%;      /* full width */
+				margin-bottom: 8px;
+			}
+
+			#prevBtn {
+				order: 0;         /* default order after dropdown */
+				width: 48%;
+			}
+
+			#nextBtn {
+				order: 1;         /* next button after prev */
+				width: 48%;
+			}
 		}
 		#progressContainer { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); width: 12px; height: 60vh; background: rgba(255, 255, 255, 0.05); border-radius: 8px; z-index: 20; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
 		#progressPercent { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); color: #5cc8ff; font-weight: 600; font-size: 12px; background: rgba(23, 23, 26, 0.8); padding: 2px 6px; border-radius: 4px; transition: transform 0.2s ease; }

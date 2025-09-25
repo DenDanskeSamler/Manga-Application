@@ -5,6 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MangaReader - Home</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MangaReader">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+
     <style>
         :root {
             color-scheme: dark light;
@@ -237,6 +243,36 @@
             const filtered = catalog.filter(m => m.title.toLowerCase().includes(q));
             renderCatalog(filtered);
         });
+
+
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(() => console.log('Service Worker registered'));
+        }
+
+
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('install-button').style.display = 'block';
+        });
+
+        document.getElementById('install-button').addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(outcome === 'accepted' ? 'Installed' : 'Dismissed');
+            deferredPrompt = null;
+        }
+        });
+
+        window.addEventListener('appinstalled', () => {
+        console.log('MangaReader installed');
+        document.getElementById('install-button').style.display = 'none';
+        });
+
     </script>
 </body>
 
