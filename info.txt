@@ -1,0 +1,33 @@
+go to project folder:
+cd /srv/manga-reader/Manga-Application/
+
+start venv:
+source venv/bin/activate
+
+stop venv:
+deactivate
+
+
+run server:
+nohup python3 app.py &
+
+
+kill server
+step 1 find it:
+ps uxa | grep python
+step2 kill the process:
+kill 141381
+
+
+
+
+update repo:
+git pull origin main
+
+
+# Remove any local changes and reset to latest remote main branch
+git fetch origin
+git reset --hard origin/main
+
+# Clean up untracked files/folders (like renamed ones that linger)
+git clean -fd
