@@ -87,7 +87,7 @@
                         <div class="chapter-list">
                             ${(m.latest_chapters || []).slice(-2).reverse().map(c => `
                                 <div class="chapter-item">
-                                    <a href="/manga/${m.slug}/chapter-${c.number}" class="chapter-link">Chapter ${c.number}</a>
+                                    <a href="/manga/${m.slug}/chapter-${c.number}" class="chapter-link">Ch. ${c.number}${c.title ? ` | ${c.title}` : ''}</a>
                                     <span class="release-date">${c.release_date || ''}</span>
                                 </div>
                             `).join('')}

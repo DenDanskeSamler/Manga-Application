@@ -108,7 +108,7 @@
 				}
 
 				const chapterOptions = chapters.map((c, idx) =>
-					`<option value="${idx}">Ch. ${c.number}${c.title ? `: ${c.title}` : ''}</option>`
+					`<option value="${idx}">Ch. ${c.number}${c.title ? ` | ${c.title}` : ''}</option>`
 				).join('');
 				chapterSelect.innerHTML = chapterOptions;
 				chapterSelectBottom.innerHTML = chapterOptions;
@@ -137,8 +137,8 @@
 
 				function loadChapter(index) {
 					const chapter = chapters[index];
-					chapterTitleEl.textContent = `Ch. ${chapter.number}${chapter.title ? `: ${chapter.title}` : ''}`;
-					document.title = `${mangaTitleEl.textContent} - Ch. ${chapter.number}${chapter.title ? `: ${chapter.title}` : ''}`;
+					chapterTitleEl.textContent = `Ch. ${chapter.number}${chapter.title ? ` | ${chapter.title}` : ''}`;
+					document.title = `${mangaTitleEl.textContent} - Ch. ${chapter.number}${chapter.title ? ` | ${chapter.title}` : ''}`;
 
 					history.replaceState(null, '', `/manga/${slug}/chapter-${chapter.number}`);
 					pagesContainer.innerHTML = '<p class="muted">Loading pages...</p>';
