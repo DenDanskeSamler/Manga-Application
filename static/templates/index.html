@@ -34,6 +34,12 @@
         .manga-card .chapter-link:hover { color: var(--accent-2); }
         .manga-card .release-date { font-size: 12px; color: var(--muted); flex-shrink: 0; padding-left: 8px; }
         .footer { text-align: center; color: var(--muted); padding: 28px; }
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; }
+        .pagination button { background: #22232a; color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; font-size: 14px; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+        .pagination button:hover:not(:disabled) { background-color: var(--accent); color: #fff; }
+        .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .pagination .page-info { font-size: 14px; color: var(--muted); }
+
         p.muted { color: var(--muted); text-align: center; }
         @media (max-width: 600px) {
             #manga-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
@@ -51,14 +57,22 @@
             <input type="text" id="searchInput" placeholder="Search manga..." />
         </div>
         <div id="manga-grid"></div>
+        <div id="pagination-controls" class="pagination"></div>
         <footer class="footer">Built with a tiny Python server.</footer>
     </div>
 
     <script>
         let catalog = [];
-        const grid = document.getElementById('manga-grid');
+        let filteredCatalog = [];
+        let currentPage = 1;
+        const itemsPerPage = 24;
 
-        function renderCatalog(list) {
+        const grid = document.getElementById('manga-grid');
+        const searchInput = document.getElementById('searchInput');
+        const paginationControls = document.getElementById('pagination-controls');
+
+        function renderGrid(list) {
+            if (!list.length) grid.innerHTML = '<p class="muted">No manga found.</p>';
             grid.innerHTML = (list || []).map(m => `
                 <div class="manga-card">
                     <div class="thumb-container">
@@ -84,6 +98,40 @@
             lazyLoadImages();
         }
 
+        function renderPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            paginationControls.innerHTML = '';
+            if (totalPages <= 1) return;
+
+            paginationControls.innerHTML = `
+                <button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>Prev</button>
+                <span class="page-info">Page ${currentPage} of ${totalPages}</span>
+                <button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+            `;
+
+            document.getElementById('prevPage')?.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayPage();
+                }
+            });
+
+            document.getElementById('nextPage')?.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayPage();
+                }
+            });
+        }
+
+        function displayPage() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageItems = filteredCatalog.slice(startIndex, endIndex);
+            renderGrid(pageItems);
+            renderPagination(filteredCatalog.length);
+        }
+
         function lazyLoadImages() {
             const lazyImages = document.querySelectorAll('img.lazy');
             if ('IntersectionObserver' in window) {
@@ -105,13 +153,18 @@
 
         fetch('/api/catalog')
             .then(r => r.json())
-            .then(list => { catalog = list || []; renderCatalog(catalog); })
+            .then(list => {
+                catalog = list || [];
+                filteredCatalog = [...catalog];
+                displayPage();
+            })
             .catch((err) => { console.error(err); grid.innerHTML = '<p class="muted">Failed to load catalog.</p>'; });
 
-        document.getElementById('searchInput').addEventListener('input', e => {
+        searchInput.addEventListener('input', e => {
             const q = e.target.value.toLowerCase();
-            const filtered = catalog.filter(m => m.title.toLowerCase().includes(q));
-            renderCatalog(filtered);
+            filteredCatalog = catalog.filter(m => m.title.toLowerCase().includes(q));
+            currentPage = 1;
+            displayPage();
         });
     </script>
 </body>
