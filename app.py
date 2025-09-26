@@ -11,11 +11,11 @@ app = Flask(__name__, static_folder=str(STATIC_DIR), static_url_path="/static")
 # --- Page routes ---
 @app.get("/")
 def root():
-    return send_from_directory(STATIC_DIR, "home.html")
+    return send_from_directory(STATIC_DIR, "index.html")
 
 @app.get("/home")
 def home_page():
-    return send_from_directory(STATIC_DIR, "home.html")
+    return send_from_directory(STATIC_DIR, "index.html")
 
 @app.get("/manga/<slug>")
 def manga_page(slug):
