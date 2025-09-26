@@ -15,8 +15,10 @@ app = Flask(
 
 # --- Page routes ---
 @app.get("/")
-def root():
-    return render_template("index.html")
+@app.get("/page-<int:page_num>")
+def root(page_num=1):
+    """Renders the homepage with pagination."""
+    return render_template("index.html", current_page=page_num)
 
 @app.get("/manga/<slug>")
 def manga_page(slug):
