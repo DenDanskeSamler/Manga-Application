@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Chapter</title>
+	<style>
+		body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, sans-serif; background: #0e0e10; color: #e6e6ea; }
+		.container { max-width: 800px; margin: 20px auto; padding: 12px; background-color: #17171a; border-radius: 8px; border: 1px solid #2a2a30; }
+		
+		/* Header Styles */
+		header.site { position: sticky; top: 0; z-index: 10; background: linear-gradient(180deg, rgba(23, 23, 26, 0.95), rgba(23, 23, 26, 0.85)); backdrop-filter: blur(8px); border-bottom: 1px solid #2a2a30; }
+		header.site .wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+		.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+		.brand .logo { width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #ff3d6e, #5cc8ff); display: inline-block; }
+		.brand a { color: #e6e6ea; text-decoration: none; font-size: 18px; }
+		
+		/* Breadcrumbs & Title */
+		.chapter-header { text-align: center; padding: 16px; border-bottom: 1px solid #2a2a30; margin-bottom: 20px; }
+		.chapter-header h1 { margin: 0 0 10px; font-size: 26px; font-weight: 700; text-transform: uppercase; }
+		.chapter-header .breadcrumbs { font-size: 14px; color: #a0a0a8; }
+		.chapter-header .breadcrumbs a { color: #5cc8ff; text-decoration: none; }
+		.chapter-header .breadcrumbs a:hover { text-decoration: underline; }
+		.chapter-header .breadcrumbs span { color: #e6e6ea; }
+
+		/* Navigation Controls */
+		.nav-controls { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 16px 0; }
+		.nav-controls .btn, .nav-controls select {
+			background-color: #22232a; color: #e6e6ea; border: 1px solid #3a3a42; border-radius: 4px;
+			padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none;
+			transition: background-color 0.2s, color 0.2s;
+		}
+		.nav-controls .btn:hover { background-color: #ff3d6e; color: #fff; }
+		.nav-controls select { min-width: 250px; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem; }
+
+		/* Manga Pages */
+		#pages { text-align: center; }
+		#pages img { max-width: 100%; display: block; margin: 0 auto; }
+		p.muted { color: #a0a0a8; text-align: center; }
+	</style>
+</head>
+
+<body>
+	{% include "Components/header.html" %}
+
+	<div class="container">
+		<div class="chapter-header">
+			<h1 id="mangaTitle"></h1>
+			<div class="breadcrumbs"><a href="/">Home</a> &raquo; <a id="mangaLink" href=""></a> &raquo; <span id="chapterTitle"></span></div>
+		</div>
+		<div class="nav-controls">
+			<a id="prevBtn" class="btn">Prev</a>
+			<select id="chapterSelect"></select>
+			<a id="nextBtn" class="btn">Next</a>
+		</div>
+		<div id="pages"></div>
+		<div class="nav-controls" style="margin-top: 20px;">
+			<a id="prevBtnBottom" class="btn">Prev</a>
+			<select id="chapterSelectBottom"></select>
+			<a id="nextBtnBottom" class="btn">Next</a>
+		</div>
+	</div>
+
+	<script>
+		// Parse slug & chapter number from URL path
+		const pathParts = window.location.pathname.split("/");
+		const slug = pathParts[2];
+		let chapterPart = pathParts[3];
+		let chapterNumber = 1;
+		if (chapterPart && chapterPart.startsWith("chapter-")) {
+			chapterNumber = parseInt(chapterPart.replace("chapter-", ""), 10) || 1;
+		}
+
+		const chapterSelect = document.getElementById('chapterSelect');
+		const chapterSelectBottom = document.getElementById('chapterSelectBottom');
+		const prevBtn = document.getElementById('prevBtn');
+		const nextBtn = document.getElementById('nextBtn');
+		const prevBtnBottom = document.getElementById('prevBtnBottom');
+		const nextBtnBottom = document.getElementById('nextBtnBottom');
+		const pagesContainer = document.getElementById('pages');
+		const mangaTitleEl = document.getElementById('mangaTitle');
+		const mangaLinkEl = document.getElementById('mangaLink');
+		const chapterTitleEl = document.getElementById('chapterTitle');
+
+		let chapters = [];
+		let currentIndex = 0;
+
+		// Fetch manga details for title and breadcrumbs
+		fetch(`/api/manga/${slug}`)
+			.then(r => r.json())
+			.then(data => {
+				if (data && data.title) {
+					mangaTitleEl.textContent = data.title;
+					mangaLinkEl.href = `/manga/${slug}`;
+					mangaLinkEl.textContent = data.title;
+				}
+			});
+
+		// Load chapters
+		fetch(`/api/manga/${slug}/all_chapters`)
+			.then(r => r.json())
+			.then(data => {
+				chapters = data.chapters || [];
+				if (!chapters || !chapters.length) {
+					pagesContainer.innerHTML = '<p class="muted">No chapters found.</p>';
+					return;
+				}
+
+				const chapterOptions = chapters.map((c, idx) =>
+					`<option value="${idx}">Chapter ${c.number}: ${c.title || ''}</option>`
+				).join('');
+				chapterSelect.innerHTML = chapterOptions;
+				chapterSelectBottom.innerHTML = chapterOptions;
+
+				currentIndex = chapters.findIndex(c => c.number === chapterNumber);
+				if (currentIndex === -1) currentIndex = 0;
+
+				// Hide/show nav buttons based on chapter index
+				if (currentIndex === 0) {
+					prevBtn.style.display = 'none';
+					prevBtnBottom.style.display = 'none';
+				}
+				if (currentIndex === chapters.length - 1) {
+					nextBtn.style.display = 'none';
+					nextBtnBottom.style.display = 'none';
+				}
+
+				chapterSelect.selectedIndex = currentIndex;
+				chapterSelectBottom.selectedIndex = currentIndex;
+
+				function navigateToChapter(index) {
+					if (index < 0 || index >= chapters.length) return;
+					const chapter = chapters[index];
+					window.location.href = `/manga/${slug}/chapter-${chapter.number}`;
+				}
+
+				function loadChapter(index) {
+					const chapter = chapters[index];
+					chapterTitleEl.textContent = `Chapter ${chapter.number}`;
+					document.title = `${mangaTitleEl.textContent} - Chapter ${chapter.number}`;
+
+					history.replaceState(null, '', `/manga/${slug}/chapter-${chapter.number}`);
+					pagesContainer.innerHTML = '<p class="muted">Loading pages...</p>';
+
+					// Preload images
+					let loadedImages = 0;
+					const imageElements = chapter.pages.map(p => {
+						const img = new Image();
+						img.src = p;
+						img.onload = () => {
+							loadedImages++;
+							if (loadedImages === chapter.pages.length) {
+								pagesContainer.innerHTML = chapter.pages.map(pageSrc => `<img src="${pageSrc}" alt="Page">`).join('');
+							}
+						};
+						return img;
+					});
+
+					chapterSelect.selectedIndex = currentIndex;
+					chapterSelectBottom.selectedIndex = currentIndex;
+					window.scrollTo({ top: 0 });
+				}
+
+				prevBtn.onclick = () => navigateToChapter(currentIndex - 1);
+				nextBtn.onclick = () => navigateToChapter(currentIndex + 1);
+				chapterSelect.onchange = () => navigateToChapter(parseInt(chapterSelect.value));
+
+				prevBtnBottom.onclick = () => navigateToChapter(currentIndex - 1);
+				nextBtnBottom.onclick = () => navigateToChapter(currentIndex + 1);
+				chapterSelectBottom.onchange = () => navigateToChapter(parseInt(chapterSelectBottom.value));
+
+				loadChapter(currentIndex);
+			})
+			.catch(() => {
+				pagesContainer.innerHTML = '<p class="muted">Failed to load chapters.</p>';
+			});
+	</script>
+</body>
+
+</html>

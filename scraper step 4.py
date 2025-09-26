@@ -29,6 +29,16 @@ def save_json_if_changed(path, new_data):
     return True
 
 
+def get_chapter_number(chapter_title):
+    """Extracts the first number from a chapter title string."""
+    match = re.search(r'(\d+(\.\d+)?)', str(chapter_title))
+    if not match:
+        return 0
+    num_str = match.group(1)
+    # Return int if it's a whole number, otherwise float
+    return int(float(num_str)) if float(num_str).is_integer() else float(num_str)
+
+
 def convert_manga_file(input_file, catalog):
     with open(input_file, "r", encoding="utf-8") as f:
         manga = json.load(f)
@@ -49,16 +59,26 @@ def convert_manga_file(input_file, catalog):
 
     # Merge all chapters into single JSON
     chapters_data = []
-    for idx, ch in enumerate(manga.get("chapters", []), start=1):
+    for ch in manga.get("chapters", []):
+        chapter_num = get_chapter_number(ch.get("chapter"))
         chapters_data.append({
-            "number": idx,
-            "title": ch.get("chapter", f"Chapter {idx}"),
+            "number": int(chapter_num) if isinstance(chapter_num, float) and chapter_num.is_integer() else chapter_num,
+            "title": ch.get("chapter", f"Chapter {chapter_num}"),
             "release_date": ch.get("release_date", ""),
             "pages": ch.get("images", [])
         })
 
+
     # Calculate total chapters
     total_chapters = len(chapters_data)
+    
+    # Get the last 2 chapters for the catalog, keeping only necessary fields
+    latest_chapters = [
+        {"number": int(c["number"]) if isinstance(c["number"], float) and c["number"].is_integer() else c["number"],
+        "release_date": c["release_date"]}
+        for c in chapters_data[-2:]
+    ]
+
 
     # Update catalog
     entry = next((entry for entry in catalog if entry["slug"] == slug), None)
@@ -66,7 +86,7 @@ def convert_manga_file(input_file, catalog):
         updated = False
         for key, value in [("title", title), ("author", author), ("thumbnail", thumbnail),
                            ("status", status), ("genres", genres), ("bookmarked", bookmarked),
-                           ("total_chapters", total_chapters)]:  # added total_chapters
+                           ("total_chapters", total_chapters), ("latest_chapters", latest_chapters)]:
             if entry.get(key) != value:
                 entry[key] = value
                 updated = True
@@ -81,7 +101,8 @@ def convert_manga_file(input_file, catalog):
             "status": status,
             "genres": genres,
             "bookmarked": bookmarked,
-            "total_chapters": total_chapters  # added total_chapters
+            "total_chapters": total_chapters,
+            "latest_chapters": latest_chapters
         })
         print(f"📚 Added {title} to catalog.json")
 
@@ -103,7 +124,8 @@ def convert_manga_file(input_file, catalog):
         "genres": list(dict.fromkeys(genres)),
         "status": status,
         "bookmarked": bookmarked,
-        "total_chapters": total_chapters,  # added total_chapters
+        "total_chapters": total_chapters,
+        "latest_chapters": latest_chapters,
         "chapters": chapters_data
     }
 

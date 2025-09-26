@@ -14,6 +14,7 @@ OUTPUT_FOLDER = "manga_data"
 LOG_FILE = "manga_log.txt"
 MAX_RETRIES = 5
 THREADS = 10  # Number of concurrent chapter fetches
+TIMEOUT = 1
 
 # --- Setup logging ---
 logging.basicConfig(
@@ -35,7 +36,7 @@ def fetch_html(url, retries=MAX_RETRIES):
     """Fetch HTML with retries"""
     for attempt in range(1, retries + 1):
         try:
-            r = requests.get(url, timeout=5)
+            r = requests.get(url, timeout=TIMEOUT)
             r.raise_for_status()
             return r.text
         except Exception as e:

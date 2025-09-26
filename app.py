@@ -1,30 +1,30 @@
 import json
 from pathlib import Path
-from flask import Flask, send_from_directory, jsonify, send_file
+from flask import Flask, render_template, jsonify, send_file
 
 BASE_DIR = Path(__file__).parent.resolve()
 STATIC_DIR = BASE_DIR / "static"
+TEMPLATE_DIR = STATIC_DIR / "templates"   # <-- new: real templates folder
 
-app = Flask(__name__, static_folder=str(STATIC_DIR), static_url_path="/static")
-
+app = Flask(
+    __name__,
+    static_folder=str(STATIC_DIR),
+    template_folder=str(TEMPLATE_DIR),
+    static_url_path="/static"
+)
 
 # --- Page routes ---
 @app.get("/")
 def root():
-    return send_from_directory(STATIC_DIR, "index.html")
-
-@app.get("/home")
-def home_page():
-    return send_from_directory(STATIC_DIR, "index.html")
+    return render_template("index.html")
 
 @app.get("/manga/<slug>")
 def manga_page(slug):
-    return send_from_directory(STATIC_DIR, "manga.html")
-
+    return render_template("manga.html", slug=slug)
 
 @app.get("/manga/<slug>/chapter-<int:chapter_num>")
 def chapter_page(slug, chapter_num):
-    return send_from_directory(STATIC_DIR, "chapter.html")
+    return render_template("chapter.html", slug=slug, chapter_num=chapter_num)
 
 
 # --- Catalog and manga APIs ---
@@ -91,6 +91,7 @@ def api_manga_all_chapters(slug: str):
         print("Error loading chapters:", e)
         return jsonify({}), 500
 
+
 # --- Serve local manga images ---
 @app.route("/Manga/<slug>/<path:filename>")
 def serve_manga_images(slug, filename):
@@ -107,5 +108,5 @@ def serve_manga_images(slug, filename):
 
 if __name__ == "__main__":
     print(f"[server] Static dir: {STATIC_DIR}")
+    print(f"[server] Template dir: {TEMPLATE_DIR}")
     app.run(host="0.0.0.0", port=8000, debug=True)
-

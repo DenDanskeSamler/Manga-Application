@@ -20,7 +20,7 @@ def fetch_page(page):
     url = f"{BASE_URL}/page/{page}/"
     for attempt in range(1, MAX_RETRIES + 1):
         try:
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, timeout=5)
             if response.status_code == 200:
                 return response.text
             elif response.status_code == 404:
