@@ -376,7 +376,7 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">Created</span>
-                    <span class="info-value">{{ user.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                    <span class="info-value">{{ user.created_at.strftime('%B %d, %Y at %H:%M') }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Account Type</span>
@@ -482,7 +482,7 @@
                                 {% for chapter in manga.chapters|sort(attribute='number', reverse=true) %}
                                 <div class="chapter-item">
                                     <span class="chapter-number">Ch. {{ chapter.number }}</span>
-                                    <span class="chapter-date">{{ chapter.read_at.strftime('%b %d, %Y at %I:%M %p') }}</span>
+                                    <span class="chapter-date">{{ chapter.read_at.strftime('%b %d, %Y at %H:%M') }}</span>
                                 </div>
                                 {% endfor %}
                             </div>

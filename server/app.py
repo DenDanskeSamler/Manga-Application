@@ -76,6 +76,24 @@ with app.app_context():
             app.logger.info('[migration] Added chapter columns to Bookmark table')
     except Exception as e:
         app.logger.error(f'Migration check error: {e}')
+
+    # Runtime-safe migration: add scroll_position to ReadingHistory if missing
+    try:
+        history_table = 'reading_history'
+        res = db.session.execute(text(f"PRAGMA table_info({history_table});")).fetchall()
+        existing_cols = [r[1] for r in res]
+        altered = False
+        if 'scroll_position' not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE {history_table} ADD COLUMN scroll_position INTEGER"))
+            altered = True
+        if 'scroll_percent' not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE {history_table} ADD COLUMN scroll_percent INTEGER"))
+            altered = True
+        if altered:
+            db.session.commit()
+            app.logger.info('[migration] Added scroll_position to ReadingHistory table')
+    except Exception as e:
+        app.logger.error(f'ReadingHistory migration error: {e}')
     
     # Runtime-safe migration: add new columns to User if they don't exist
     try:
@@ -248,10 +266,143 @@ def bookmarks():
 
 @app.get("/history")
 def history():
+    # Show grouped history (by manga) on the public history page so it matches
+    # the admin user history layout (grouped manga => chapters).
     if current_user.is_authenticated:
-        history = ReadingHistory.query.filter_by(user_id=current_user.id).order_by(ReadingHistory.last_read_at.desc()).all()
-        return render_template("history.html", history=history)
-    return render_template("history.html", history=[])
+        user_history = ReadingHistory.query.filter_by(user_id=current_user.id).order_by(ReadingHistory.last_read_at.desc()).all()
+
+        # Group reading history by manga
+        # Try to load catalog to determine total chapter counts for each manga
+        grouped_history = {}
+        catalog_map = {}
+        # also prepare a title->total map in case stored slugs differ from catalog slugs
+        catalog_title_map = {}
+        try:
+            catalog_path = config.DATA_DIR / "catalog.json"
+            if catalog_path.exists():
+                catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+                for m in catalog:
+                    slug = m.get('slug')
+                    title = (m.get('title') or '').strip().lower()
+                    chapters = m.get('chapters') or []
+                    # prefer explicit chapters list length, fall back to latest_chapter or explicit total_chapters
+                    total = 0
+                    if isinstance(chapters, list) and len(chapters) > 0:
+                        total = len(chapters)
+                    else:
+                        total = m.get('total_chapters') or m.get('latest_chapter') or 0
+
+                    if slug:
+                        catalog_map[slug] = total
+                    if title:
+                        catalog_title_map[title] = total
+        except Exception as e:
+            app.logger.debug(f'Could not read catalog for totals: {e}')
+        for item in user_history:
+            manga_key = item.manga_slug
+            if manga_key not in grouped_history:
+                grouped_history[manga_key] = {
+                    'manga_title': item.manga_title,
+                    'manga_thumbnail': item.manga_thumbnail,
+                    'manga_slug': item.manga_slug,
+                    'chapters': [],
+                    'latest_read': item.last_read_at,
+                    'total_chapters': (
+                        (catalog_map.get(item.manga_slug) if catalog_map.get(item.manga_slug) else None)
+                        if catalog_map else None
+                    ) or (
+                        (catalog_title_map.get((item.manga_title or '').strip().lower()) if catalog_title_map.get((item.manga_title or '').strip().lower()) else None)
+                        if catalog_title_map else None
+                    )
+                }
+
+            grouped_history[manga_key]['chapters'].append({
+                'number': item.chapter_number,
+            'title': item.chapter_title,
+            'read_at': item.last_read_at,
+                'scroll_position': getattr(item, 'scroll_position', None),
+                'scroll_percent': getattr(item, 'scroll_percent', None)
+            })
+
+            # Update latest read time if this chapter was read more recently
+            if item.last_read_at > grouped_history[manga_key]['latest_read']:
+                grouped_history[manga_key]['latest_read'] = item.last_read_at
+
+        # Sort grouped history by latest read time (most recent first)
+        grouped_history_list = sorted(grouped_history.values(), key=lambda x: x['latest_read'], reverse=True)
+
+        return render_template("history.html", history=user_history, grouped_history=grouped_history_list)
+
+    return render_template("history.html", history=[], grouped_history=[])
+
+
+@app.post('/api/history/scroll')
+@login_required
+def save_history_scroll():
+    """Save scroll position for a user's chapter history entry.
+
+    Expects JSON: { "manga_slug": "slug", "chapter": 12, "scroll": 1234 }
+    """
+    try:
+        payload = request.get_json() or {}
+        manga_slug = payload.get('manga_slug')
+        chapter = int(payload.get('chapter') or 0)
+        scroll = int(payload.get('scroll') or 0)
+        percent = None
+        if 'percent' in payload:
+            try:
+                percent = int(payload.get('percent'))
+            except Exception:
+                percent = None
+    except Exception:
+        return jsonify({'error': 'invalid payload'}), 400
+
+    if not manga_slug or chapter <= 0:
+        return jsonify({'error': 'missing fields'}), 400
+
+    entry = ReadingHistory.query.filter_by(user_id=current_user.id, manga_slug=manga_slug, chapter_number=chapter).first()
+    if not entry:
+        # create an entry to store scroll position/percent
+        entry = ReadingHistory(user_id=current_user.id, manga_slug=manga_slug, manga_title=payload.get('manga_title',''), manga_thumbnail=payload.get('manga_thumbnail',''), chapter_number=chapter, scroll_position=scroll, scroll_percent=percent)
+        db.session.add(entry)
+    else:
+        entry.scroll_position = scroll
+        if percent is not None:
+            entry.scroll_percent = percent
+        entry.last_read_at = datetime.utcnow()
+
+    try:
+        db.session.commit()
+    except Exception as e:
+        app.logger.error(f'Error saving scroll: {e}')
+        return jsonify({'error': 'db error'}), 500
+
+    return jsonify({'ok': True})
+
+
+@app.get('/api/history/scroll')
+@login_required
+def get_history_scroll():
+    """Return stored scroll position for a user's chapter history entry.
+
+    Query params: manga_slug, chapter
+    Returns JSON: { scroll: <int> } or 404
+    """
+    manga_slug = request.args.get('manga_slug')
+    try:
+        chapter = int(request.args.get('chapter') or 0)
+    except Exception:
+        chapter = 0
+
+    if not manga_slug or chapter <= 0:
+        return jsonify({'error': 'missing params'}), 400
+
+    entry = ReadingHistory.query.filter_by(user_id=current_user.id, manga_slug=manga_slug, chapter_number=chapter).first()
+    if not entry:
+        return jsonify({'scroll': 0, 'percent': 0}), 200
+    sp = int(getattr(entry, 'scroll_position', 0) or 0)
+    pct = int(getattr(entry, 'scroll_percent', 0) or 0)
+    return jsonify({'scroll': sp, 'percent': pct}), 200
 
 @app.get("/random")
 def random_manga():

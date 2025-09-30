@@ -8,6 +8,97 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/style.css">
+    <style>
+        /* Scoped admin-like styles to make public history match admin user view */
+        .section {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .section-header {
+            background: #0f172a;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+        .section-header h2 { color: #e0e6ed; margin: 0; font-size: 1.25rem; }
+        .section-content { padding: 1.5rem; }
+        /* Card-like grouping for each manga so groups are clearly separated */
+        .manga-history-list { display: block; }
+        .manga-history-item {
+            background: linear-gradient(180deg, rgba(15,23,42,0.6), rgba(15,23,42,0.4));
+            border: 1px solid rgba(51,65,85,0.9);
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.35);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: transform 120ms ease, box-shadow 120ms ease;
+        }
+        .manga-history-item:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(2,6,23,0.45); }
+        .manga-header { display:flex; align-items:center; gap:1rem; padding:1rem; }
+        .manga-thumbnail { width:60px; height:80px; background:#0f172a; border-radius:4px; overflow:hidden; flex-shrink:0 }
+        .manga-thumbnail img { width:100%; height:100%; object-fit:cover }
+        .manga-info { flex:1 }
+    .manga-title { color:#e0e6ed; font-weight:600; margin-bottom:0.25rem; font-size:1.05rem }
+    .manga-meta { color:#94a3b8; font-size:0.875rem }
+        .chapters-list { background:#0f172a; padding:1rem }
+    .chapter-item { display:flex; justify-content:space-between; align-items:center; padding:0.6rem 1rem; border-bottom:1px dashed rgba(51,65,85,0.6); font-size:0.9rem }
+        .chapter-item:last-child { border-bottom:none }
+
+        /* Chapter link styling: remove default blue + underline and use site accent color */
+        .chapter-number,
+        .chapter-number:link,
+        .chapter-number:visited {
+            color: #60a5fa; /* soft accent */
+            font-weight:500;
+            min-width:60px;
+            text-decoration: none;
+            border-bottom: 1px dashed transparent;
+            transition: color 120ms ease, border-bottom-color 120ms ease;
+        }
+        .chapter-number:hover,
+        .chapter-number:focus {
+            color: #3b82f6;
+            border-bottom-color: rgba(59,130,246,0.45);
+            outline: none;
+        }
+
+        /* make the entire chapter row clickable when it's an anchor */
+        .manga-history-item a.chapter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            border-bottom: 1px dashed rgba(51,65,85,0.6);
+            font-size: 0.9rem;
+            color: inherit;
+            text-decoration: none;
+        }
+        .manga-history-item a.chapter-item:last-child { border-bottom: none }
+        .manga-history-item a.chapter-item:focus {
+            outline: 2px solid rgba(59,130,246,0.25);
+            outline-offset: 2px;
+        }
+        .manga-history-item a.chapter-item:hover .chapter-number { color: #3b82f6 }
+
+        .chapter-date { color:#94a3b8; font-size:0.8rem; white-space:nowrap; margin-left:1rem }
+        .manga-history-item.hidden { display:none }
+        .search-container { position:relative; margin-left:auto; max-width:300px }
+        .search-input { width:100%; padding:0.5rem 2.5rem 0.5rem 1rem; background:#0f172a; border:1px solid #334155; border-radius:6px; color:#e0e6ed; font-size:0.875rem }
+        .search-input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,0.1) }
+        .search-icon { position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); color:#94a3b8; pointer-events:none }
+            /* Progress UI for chapter read percent */
+            .chapter-progress { display:inline-flex; align-items:center; gap:0.5rem; }
+            .progress-pill { background: linear-gradient(90deg,#60a5fa,#3b82f6); color: #fff; padding:2px 6px; border-radius:999px; font-size:0.78rem; font-weight:600; box-shadow: 0 1px 0 rgba(0,0,0,0.15); }
+            .progress-bar { width:72px; height:8px; background:#0b1220; border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); box-shadow: inset 0 1px 0 rgba(255,255,255,0.02); }
+            .progress-bar-inner { height:100%; background: linear-gradient(90deg,#7dd3fc,#3b82f6); width:0%; transition: width 260ms ease; }
+            .chapter-meta-muted { color:#94a3b8; font-size:0.85rem }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -135,42 +226,107 @@
                 </div>
             </div>
         {% else %}
-            {% if history %}
-                <div class="controls">
-                    <button id="clearHistoryBtn" class="btn secondary">Clear All History</button>
-                </div>
-                <div class="history-list">
-                    {% for item in history %}
-                        <div class="history-item">
-                            <div class="history-thumb">
-                                <a href="/manga/{{ item.manga_slug }}">
-                                    <img src="{{ item.manga_thumbnail or '/static/default-thumbnail.svg' }}" alt="{{ item.manga_title }}">
-                                </a>
-                            </div>
-                            <div class="history-content">
-                                <h3 class="history-title">
-                                    <a href="/manga/{{ item.manga_slug }}">{{ item.manga_title }}</a>
-                                </h3>
-                                <div class="history-chapter">
-                                    <a href="/manga/{{ item.manga_slug }}/chapter-{{ item.chapter_number }}" class="chapter-link">
-                                        Chapter {{ item.chapter_number }}{% if item.chapter_title %} - {{ item.chapter_title }}{% endif %}
-                                    </a>
-                                </div>
-                                <div class="history-date">
-                                    Read {{ item.last_read_at.strftime('%Y-%m-%d at %H:%M') }}
-                                </div>
-                            </div>
-                            <div class="history-actions">
-                                <button class="history-remove" data-id="{{ item.id }}" title="Remove from history">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                        <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                        <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                </button>
+                {% if grouped_history %}
+                    <div class="section">
+                        <div class="section-header">
+                            <h2>Reading History ({{ grouped_history|length }} manga)</h2>
+                            <div class="search-container">
+                                <input type="text" id="historySearch" placeholder="Search manga..." class="search-input">
+                                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M21 21L16.5 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+
+                        <div class="section-content">
+                            <div class="manga-history-list">
+                                {% for manga in grouped_history %}
+                                    <div class="manga-history-item" data-manga-title="{{ manga.manga_title|lower }}">
+                                        <div class="manga-header">
+                                            <div class="manga-thumbnail">
+                                                {% if manga.manga_thumbnail %}
+                                                    {% if manga.manga_thumbnail.startswith('http') %}
+                                                        <img src="{{ manga.manga_thumbnail }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                                    {% elif manga.manga_thumbnail.startswith('/') %}
+                                                        <img src="{{ manga.manga_thumbnail }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                                    {% elif manga.manga_thumbnail.startswith('static/') %}
+                                                        <img src="{{ url_for('static', filename=manga.manga_thumbnail.replace('static/', '')) }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                                    {% else %}
+                                                        <img src="{{ url_for('static', filename='thumbnail/' ~ manga.manga_thumbnail) }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                                    {% endif %}
+                                                {% else %}
+                                                    <img src="/static/default-thumbnail.svg" alt="{{ manga.manga_title }}">
+                                                {% endif %}
+                                            </div>
+                                            <div class="manga-info">
+                                                <div class="manga-title">{{ manga.manga_title }}</div>
+                                                <div class="manga-meta">
+                                                    {{ manga.chapters|length }} chapters read
+                                                    {% if manga.total_chapters %}
+                                                        ({{ manga.chapters|length }}/{{ manga.total_chapters }})
+                                                    {% endif %}
+                                                    • Latest: {{ manga.latest_read.strftime('%B %d, %Y') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chapters-list">
+                                            {% for chapter in manga.chapters|sort(attribute='number', reverse=true) %}
+                                                {% set scroll_q = ('?scroll=' ~ chapter.scroll_position) if chapter.scroll_position is not none %}
+                                                <a href="/manga/{{ manga.manga_slug }}/chapter-{{ chapter.number }}{{ scroll_q|default('') }}" class="chapter-item">
+                                                    <span style="display:flex; align-items:center; gap:0.75rem;">
+                                                        <span class="chapter-number">Ch. {{ chapter.number }}</span>
+                                                        {% if chapter.scroll_percent is not none %}
+                                                            <span class="chapter-meta-muted" style="color:#94a3b8; font-size:0.85rem;">({{ chapter.scroll_percent }}%)</span>
+                                                        {% elif chapter.scroll_position is not none %}
+                                                            <span class="chapter-meta-muted" style="color:#94a3b8; font-size:0.85rem;">({{ chapter.scroll_position }}px)</span>
+                                                        {% endif %}
+                                                    </span>
+                                                    <span class="chapter-date">{{ chapter.read_at.strftime('%b %d, %Y at %H:%M') }}</span>
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% elif history %}
+                    <div class="controls">
+                        <button id="clearHistoryBtn" class="btn secondary">Clear All History</button>
+                    </div>
+                    <div class="history-list">
+                        {% for item in history %}
+                            <div class="history-item">
+                                <div class="history-thumb">
+                                    <a href="/manga/{{ item.manga_slug }}">
+                                        <img src="{{ item.manga_thumbnail or '/static/default-thumbnail.svg' }}" alt="{{ item.manga_title }}">
+                                    </a>
+                                </div>
+                                <div class="history-content">
+                                    <h3 class="history-title">
+                                        <a href="/manga/{{ item.manga_slug }}">{{ item.manga_title }}</a>
+                                    </h3>
+                                    <div class="history-chapter">
+                                        <a href="/manga/{{ item.manga_slug }}/chapter-{{ item.chapter_number }}" class="chapter-link">
+                                            Chapter {{ item.chapter_number }}
+                                        </a>
+                                    </div>
+                                    <div class="history-date">
+                                        Read {{ item.last_read_at.strftime('%Y-%m-%d at %H:%M') }}
+                                    </div>
+                                </div>
+                                <div class="history-actions">
+                                    <button class="history-remove" data-id="{{ item.id }}" title="Remove from history">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
             {% else %}
                 <div class="empty-state">
                     <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
@@ -293,6 +449,112 @@
                 if (overlay.classList.contains('active')) {
                     if (e.key === 'Escape') closeModal();
                     if (e.key === 'Enter') confirmBtn.click();
+                }
+            });
+        })();
+
+        // Convert stored px scrolls into estimated percent for user-friendly display
+        (function() {
+            const AVG_PAGE_HEIGHT = 1200; // heuristic px per page when computing percent
+            const mangaCache = {}; // slug -> promise of chapters data
+
+            function fetchChaptersForManga(slug) {
+                if (mangaCache[slug]) return mangaCache[slug];
+                mangaCache[slug] = fetch(`/api/manga/${encodeURIComponent(slug)}/all_chapters`).then(r => r.json()).catch(() => ({ chapters: [] }));
+                return mangaCache[slug];
+            }
+
+            // find all chapter meta spans that currently display px (e.g., "(10923px)")
+            const chapterMetaSpans = Array.from(document.querySelectorAll('.chapter-meta-muted'));
+            chapterMetaSpans.forEach(span => {
+                const txt = (span.textContent || '').trim();
+                if (!txt) return;
+                // quick detect px pattern
+                const pxMatch = txt.match(/^(?:\()?([0-9]{1,6})px(?:\))?$/);
+                if (!pxMatch) return;
+                const px = parseInt(pxMatch[1], 10) || 0;
+
+                // find nearest chapter anchor to read attributes
+                const anchor = span.closest('.chapter-item');
+                if (!anchor) return;
+                // link href is /manga/<slug>/chapter-<num>
+                const href = anchor.getAttribute('href') || '';
+                const parts = href.split('/');
+                // URL like ['', 'manga', 'slug', 'chapter-86?scroll=...']
+                if (parts.length < 4) return;
+                const slug = parts[2];
+                const chapterPart = parts[3] || '';
+                const chapMatch = chapterPart.match(/chapter-(\d+)/);
+                if (!chapMatch) return;
+                const chapNum = parseInt(chapMatch[1], 10);
+
+                // fetch chapter list for this manga then compute percent
+                fetchChaptersForManga(slug).then(data => {
+                    const chapters = (data && data.chapters) || [];
+                    const target = chapters.find(c => parseInt(c.number,10) === chapNum);
+                    const pageCount = (target && target.pages && target.pages.length) ? target.pages.length : 0;
+
+                    let percent = 0;
+                    if (pageCount > 0) {
+                        // estimate total scrollable height = pages * avg page height
+                        const total = Math.max(pageCount * AVG_PAGE_HEIGHT, 1);
+                        percent = Math.round((px / total) * 100);
+                    } else {
+                        // no page count available: fallback estimate using a large default total
+                        const total = Math.max(8000, 1);
+                        percent = Math.round((px / total) * 100);
+                    }
+                    if (percent < 0) percent = 0;
+                    if (percent > 100) percent = 100;
+
+                    // Update the UI: show percent and keep px in title as tooltip
+                    span.textContent = `(${percent}%)`;
+                    span.setAttribute('title', `${px}px saved`);
+                }).catch(() => {
+                    // leave px text as-is on error
+                });
+            });
+        })();
+
+        // History search: filter manga-history-item by title (debounced)
+        (function() {
+            const searchInput = document.getElementById('historySearch');
+            if (!searchInput) return;
+
+            const items = Array.from(document.querySelectorAll('.manga-history-item'));
+            let timer = null;
+
+            function doFilter(query) {
+                const q = (query || '').trim().toLowerCase();
+                if (!q) {
+                    items.forEach(it => it.classList.remove('hidden'));
+                    return;
+                }
+
+                items.forEach(it => {
+                    const titleAttr = it.dataset.mangaTitle || '';
+                    const titleElem = it.querySelector('.manga-title');
+                    const titleText = titleElem ? titleElem.textContent.trim().toLowerCase() : '';
+                    const combined = (titleAttr + ' ' + titleText).toLowerCase();
+                    if (combined.indexOf(q) !== -1) {
+                        it.classList.remove('hidden');
+                    } else {
+                        it.classList.add('hidden');
+                    }
+                });
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                const v = e.target.value;
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(() => doFilter(v), 180);
+            });
+
+            // optional: support Enter to focus first visible match
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    doFilter('');
                 }
             });
         })();

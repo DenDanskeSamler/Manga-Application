@@ -96,11 +96,63 @@
 			}
 
 			chaptersContainer.innerHTML = filtered.map(c => `
-				<a href="/manga/${slug}/chapter-${c.number}" class="chapter-item">
-					<span class="chapter-title">Ch. ${c.number}${c.title ? ` | ${c.title}` : ''}</span>
-					<span class="release-date">${c.release_date || ''}</span>
-				</a>
-		`).join('');
+					<a href="/manga/${slug}/chapter-${c.number}" class="chapter-item" data-chapter="${c.number}">
+						<span class="chapter-title">Ch. ${c.number}${c.title ? ` | ${c.title}` : ''}</span>
+						<span class="release-date">${c.release_date || ''}</span>
+					</a>
+			`).join('');
+		}
+
+		// Set up single delegated click handler (outside renderChapters to prevent memory leaks)
+		let chapterClickHandlerAttached = false;
+		function setupChapterClickHandler() {
+			if (chapterClickHandlerAttached) return;
+			chapterClickHandlerAttached = true;
+			
+			// Cache scroll positions to avoid repeated API calls
+			const scrollCache = new Map();
+			
+			// Update href on mousedown for middle-click and modifier key support
+			chaptersContainer.addEventListener('mousedown', async (ev) => {
+				const anchor = ev.target.closest && ev.target.closest('a.chapter-item');
+				if (!anchor) return;
+				
+				const chapterNum = anchor.dataset.chapter;
+				if (!chapterNum) return;
+				
+				// Check cache first, then fetch if needed
+				let scroll = scrollCache.get(chapterNum);
+				if (scroll === undefined) {
+					try {
+						const res = await fetch(`/api/history/scroll?manga_slug=${encodeURIComponent(slug)}&chapter=${chapterNum}`);
+						if (res.ok) {
+							const j = await res.json();
+							scroll = parseInt(j && j.scroll || 0, 10) || 0;
+						} else {
+							scroll = 0;
+						}
+					} catch (err) {
+						scroll = 0;
+					}
+					scrollCache.set(chapterNum, scroll);
+				}
+				
+				// Update href with scroll parameter if available
+				const baseHref = `/manga/${slug}/chapter-${chapterNum}`;
+				anchor.href = scroll > 0 ? `${baseHref}?scroll=${scroll}` : baseHref;
+			});
+			
+			// Main click handler for left-click navigation
+			chaptersContainer.addEventListener('click', async (ev) => {
+				const anchor = ev.target.closest && ev.target.closest('a.chapter-item');
+				if (!anchor) return;
+
+				// Let modified clicks and non-left clicks proceed normally (href already updated on mousedown)
+				if (ev.button !== 0 || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+
+				// For regular left clicks, we can use the updated href or navigate immediately
+				// The href should already be updated from mousedown, so just let it proceed naturally
+			});
 		}
 
 		sortBtn.addEventListener('click', () => {
@@ -177,6 +229,7 @@
 
 				currentChapters = data.chapters || [];
 				renderChapters(currentChapters);
+				setupChapterClickHandler(); // Set up click handler once after chapters load
 			})
 			.catch(() => {
 				document.querySelector('.container').innerHTML =
