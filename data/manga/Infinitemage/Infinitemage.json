@@ -5,7 +5,7 @@
   "description": "Infinite Wizard,",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/12/Infinite-Mage-193x278-1-175x238.webp",
   "url": "https://manhuaus.com/manga/infinite-mage/",
-  "rank": "14th, it has 10.1M monthly views",
+  "rank": "13th, it has 10.4M monthly views",
   "alternative_titles": [
     "Infinite Mage",
     "Infinite Wizard",
@@ -20,7 +20,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 3,
-  "total_chapters": 136,
+  "total_chapters": 137,
+  "latest_chapters": [
+    {
+      "number": 136,
+      "release_date": "16-09-2025"
+    },
+    {
+      "number": 137,
+      "release_date": "24-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -3429,6 +3439,27 @@
         "https://img.manhuaus.com/image2025/manga_638080340349267211/33a1cbca86f5913ea23e07392ef9856d/016.webp",
         "https://img.manhuaus.com/image2025/manga_638080340349267211/33a1cbca86f5913ea23e07392ef9856d/017.webp",
         "https://img.manhuaus.com/image2025/manga_638080340349267211/33a1cbca86f5913ea23e07392ef9856d/018.webp"
+      ]
+    },
+    {
+      "number": 137,
+      "title": "Chapter 137",
+      "release_date": "24-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/009.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/010.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/011.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/012.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/013.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/014.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/015.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/016.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/017.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/018.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/019.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/020.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/021.webp",
+        "https://img.manhuaus.com/image2025/manga_638080340349267211/80ece62984b5c11514729c72777c0906/022.webp"
       ]
     }
   ]

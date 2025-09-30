@@ -5,7 +5,7 @@
   "description": "Island of Stars and Chains Manhwa Gi Seunghyun always dreamed of becoming a Hunter, but he is plagued by despair due to his lack of ability. Then one day, his older sister, Gi Sohyun, awakens from a 12-year coma. Just as they begin to reunite, the siblings find themselves caught in an unfathomable, shocking event. 별과 사슬이 뜨는 섬, The Island Of Rising Stars And Chains",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2025/03/Island-of-Stars-and-Chains-175x238.webp",
   "url": "https://manhuaus.com/manga/island-of-stars-and-chains/",
-  "rank": "N/A, it has 867.3K monthly views",
+  "rank": "N/A, it has 891K monthly views",
   "alternative_titles": [
     "별과 사슬이 뜨는 섬",
     "The Island Of Rising Stars And Chains"
@@ -18,8 +18,18 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 583,
-  "total_chapters": 36,
+  "bookmarked": 596,
+  "total_chapters": 37,
+  "latest_chapters": [
+    {
+      "number": 36,
+      "release_date": "17-09-2025"
+    },
+    {
+      "number": 37,
+      "release_date": "27-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -759,7 +769,7 @@
     {
       "number": 36,
       "title": "Chapter 36",
-      "release_date": "18-09-2025",
+      "release_date": "17-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/80c057eb359b4f6912e885796d0b0785/001.webp",
         "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/80c057eb359b4f6912e885796d0b0785/002.webp",
@@ -771,6 +781,23 @@
         "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/80c057eb359b4f6912e885796d0b0785/008.webp",
         "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/80c057eb359b4f6912e885796d0b0785/009.webp",
         "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/80c057eb359b4f6912e885796d0b0785/010.webp"
+      ]
+    },
+    {
+      "number": 37,
+      "title": "Chapter 37",
+      "release_date": "27-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/001.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/002.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/003.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/004.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/005.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/006.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/007.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/008.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/009.webp",
+        "https://img.manhuaus.com/image2025/manga_67c73ae094ba7/54a56a33ccf5715318932a8d7a72edb6/010.webp"
       ]
     }
   ]

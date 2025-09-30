@@ -5,7 +5,7 @@
   "description": "ZomGan Zom間 좀간",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/01/Zomgan-175x238.webp",
   "url": "https://manhuaus.com/manga/zomgan/",
-  "rank": "N/A, it has 197K monthly views",
+  "rank": "N/A, it has 199.3K monthly views",
   "alternative_titles": [
     "ZomGan",
     "Zom間",
@@ -20,6 +20,16 @@
   "status": "OnGoing",
   "bookmarked": 190,
   "total_chapters": 109,
+  "latest_chapters": [
+    {
+      "number": 108,
+      "release_date": "24-10-2024"
+    },
+    {
+      "number": 109,
+      "release_date": "05-03-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

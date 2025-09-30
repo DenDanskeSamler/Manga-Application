@@ -19,6 +19,16 @@
   "status": "Completed",
   "bookmarked": 13,
   "total_chapters": 55,
+  "latest_chapters": [
+    {
+      "number": 54,
+      "release_date": "07-06-2022"
+    },
+    {
+      "number": 55,
+      "release_date": "07-06-2022"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

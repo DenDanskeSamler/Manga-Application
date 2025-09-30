@@ -21,6 +21,16 @@
   "status": "Completed",
   "bookmarked": 1,
   "total_chapters": 181,
+  "latest_chapters": [
+    {
+      "number": 180,
+      "release_date": "08-08-2025"
+    },
+    {
+      "number": 181,
+      "release_date": "10-08-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

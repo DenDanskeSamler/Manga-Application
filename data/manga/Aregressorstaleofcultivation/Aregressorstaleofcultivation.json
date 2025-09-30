@@ -5,7 +5,7 @@
   "description": "A Regressor’s Tale of Cultivation Manhwa There were seven individuals who fell into a world of immortals. Each seemed to flourish in said realm with their own blessed gifts… …except for Seo Eunhyun, the only one among the seven who hasn’t manifested a power. In truth, he did have an ability of infinite regression—but this was no blessing. It was a curse. Thus begins the story of Seo Eunhyun and his desperate struggle in escaping his never-ending regression. A Regressor’s Tale of Cultivation, 회귀수선전",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2025/06/A-Regressors-Tale-of-Cultivation1-175x238.webp",
   "url": "https://manhuaus.com/manga/a-regressors-tale-of-cultivation/",
-  "rank": "N/A, it has 1.2M monthly view",
+  "rank": "N/A, it has 1.3M monthly view",
   "alternative_titles": [
     "A Regressor's Tale of Cultivation",
     "회귀수선전"
@@ -19,7 +19,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 20,
+  "total_chapters": 21,
+  "latest_chapters": [
+    {
+      "number": 20,
+      "release_date": "19-09-2025"
+    },
+    {
+      "number": 21,
+      "release_date": "25-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -384,7 +394,7 @@
     {
       "number": 20,
       "title": "Chapter 20",
-      "release_date": "22-09-2025",
+      "release_date": "19-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/b643bccdf434ecd7050e22dd15f791cb/009.webp",
         "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/b643bccdf434ecd7050e22dd15f791cb/010.webp",
@@ -394,6 +404,25 @@
         "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/b643bccdf434ecd7050e22dd15f791cb/014.webp",
         "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/b643bccdf434ecd7050e22dd15f791cb/015.webp",
         "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/b643bccdf434ecd7050e22dd15f791cb/016.webp"
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Chapter 21",
+      "release_date": "25-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/005.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/007.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/009.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/011.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/013.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/015.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/017.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/019.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/020.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/021.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/022.webp",
+        "https://img.manhuaus.com/image2025/manga_68543b1c59dc8/655656afc573266435d089710faa62ec/023.webp"
       ]
     }
   ]

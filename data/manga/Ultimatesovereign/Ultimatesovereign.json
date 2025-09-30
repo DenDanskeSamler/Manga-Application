@@ -5,7 +5,7 @@
   "description": "Ultimate Sovereign Manhua 完美至尊",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/09/ultimate-sovereign-175x238.jpg",
   "url": "https://manhuaus.com/manga/ultimate-sovereign/",
-  "rank": "N/A, it has 32.6K monthly views",
+  "rank": "N/A, it has 33.1K monthly views",
   "alternative_titles": [
     "完美至尊"
   ],
@@ -19,9 +19,19 @@
   "status": "OnGoing",
   "bookmarked": 12,
   "total_chapters": 15,
+  "latest_chapters": [
+    {
+      "number": 13,
+      "release_date": "24-10-2022"
+    },
+    {
+      "number": 14,
+      "release_date": "24-10-2022"
+    }
+  ],
   "chapters": [
     {
-      "number": 1,
+      "number": 0.1,
       "title": "Chapter 0.1",
       "release_date": "15-09-2022",
       "pages": [
@@ -31,7 +41,7 @@
       ]
     },
     {
-      "number": 2,
+      "number": 1,
       "title": "Chapter 1",
       "release_date": "23-09-2022",
       "pages": [
@@ -60,7 +70,7 @@
       ]
     },
     {
-      "number": 3,
+      "number": 2,
       "title": "Chapter 2",
       "release_date": "23-09-2022",
       "pages": [
@@ -84,7 +94,7 @@
       ]
     },
     {
-      "number": 4,
+      "number": 3,
       "title": "Chapter 3",
       "release_date": "23-09-2022",
       "pages": [
@@ -107,7 +117,7 @@
       ]
     },
     {
-      "number": 5,
+      "number": 4,
       "title": "Chapter 4",
       "release_date": "23-09-2022",
       "pages": [
@@ -120,7 +130,7 @@
       ]
     },
     {
-      "number": 6,
+      "number": 5,
       "title": "Chapter 5",
       "release_date": "25-09-2022",
       "pages": [
@@ -131,7 +141,7 @@
       ]
     },
     {
-      "number": 7,
+      "number": 6,
       "title": "Chapter 6",
       "release_date": "30-09-2022",
       "pages": [
@@ -142,7 +152,7 @@
       ]
     },
     {
-      "number": 8,
+      "number": 7,
       "title": "Chapter 7",
       "release_date": "02-10-2022",
       "pages": [
@@ -152,7 +162,7 @@
       ]
     },
     {
-      "number": 9,
+      "number": 8,
       "title": "Chapter 8",
       "release_date": "03-10-2022",
       "pages": [
@@ -163,7 +173,7 @@
       ]
     },
     {
-      "number": 10,
+      "number": 9,
       "title": "Chapter 9",
       "release_date": "11-10-2022",
       "pages": [
@@ -177,7 +187,7 @@
       ]
     },
     {
-      "number": 11,
+      "number": 10,
       "title": "Chapter 10",
       "release_date": "11-10-2022",
       "pages": [
@@ -188,7 +198,7 @@
       ]
     },
     {
-      "number": 12,
+      "number": 11,
       "title": "Chapter 11",
       "release_date": "15-10-2022",
       "pages": [
@@ -200,7 +210,7 @@
       ]
     },
     {
-      "number": 13,
+      "number": 12,
       "title": "Chapter 12",
       "release_date": "24-10-2022",
       "pages": [
@@ -215,7 +225,7 @@
       ]
     },
     {
-      "number": 14,
+      "number": 13,
       "title": "Chapter 13",
       "release_date": "24-10-2022",
       "pages": [
@@ -231,7 +241,7 @@
       ]
     },
     {
-      "number": 15,
+      "number": 14,
       "title": "Chapter 14",
       "release_date": "24-10-2022",
       "pages": [

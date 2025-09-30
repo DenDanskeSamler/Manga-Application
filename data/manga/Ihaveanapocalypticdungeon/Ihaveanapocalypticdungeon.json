@@ -17,8 +17,18 @@
     "Romance"
   ],
   "status": "OnGoing",
-  "bookmarked": 622,
+  "bookmarked": 626,
   "total_chapters": 291,
+  "latest_chapters": [
+    {
+      "number": 290,
+      "release_date": "23-08-2025"
+    },
+    {
+      "number": 291,
+      "release_date": "06-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

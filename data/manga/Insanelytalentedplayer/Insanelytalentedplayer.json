@@ -19,7 +19,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 93,
+  "total_chapters": 94,
+  "latest_chapters": [
+    {
+      "number": 93,
+      "release_date": "20-09-2025"
+    },
+    {
+      "number": 94,
+      "release_date": "25-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2003,6 +2013,29 @@
         "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/48a7824e0f5742bc4e64d89e584387be/018.webp",
         "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/48a7824e0f5742bc4e64d89e584387be/019.webp",
         "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/48a7824e0f5742bc4e64d89e584387be/020.webp"
+      ]
+    },
+    {
+      "number": 94,
+      "title": "Chapter 94",
+      "release_date": "25-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/01-1712.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/02-1711.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/03-1711.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/04-1709.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/05-1704.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/06-1671.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/07-1638.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/08-1567.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/09-1461.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/10-1368.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/11-1266.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/12-1104.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/13-930.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/14-741.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/15-568.webp",
+        "https://img.manhuaus.com/image2025/manga_64fdc44a48e83/bc7276e8661d1040f7328d19fb424a85/16-429.webp"
       ]
     }
   ]

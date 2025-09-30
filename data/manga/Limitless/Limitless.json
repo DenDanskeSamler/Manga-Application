@@ -5,7 +5,7 @@
   "description": "No Limit, 무진",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/02/Limitless-175x238.webp",
   "url": "https://manhuaus.com/manga/limitless/",
-  "rank": "N/A, it has 51.8K monthly views",
+  "rank": "N/A, it has 53.4K monthly views",
   "alternative_titles": [
     "No Limit",
     "무진"
@@ -18,6 +18,16 @@
   "status": "OnGoing",
   "bookmarked": 22,
   "total_chapters": 46,
+  "latest_chapters": [
+    {
+      "number": 45,
+      "release_date": "16-11-2023"
+    },
+    {
+      "number": 46,
+      "release_date": "16-11-2023"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

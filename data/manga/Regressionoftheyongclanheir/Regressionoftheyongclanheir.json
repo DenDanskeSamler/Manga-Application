@@ -20,6 +20,16 @@
   "status": "OnGoing",
   "bookmarked": 1,
   "total_chapters": 23,
+  "latest_chapters": [
+    {
+      "number": 22.5,
+      "release_date": "14-09-2025"
+    },
+    {
+      "number": 22,
+      "release_date": "23-04-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -454,7 +464,7 @@
       ]
     },
     {
-      "number": 22,
+      "number": 22.5,
       "title": "Chapter 22.5",
       "release_date": "14-09-2025",
       "pages": [
@@ -462,7 +472,7 @@
       ]
     },
     {
-      "number": 23,
+      "number": 22,
       "title": "Chapter 22",
       "release_date": "23-04-2025",
       "pages": [

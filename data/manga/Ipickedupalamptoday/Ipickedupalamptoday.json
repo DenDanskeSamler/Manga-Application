@@ -5,7 +5,7 @@
   "description": "I Picked Up a Lamp Today Manhwa Picked Up the Lamp Today, 오늘도 램프를 주웠다",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/12/I-Picked-Up-a-Lamp-Today-175x238.webp",
   "url": "https://manhuaus.com/manga/i-picked-up-a-lamp-today/",
-  "rank": "N/A, it has 43.7K monthly views",
+  "rank": "N/A, it has 44.4K monthly views",
   "alternative_titles": [
     "Picked Up the Lamp Today",
     "오늘도 램프를 주웠다"
@@ -20,6 +20,16 @@
   "status": "OnGoing",
   "bookmarked": 8,
   "total_chapters": 15,
+  "latest_chapters": [
+    {
+      "number": 14,
+      "release_date": "14-04-2023"
+    },
+    {
+      "number": 15,
+      "release_date": "14-04-2023"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

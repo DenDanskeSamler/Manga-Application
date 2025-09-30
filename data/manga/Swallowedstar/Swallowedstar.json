@@ -21,8 +21,18 @@
     "Supernatural"
   ],
   "status": "Completed",
-  "bookmarked": 475,
+  "bookmarked": 476,
   "total_chapters": 266,
+  "latest_chapters": [
+    {
+      "number": 265,
+      "release_date": "01-07-2025"
+    },
+    {
+      "number": 266,
+      "release_date": "16-07-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

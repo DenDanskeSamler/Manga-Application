@@ -20,8 +20,18 @@
     "Shounen"
   ],
   "status": "OnGoing",
-  "bookmarked": 795,
-  "total_chapters": 261,
+  "bookmarked": 824,
+  "total_chapters": 264,
+  "latest_chapters": [
+    {
+      "number": 263,
+      "release_date": "26-09-2025"
+    },
+    {
+      "number": 264,
+      "release_date": "27-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2797,7 +2807,7 @@
     {
       "number": 259,
       "title": "Chapter 259",
-      "release_date": "18-09-2025",
+      "release_date": "17-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_638078209110536273/6623a4a8873530c0e895a825d0c94c2d/001-vert.webp",
         "https://img.manhuaus.com/image2025/manga_638078209110536273/6623a4a8873530c0e895a825d0c94c2d/018-vert.webp",
@@ -2819,8 +2829,43 @@
     {
       "number": 261,
       "title": "Chapter 261",
-      "release_date": "23-09-2025",
-      "pages": []
+      "release_date": "22-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/fd6d6811f41923006a619f54b5058464/001-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/fd6d6811f41923006a619f54b5058464/015-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/fd6d6811f41923006a619f54b5058464/030-vert.webp"
+      ]
+    },
+    {
+      "number": 262,
+      "title": "Chapter 262",
+      "release_date": "24-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/86f56abe1e7aea22d67699c6d70534ee/009-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/86f56abe1e7aea22d67699c6d70534ee/022-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/86f56abe1e7aea22d67699c6d70534ee/038-vert.webp"
+      ]
+    },
+    {
+      "number": 263,
+      "title": "Chapter 263",
+      "release_date": "26-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/7c038887cd6dde4bf8009f3c6a659f29/005-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/7c038887cd6dde4bf8009f3c6a659f29/019-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/7c038887cd6dde4bf8009f3c6a659f29/036-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638078209110536273/7c038887cd6dde4bf8009f3c6a659f29/057-vert.webp"
+      ]
+    },
+    {
+      "number": 264,
+      "title": "Chapter 264",
+      "release_date": "27-09-2025",
+      "pages": [
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_638078209110536273/3ac7e7ff81f90b99cbc1b5c96bccde0a/009-vert.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_638078209110536273/3ac7e7ff81f90b99cbc1b5c96bccde0a/023-vert.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_638078209110536273/3ac7e7ff81f90b99cbc1b5c96bccde0a/040-vert.webp"
+      ]
     }
   ]
 }

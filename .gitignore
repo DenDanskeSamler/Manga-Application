@@ -16,8 +16,7 @@ dist/
 *.log
 
 # Ignore selected folders
-manga_data/
 
-manga_log.txt
 venv/
+manga_log.txt
 .vscode/settings.json

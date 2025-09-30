@@ -21,6 +21,16 @@
   "status": "OnGoing",
   "bookmarked": 1,
   "total_chapters": 50,
+  "latest_chapters": [
+    {
+      "number": 49,
+      "release_date": "04-09-2025"
+    },
+    {
+      "number": 50,
+      "release_date": "12-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

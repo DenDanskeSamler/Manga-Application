@@ -5,7 +5,7 @@
   "description": "",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/12/Dr.-Player-175x238.webp",
   "url": "https://manhuaus.com/manga/dr-player/",
-  "rank": "N/A, it has 345.1K monthly views",
+  "rank": "N/A, it has 348.9K monthly views",
   "alternative_titles": [],
   "genres": [
     "Action",
@@ -13,8 +13,18 @@
     "Fantasy"
   ],
   "status": "OnGoing",
-  "bookmarked": 181,
+  "bookmarked": 182,
   "total_chapters": 65,
+  "latest_chapters": [
+    {
+      "number": 64,
+      "release_date": "10-10-2023"
+    },
+    {
+      "number": 65,
+      "release_date": "18-10-2023"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

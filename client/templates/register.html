@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register - MangaReader+</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<body class="auth-page">
+    <header class="site default-header">
+        <div class="wrap">
+            <div class="brand">
+                <span class="logo"></span>
+                <a href="/">MangaReader<span class="accent">+</span></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-form">
+            <h2>Create Your Account</h2>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    {{ form.username.label(class="form-label") }}
+                    {{ form.username(class="form-input") }}
+                    {% if form.username.errors %}
+                        <div class="form-errors">
+                            {% for error in form.username.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.email.label(class="form-label") }}
+                    {{ form.email(class="form-input") }}
+                    {% if form.email.errors %}
+                        <div class="form-errors">
+                            {% for error in form.email.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.password.label(class="form-label") }}
+                    {{ form.password(class="form-input") }}
+                    {% if form.password.errors %}
+                        <div class="form-errors">
+                            {% for error in form.password.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.password2.label(class="form-label") }}
+                    {{ form.password2(class="form-input") }}
+                    {% if form.password2.errors %}
+                        <div class="form-errors">
+                            {% for error in form.password2.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.submit(class="btn primary full-width") }}
+                </div>
+            </form>
+            
+            <div class="auth-links">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

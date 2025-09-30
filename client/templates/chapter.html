@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Chapter</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/static/styles/style.css">
+</head>
+
+<body>
+	<header class="site default-header">
+		<div class="wrap">
+			<div class="brand">
+				<span class="logo"></span>
+				<a href="/">MangaReader<span class="accent">+</span></a>
+			</div>
+		</div>
+	</header>
+
+	<div class="container chapter">
+		<div class="chapter-header">
+			<h1 id="mangaTitle"></h1>
+			<div class="breadcrumbs"><a href="/">Home</a> &raquo; <a id="mangaLink" href=""></a> &raquo; <span id="chapterTitle"></span></div>
+		</div>
+		<div class="nav-controls">
+			<a id="prevBtn" class="btn">Prev</a>
+			<select id="chapterSelect"></select>
+			<a id="nextBtn" class="btn">Next</a>
+		</div>
+		<div id="pages"></div>
+	<div class="nav-controls mt-20">
+			<a id="prevBtnBottom" class="btn">Prev</a>
+			<select id="chapterSelectBottom"></select>
+			<a id="nextBtnBottom" class="btn">Next</a>
+		</div>
+	</div>
+
+	<script>
+		// Parse slug & chapter number from URL path
+		const pathParts = window.location.pathname.split("/");
+		const slug = pathParts[2];
+		let chapterPart = pathParts[3];
+		let chapterNumber = 1;
+		if (chapterPart && chapterPart.startsWith("chapter-")) {
+			chapterNumber = parseInt(chapterPart.replace("chapter-", ""), 10) || 1;
+		}
+
+		const chapterSelect = document.getElementById('chapterSelect');
+		const chapterSelectBottom = document.getElementById('chapterSelectBottom');
+		const prevBtn = document.getElementById('prevBtn');
+		const nextBtn = document.getElementById('nextBtn');
+		const prevBtnBottom = document.getElementById('prevBtnBottom');
+		const nextBtnBottom = document.getElementById('nextBtnBottom');
+		const pagesContainer = document.getElementById('pages');
+		const mangaTitleEl = document.getElementById('mangaTitle');
+		const mangaLinkEl = document.getElementById('mangaLink');
+		const chapterTitleEl = document.getElementById('chapterTitle');
+
+		let chapters = [];
+		let currentIndex = 0;
+
+		// Fetch manga details for title and breadcrumbs
+		fetch(`/api/manga/${slug}`)
+			.then(r => r.json())
+			.then(data => {
+				if (data && data.title) {
+					mangaTitleEl.textContent = data.title;
+					mangaLinkEl.href = `/manga/${slug}`;
+					mangaLinkEl.textContent = data.title;
+				}
+			});
+
+		// Load chapters
+		fetch(`/api/manga/${slug}/all_chapters`)
+			.then(r => r.json())
+			.then(data => {
+				chapters = data.chapters || [];
+				if (!chapters || !chapters.length) {
+					pagesContainer.innerHTML = '<p class="muted">No chapters found.</p>';
+					return;
+				}
+
+				const chapterOptions = chapters.map((c, idx) =>
+					`<option value="${idx}">Ch. ${c.number}${c.title ? ` | ${c.title}` : ''}</option>`
+				).join('');
+				chapterSelect.innerHTML = chapterOptions;
+				chapterSelectBottom.innerHTML = chapterOptions;
+
+				currentIndex = chapters.findIndex(c => c.number === chapterNumber);
+				if (currentIndex === -1) currentIndex = 0;
+
+				// Hide/show nav buttons based on chapter index
+				if (currentIndex === 0) {
+					prevBtn.style.display = 'none';
+					prevBtnBottom.style.display = 'none';
+				}
+				if (currentIndex === chapters.length - 1) {
+					nextBtn.style.display = 'none';
+					nextBtnBottom.style.display = 'none';
+				}
+
+				chapterSelect.selectedIndex = currentIndex;
+				chapterSelectBottom.selectedIndex = currentIndex;
+
+				function navigateToChapter(index) {
+					if (index < 0 || index >= chapters.length) return;
+					const chapter = chapters[index];
+					window.location.href = `/manga/${slug}/chapter-${chapter.number}`;
+				}
+
+				function loadChapter(index) {
+					const chapter = chapters[index];
+					chapterTitleEl.textContent = `Ch. ${chapter.number}${chapter.title ? ` | ${chapter.title}` : ''}`;
+					document.title = `${mangaTitleEl.textContent} - Ch. ${chapter.number}${chapter.title ? ` | ${chapter.title}` : ''}`;
+
+					history.replaceState(null, '', `/manga/${slug}/chapter-${chapter.number}`);
+					pagesContainer.innerHTML = '<p class="muted">Loading pages...</p>';
+
+					// Preload images
+					let loadedImages = 0;
+					const imageElements = chapter.pages.map(p => {
+						const img = new Image();
+						img.src = p;
+						img.onload = () => {
+							loadedImages++;
+							if (loadedImages === chapter.pages.length) {
+								pagesContainer.innerHTML = chapter.pages.map(pageSrc => `<img src="${pageSrc}" alt="Page">`).join('');
+							}
+						};
+						return img;
+					});
+
+					chapterSelect.selectedIndex = currentIndex;
+					chapterSelectBottom.selectedIndex = currentIndex;
+					window.scrollTo({ top: 0 });
+				
+					// If user is logged in, add a "Bookmark this chapter" control
+					{% if current_user.is_authenticated %}
+					const bookmarkChapterBtn = document.createElement('button');
+					bookmarkChapterBtn.className = 'btn secondary mt-10';
+					bookmarkChapterBtn.id = 'bookmarkChapterBtn';
+					bookmarkChapterBtn.textContent = 'Bookmark this chapter';
+					document.querySelector('.nav-controls').appendChild(bookmarkChapterBtn);
+
+					bookmarkChapterBtn.addEventListener('click', async () => {
+						const chapter = chapters[currentIndex];
+						try {
+							const resp = await fetch(`/api/bookmark/${slug}`, {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({ chapter_number: chapter.number, chapter_title: chapter.title })
+							});
+							if (resp.ok) {
+								alert('Chapter bookmarked');
+							} else {
+								const j = await resp.json().catch(() => ({}));
+								alert('Failed to bookmark chapter: ' + (j.status || resp.status));
+							}
+						} catch (err) {
+							alert('Error bookmarking chapter');
+						}
+					});
+					{% endif %}
+				}
+
+				prevBtn.onclick = () => navigateToChapter(currentIndex - 1);
+				nextBtn.onclick = () => navigateToChapter(currentIndex + 1);
+				chapterSelect.onchange = () => navigateToChapter(parseInt(chapterSelect.value));
+
+				prevBtnBottom.onclick = () => navigateToChapter(currentIndex - 1);
+				nextBtnBottom.onclick = () => navigateToChapter(currentIndex + 1);
+				chapterSelectBottom.onchange = () => navigateToChapter(parseInt(chapterSelectBottom.value));
+
+				loadChapter(currentIndex);
+			})
+			.catch(() => {
+				pagesContainer.innerHTML = '<p class="muted">Failed to load chapters.</p>';
+			});
+	</script>
+</body>
+
+</html>

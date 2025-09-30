@@ -5,7 +5,7 @@
   "description": "Dungeon Odyssey Manhwa The descendants of mankind, born in the labyrinth and raised on the milk of monsters, possessed special strength and strong bodies. When they returned to earth, mankind referred to them as dungeon babies. Among them, Kim Jinwoo was born in the deepest labyrinth. “I never tried to become strong, I just wanted to live.” From the lowliest excavator to the king of the labyrinth, his life story is now unfolding. Dungeon Experience Book, 던전 견문록, Deonjeon Gyeonmunnok, Records of Dungeon Travel, 地下城見聞錄",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/09/dungeon-odyssey-175x238.jpg",
   "url": "https://manhuaus.com/manga/dungeon-odyssey/",
-  "rank": "N/A, it has 1M monthly view",
+  "rank": "N/A, it has 1.1M monthly view",
   "alternative_titles": [
     "Dungeon Experience Book",
     "던전 견문록",
@@ -20,8 +20,18 @@
     "Shounen"
   ],
   "status": "OnGoing",
-  "bookmarked": 896,
-  "total_chapters": 128,
+  "bookmarked": 0,
+  "total_chapters": 129,
+  "latest_chapters": [
+    {
+      "number": 128,
+      "release_date": "19-09-2025"
+    },
+    {
+      "number": 129,
+      "release_date": "26-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2692,6 +2702,24 @@
         "https://img.manhuaus.com/image2025/manga_637999056402109455/77ce488f9f4cc60f6fd23ecf74d4c07d/012.webp",
         "https://img.manhuaus.com/image2025/manga_637999056402109455/77ce488f9f4cc60f6fd23ecf74d4c07d/013.webp",
         "https://img.manhuaus.com/image2025/manga_637999056402109455/77ce488f9f4cc60f6fd23ecf74d4c07d/014.webp"
+      ]
+    },
+    {
+      "number": 129,
+      "title": "Chapter 129",
+      "release_date": "26-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/001.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/002.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/003.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/004.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/005.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/006.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/007.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/008.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/009.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/010.webp",
+        "https://img.manhuaus.com/image2025/manga_637999056402109455/54661975aaddc0e8e2422aac3d73903f/011.webp"
       ]
     }
   ]

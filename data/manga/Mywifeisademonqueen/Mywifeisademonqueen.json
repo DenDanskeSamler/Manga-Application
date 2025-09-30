@@ -18,8 +18,18 @@
     "Webtoon"
   ],
   "status": "OnGoing",
-  "bookmarked": 759,
+  "bookmarked": 763,
   "total_chapters": 460,
+  "latest_chapters": [
+    {
+      "number": 459,
+      "release_date": "27-08-2023"
+    },
+    {
+      "number": 460,
+      "release_date": "05-09-2023"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

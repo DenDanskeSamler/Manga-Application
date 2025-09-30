@@ -23,6 +23,16 @@
   "status": "Completed",
   "bookmarked": 1,
   "total_chapters": 121,
+  "latest_chapters": [
+    {
+      "number": 118.5,
+      "release_date": "13-03-2024"
+    },
+    {
+      "number": 118,
+      "release_date": "23-02-2024"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -1360,7 +1370,7 @@
       ]
     },
     {
-      "number": 58,
+      "number": 58.5,
       "title": "Chapter 58.5",
       "release_date": "11-10-2022",
       "pages": [
@@ -1372,7 +1382,7 @@
       ]
     },
     {
-      "number": 59,
+      "number": 58,
       "title": "Chapter 58",
       "release_date": "02-10-2022",
       "pages": [
@@ -1398,7 +1408,7 @@
       ]
     },
     {
-      "number": 60,
+      "number": 59,
       "title": "Chapter 59",
       "release_date": "13-10-2022",
       "pages": [
@@ -1427,7 +1437,7 @@
       ]
     },
     {
-      "number": 61,
+      "number": 60,
       "title": "Chapter 60",
       "release_date": "21-10-2022",
       "pages": [
@@ -1457,7 +1467,7 @@
       ]
     },
     {
-      "number": 62,
+      "number": 61,
       "title": "Chapter 61",
       "release_date": "03-11-2022",
       "pages": [
@@ -1491,7 +1501,7 @@
       ]
     },
     {
-      "number": 63,
+      "number": 62,
       "title": "Chapter 62",
       "release_date": "11-11-2022",
       "pages": [
@@ -1523,7 +1533,7 @@
       ]
     },
     {
-      "number": 64,
+      "number": 63,
       "title": "Chapter 63",
       "release_date": "17-11-2022",
       "pages": [
@@ -1549,7 +1559,7 @@
       ]
     },
     {
-      "number": 65,
+      "number": 64,
       "title": "Chapter 64",
       "release_date": "24-11-2022",
       "pages": [
@@ -1580,7 +1590,7 @@
       ]
     },
     {
-      "number": 66,
+      "number": 65,
       "title": "Chapter 65",
       "release_date": "28-11-2022",
       "pages": [
@@ -1600,7 +1610,7 @@
       ]
     },
     {
-      "number": 67,
+      "number": 66,
       "title": "Chapter 66",
       "release_date": "04-12-2022",
       "pages": [
@@ -1633,7 +1643,7 @@
       ]
     },
     {
-      "number": 68,
+      "number": 67.5,
       "title": "Chapter 67.5",
       "release_date": "16-12-2022",
       "pages": [
@@ -1641,7 +1651,7 @@
       ]
     },
     {
-      "number": 69,
+      "number": 67,
       "title": "Chapter 67",
       "release_date": "11-12-2022",
       "pages": [
@@ -1673,7 +1683,7 @@
       ]
     },
     {
-      "number": 70,
+      "number": 68,
       "title": "Chapter 68",
       "release_date": "22-12-2022",
       "pages": [
@@ -1701,7 +1711,7 @@
       ]
     },
     {
-      "number": 71,
+      "number": 69,
       "title": "Chapter 69",
       "release_date": "30-12-2022",
       "pages": [
@@ -1725,7 +1735,7 @@
       ]
     },
     {
-      "number": 72,
+      "number": 70,
       "title": "Chapter 70",
       "release_date": "02-01-2023",
       "pages": [
@@ -1750,7 +1760,7 @@
       ]
     },
     {
-      "number": 73,
+      "number": 71,
       "title": "Chapter 71",
       "release_date": "09-01-2023",
       "pages": [
@@ -1774,7 +1784,7 @@
       ]
     },
     {
-      "number": 74,
+      "number": 72,
       "title": "Chapter 72",
       "release_date": "17-01-2023",
       "pages": [
@@ -1800,7 +1810,7 @@
       ]
     },
     {
-      "number": 75,
+      "number": 73,
       "title": "Chapter 73",
       "release_date": "03-02-2023",
       "pages": [
@@ -1830,7 +1840,7 @@
       ]
     },
     {
-      "number": 76,
+      "number": 74,
       "title": "Chapter 74",
       "release_date": "09-02-2023",
       "pages": [
@@ -1855,7 +1865,7 @@
       ]
     },
     {
-      "number": 77,
+      "number": 75,
       "title": "Chapter 75",
       "release_date": "17-02-2023",
       "pages": [
@@ -1885,7 +1895,7 @@
       ]
     },
     {
-      "number": 78,
+      "number": 76,
       "title": "Chapter 76",
       "release_date": "27-02-2023",
       "pages": [
@@ -1914,7 +1924,7 @@
       ]
     },
     {
-      "number": 79,
+      "number": 77,
       "title": "Chapter 77",
       "release_date": "07-03-2023",
       "pages": [
@@ -1940,7 +1950,7 @@
       ]
     },
     {
-      "number": 80,
+      "number": 78,
       "title": "Chapter 78",
       "release_date": "13-03-2023",
       "pages": [
@@ -1960,7 +1970,7 @@
       ]
     },
     {
-      "number": 81,
+      "number": 79,
       "title": "Chapter 79",
       "release_date": "19-03-2023",
       "pages": [
@@ -1985,7 +1995,7 @@
       ]
     },
     {
-      "number": 82,
+      "number": 80,
       "title": "Chapter 80",
       "release_date": "27-03-2023",
       "pages": [
@@ -2009,7 +2019,7 @@
       ]
     },
     {
-      "number": 83,
+      "number": 81,
       "title": "Chapter 81",
       "release_date": "06-04-2023",
       "pages": [
@@ -2029,7 +2039,7 @@
       ]
     },
     {
-      "number": 84,
+      "number": 82,
       "title": "Chapter 82",
       "release_date": "06-04-2023",
       "pages": [
@@ -2049,7 +2059,7 @@
       ]
     },
     {
-      "number": 85,
+      "number": 83,
       "title": "Chapter 83",
       "release_date": "14-04-2023",
       "pages": [
@@ -2072,7 +2082,7 @@
       ]
     },
     {
-      "number": 86,
+      "number": 84,
       "title": "Chapter 84",
       "release_date": "21-04-2023",
       "pages": [
@@ -2099,7 +2109,7 @@
       ]
     },
     {
-      "number": 87,
+      "number": 85,
       "title": "Chapter 85",
       "release_date": "28-04-2023",
       "pages": [
@@ -2121,7 +2131,7 @@
       ]
     },
     {
-      "number": 88,
+      "number": 86,
       "title": "Chapter 86",
       "release_date": "12-05-2023",
       "pages": [
@@ -2149,7 +2159,7 @@
       ]
     },
     {
-      "number": 89,
+      "number": 87,
       "title": "Chapter 87",
       "release_date": "19-05-2023",
       "pages": [
@@ -2175,7 +2185,7 @@
       ]
     },
     {
-      "number": 90,
+      "number": 88,
       "title": "Chapter 88",
       "release_date": "01-06-2023",
       "pages": [
@@ -2203,7 +2213,7 @@
       ]
     },
     {
-      "number": 91,
+      "number": 89,
       "title": "Chapter 89",
       "release_date": "08-06-2023",
       "pages": [
@@ -2227,7 +2237,7 @@
       ]
     },
     {
-      "number": 92,
+      "number": 90,
       "title": "Chapter 90",
       "release_date": "12-06-2023",
       "pages": [
@@ -2250,7 +2260,7 @@
       ]
     },
     {
-      "number": 93,
+      "number": 91,
       "title": "Chapter 91",
       "release_date": "19-06-2023",
       "pages": [
@@ -2277,7 +2287,7 @@
       ]
     },
     {
-      "number": 94,
+      "number": 92,
       "title": "Chapter 92",
       "release_date": "01-07-2023",
       "pages": [
@@ -2306,7 +2316,7 @@
       ]
     },
     {
-      "number": 95,
+      "number": 93,
       "title": "Chapter 93",
       "release_date": "10-07-2023",
       "pages": [
@@ -2332,7 +2342,7 @@
       ]
     },
     {
-      "number": 96,
+      "number": 94,
       "title": "Chapter 94",
       "release_date": "22-07-2023",
       "pages": [
@@ -2361,7 +2371,7 @@
       ]
     },
     {
-      "number": 97,
+      "number": 95,
       "title": "Chapter 95",
       "release_date": "27-07-2023",
       "pages": [
@@ -2378,7 +2388,7 @@
       ]
     },
     {
-      "number": 98,
+      "number": 96,
       "title": "Chapter 96",
       "release_date": "04-08-2023",
       "pages": [
@@ -2406,7 +2416,7 @@
       ]
     },
     {
-      "number": 99,
+      "number": 97,
       "title": "Chapter 97",
       "release_date": "14-08-2023",
       "pages": [
@@ -2433,7 +2443,7 @@
       ]
     },
     {
-      "number": 100,
+      "number": 98,
       "title": "Chapter 98",
       "release_date": "24-08-2023",
       "pages": [
@@ -2457,7 +2467,7 @@
       ]
     },
     {
-      "number": 101,
+      "number": 99,
       "title": "Chapter 99",
       "release_date": "04-09-2023",
       "pages": [
@@ -2490,7 +2500,7 @@
       ]
     },
     {
-      "number": 102,
+      "number": 100,
       "title": "Chapter 100",
       "release_date": "11-09-2023",
       "pages": [
@@ -2514,7 +2524,7 @@
       ]
     },
     {
-      "number": 103,
+      "number": 101,
       "title": "Chapter 101",
       "release_date": "16-09-2023",
       "pages": [
@@ -2536,7 +2546,7 @@
       ]
     },
     {
-      "number": 104,
+      "number": 102,
       "title": "Chapter 102",
       "release_date": "22-09-2023",
       "pages": [
@@ -2558,7 +2568,7 @@
       ]
     },
     {
-      "number": 105,
+      "number": 103,
       "title": "Chapter 103",
       "release_date": "11-10-2023",
       "pages": [
@@ -2581,7 +2591,7 @@
       ]
     },
     {
-      "number": 106,
+      "number": 104,
       "title": "Chapter 104",
       "release_date": "18-10-2023",
       "pages": [
@@ -2612,7 +2622,7 @@
       ]
     },
     {
-      "number": 107,
+      "number": 105,
       "title": "Chapter 105",
       "release_date": "30-10-2023",
       "pages": [
@@ -2636,7 +2646,7 @@
       ]
     },
     {
-      "number": 108,
+      "number": 106,
       "title": "Chapter 106",
       "release_date": "13-11-2023",
       "pages": [
@@ -2664,7 +2674,7 @@
       ]
     },
     {
-      "number": 109,
+      "number": 107,
       "title": "Chapter 107",
       "release_date": "23-11-2023",
       "pages": [
@@ -2685,7 +2695,7 @@
       ]
     },
     {
-      "number": 110,
+      "number": 108,
       "title": "Chapter 108",
       "release_date": "27-11-2023",
       "pages": [
@@ -2709,7 +2719,7 @@
       ]
     },
     {
-      "number": 111,
+      "number": 109,
       "title": "Chapter 109",
       "release_date": "07-12-2023",
       "pages": [
@@ -2733,7 +2743,7 @@
       ]
     },
     {
-      "number": 112,
+      "number": 110,
       "title": "Chapter 110",
       "release_date": "15-12-2023",
       "pages": [
@@ -2757,7 +2767,7 @@
       ]
     },
     {
-      "number": 113,
+      "number": 111,
       "title": "Chapter 111",
       "release_date": "18-12-2023",
       "pages": [
@@ -2777,7 +2787,7 @@
       ]
     },
     {
-      "number": 114,
+      "number": 112,
       "title": "Chapter 112",
       "release_date": "25-12-2023",
       "pages": [
@@ -2799,7 +2809,7 @@
       ]
     },
     {
-      "number": 115,
+      "number": 113,
       "title": "Chapter 113",
       "release_date": "29-12-2023",
       "pages": [
@@ -2819,7 +2829,7 @@
       ]
     },
     {
-      "number": 116,
+      "number": 114,
       "title": "Chapter 114",
       "release_date": "12-01-2024",
       "pages": [
@@ -2846,7 +2856,7 @@
       ]
     },
     {
-      "number": 117,
+      "number": 115,
       "title": "Chapter 115",
       "release_date": "15-01-2024",
       "pages": [
@@ -2873,7 +2883,7 @@
       ]
     },
     {
-      "number": 118,
+      "number": 116,
       "title": "Chapter 116",
       "release_date": "25-01-2024",
       "pages": [
@@ -2902,7 +2912,7 @@
       ]
     },
     {
-      "number": 119,
+      "number": 117,
       "title": "Chapter 117",
       "release_date": "02-02-2024",
       "pages": [
@@ -2928,7 +2938,7 @@
       ]
     },
     {
-      "number": 120,
+      "number": 118.5,
       "title": "Chapter 118.5",
       "release_date": "13-03-2024",
       "pages": [
@@ -2936,7 +2946,7 @@
       ]
     },
     {
-      "number": 121,
+      "number": 118,
       "title": "Chapter 118",
       "release_date": "23-02-2024",
       "pages": [

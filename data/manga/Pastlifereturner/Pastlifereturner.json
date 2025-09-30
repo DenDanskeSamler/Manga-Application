@@ -5,7 +5,7 @@
   "description": "Reincarnator (2022), 전생자 (2022), Past Life Regressor",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/12/Past-Life-Returner-175x238.webp",
   "url": "https://manhuaus.com/manga/past-life-returner/",
-  "rank": "N/A, it has 2M monthly views",
+  "rank": "N/A, it has 2.1M monthly views",
   "alternative_titles": [
     "Past Life Returner",
     "Reincarnator (2022)",
@@ -20,7 +20,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 138,
+  "total_chapters": 139,
+  "latest_chapters": [
+    {
+      "number": 138,
+      "release_date": "11-09-2025"
+    },
+    {
+      "number": 139,
+      "release_date": "23-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -3716,6 +3726,34 @@
         "https://img.manhuaus.com/image2025/manga_638060468612636259/286c10276b7da8416aac85f334dec54e/011.webp",
         "https://img.manhuaus.com/image2025/manga_638060468612636259/286c10276b7da8416aac85f334dec54e/012.webp",
         "https://img.manhuaus.com/image2025/manga_638060468612636259/286c10276b7da8416aac85f334dec54e/013.webp"
+      ]
+    },
+    {
+      "number": 139,
+      "title": "Chapter 139",
+      "release_date": "23-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/001.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/002.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/003.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/004.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/005.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/006.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/007.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/008.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/009.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/010.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/011.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/012.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/013.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/014.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/015.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/016.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/017.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/018.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/019.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/020.webp",
+        "https://img.manhuaus.com/image2025/manga_638060468612636259/c2be8011540f039b47577db0eaf20954/021.webp"
       ]
     }
   ]

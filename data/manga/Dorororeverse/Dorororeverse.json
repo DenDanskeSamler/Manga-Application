@@ -5,7 +5,7 @@
   "description": "도로로 Re:Verse Dororo Re:Verse",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/12/Dororo-Re-Verse-175x238.webp",
   "url": "https://manhuaus.com/manga/dororo-reverse/",
-  "rank": "N/A, it has 38.1K monthly views",
+  "rank": "N/A, it has 38.8K monthly views",
   "alternative_titles": [
     "Dororo Re:Verse",
     "도로로 Re:Verse"
@@ -14,6 +14,16 @@
   "status": "OnGoing",
   "bookmarked": 10,
   "total_chapters": 32,
+  "latest_chapters": [
+    {
+      "number": 31,
+      "release_date": "05-07-2023"
+    },
+    {
+      "number": 32,
+      "release_date": "05-07-2023"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

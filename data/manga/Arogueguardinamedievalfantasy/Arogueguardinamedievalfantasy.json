@@ -20,8 +20,18 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 711,
+  "bookmarked": 708,
   "total_chapters": 28,
+  "latest_chapters": [
+    {
+      "number": 27,
+      "release_date": "09-03-2025"
+    },
+    {
+      "number": 28,
+      "release_date": "26-03-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

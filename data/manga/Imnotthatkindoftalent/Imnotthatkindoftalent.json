@@ -5,7 +5,7 @@
   "description": "I’m Not That Kind of Talent Manhwa I’m not that kind of person. I, Dion Hart, am a sickly person who vomits blood whenever I’m stressed. However, at the same time, I’m Count Hart, who has somehow been misunderstood and thought of as a strong person, and thereby feared by everyone. 저 그런 인재 아닙니다",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/11/Im-Not-That-Kind-of-Talent-175x238.webp",
   "url": "https://manhuaus.com/manga/im-not-that-kind-of-talent/",
-  "rank": "N/A, it has 1.3M monthly view",
+  "rank": "N/A, it has 1.4M monthly view",
   "alternative_titles": [
     "저 그런 인재 아닙니다"
   ],
@@ -15,8 +15,18 @@
     "Fantasy"
   ],
   "status": "OnGoing",
-  "bookmarked": 564,
+  "bookmarked": 577,
   "total_chapters": 100,
+  "latest_chapters": [
+    {
+      "number": 99,
+      "release_date": "15-09-2025"
+    },
+    {
+      "number": 100,
+      "release_date": "23-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2627,7 +2637,23 @@
       "number": 100,
       "title": "Chapter 100",
       "release_date": "23-09-2025",
-      "pages": []
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/02.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/03.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/04.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/05.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/06.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/07.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/08.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/09.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/10.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/11.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/12.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/13.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/14.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/15.webp",
+        "https://img.manhuaus.com/image2025/manga_638046671569810306/18cf78a8b23ffa845c70f4a0a4a3367a/16.webp"
+      ]
     }
   ]
 }

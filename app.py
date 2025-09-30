@@ -1,114 +1,29 @@
-import json
+#!/usr/bin/env python3
+"""
+Main entry point for the Manga Application.
+This file imports the Flask app from the server directory.
+"""
+
+import sys
+import os
 from pathlib import Path
-from flask import Flask, render_template, jsonify, send_file
+from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).parent.resolve()
-STATIC_DIR = BASE_DIR / "static"
-TEMPLATE_DIR = STATIC_DIR / "templates"   # <-- new: real templates folder
+# Add the project root to the Python path
+project_root = Path(__file__).parent
+sys.path.insert(0, str(project_root))
 
-app = Flask(
-    __name__,
-    static_folder=str(STATIC_DIR),
-    template_folder=str(TEMPLATE_DIR),
-    static_url_path="/static"
-)
+# Load environment variables from .env if present
+load_dotenv(project_root / '.env')
 
-# --- Page routes ---
-@app.get("/")
-@app.get("/page-<int:page_num>")
-def root(page_num=1):
-    """Renders the homepage with pagination."""
-    return render_template("index.html", current_page=page_num)
-
-@app.get("/manga/<slug>")
-def manga_page(slug):
-    return render_template("manga.html", slug=slug)
-
-@app.get("/manga/<slug>/chapter-<int:chapter_num>")
-def chapter_page(slug, chapter_num):
-    return render_template("chapter.html", slug=slug, chapter_num=chapter_num)
-
-
-# --- Catalog and manga APIs ---
-@app.get("/api/catalog")
-def api_catalog():
-    catalog_path = BASE_DIR / "data" / "catalog.json"
-    if not catalog_path.exists():
-        return jsonify([])
-
-    try:
-        data = json.loads(catalog_path.read_text(encoding="utf-8"))
-        for manga in data:
-            chapters = manga.get("chapters", [])
-            manga["latest_chapter"] = max((c.get("number", 0) for c in chapters), default=0)
-        return jsonify(data)
-    except Exception:
-        return jsonify([])
-
-
-@app.get("/api/manga/<slug>")
-def api_manga(slug: str):
-    catalog_path = BASE_DIR / "data" / "catalog.json"
-    try:
-        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-    except Exception:
-        return jsonify({}), 404
-
-    manga_entry = next((m for m in catalog if m["slug"] == slug), None)
-    if not manga_entry:
-        return jsonify({}), 404
-
-    folder_name = "".join([c for c in slug if c.isalnum()]).title()
-    manga_file = BASE_DIR / "data" / "manga" / folder_name / f"{folder_name}.json"
-    if not manga_file.exists():
-        return jsonify({}), 404
-
-    try:
-        return jsonify(json.loads(manga_file.read_text(encoding="utf-8")))
-    except Exception:
-        return jsonify({}), 404
-
-
-@app.get("/api/manga/<slug>/all_chapters")
-def api_manga_all_chapters(slug: str):
-    folder_name = "".join(c for c in slug if c.isalnum()).title()
-    manga_file = BASE_DIR / "data" / "manga" / folder_name / f"{folder_name}.json"
-
-    if not manga_file.exists():
-        return jsonify({}), 404
-
-    try:
-        data = json.loads(manga_file.read_text(encoding="utf-8"))
-        for chapter in data.get("chapters", []):
-            if "pages" in chapter:
-                fixed_pages = []
-                for p in chapter["pages"]:
-                    if p.startswith(("http://", "https://")):
-                        fixed_pages.append(p)
-                    else:
-                        fixed_pages.append(f"/Manga/{slug}/{p.lstrip('/')}")
-                chapter["pages"] = fixed_pages
-        return jsonify(data)
-    except Exception as e:
-        print("Error loading chapters:", e)
-        return jsonify({}), 500
-
-
-# --- Serve local manga images ---
-@app.route("/Manga/<slug>/<path:filename>")
-def serve_manga_images(slug, filename):
-    manga_dir = STATIC_DIR / "Manga" / slug
-    path = (manga_dir / filename).resolve()
-
-    if not str(path).startswith(str(manga_dir.resolve())):
-        return "Not allowed", 403
-    if not path.exists():
-        return "Not found", 404
-
-    return send_file(path)
-
+# Import the Flask app from the server directory
+from server.app import app
 
 if __name__ == "__main__":
-    print(f"[server] Static dir: {STATIC_DIR}")
-    print(f"[server] Template dir: {TEMPLATE_DIR}")
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    # Read runtime configuration from environment (or fall back to sensible defaults)
+    host = os.environ.get('FLASK_HOST', '127.0.0.1')
+    port = int(os.environ.get('FLASK_PORT', os.environ.get('PORT', '8000')))
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+
+    # Start the Flask app with explicit host/port so environment settings are honored
+    app.run(host=host, port=port, debug=debug_mode)

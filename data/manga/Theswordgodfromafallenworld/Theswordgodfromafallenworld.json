@@ -5,7 +5,7 @@
   "description": "The Sword God From a Fallen World Manhwa The world has ended. A realm consumed by death and despair. And the man who fought until the very end—the Sword God, Karserian Le Vandein. But as if guided by fate, a door to another world opened. Beyond it lay Earth, still pristine, untouched… The Sword God from a Ruined World, 멸망한 세계에서 온 검신",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2025/06/The-Sword-God-from-a-Ruined-World-175x238.webp",
   "url": "https://manhuaus.com/manga/the-sword-god-from-a-fallen-world/",
-  "rank": "N/A, it has 4.2M monthly views",
+  "rank": "N/A, it has 4.3M monthly views",
   "alternative_titles": [
     "The Sword God from a Ruined World",
     "멸망한 세계에서 온 검신"
@@ -20,6 +20,16 @@
   "status": "OnGoing",
   "bookmarked": 2,
   "total_chapters": 33,
+  "latest_chapters": [
+    {
+      "number": 32,
+      "release_date": "09-09-2025"
+    },
+    {
+      "number": 33,
+      "release_date": "22-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -747,8 +757,23 @@
     {
       "number": 33,
       "title": "Chapter 33",
-      "release_date": "23-09-2025",
-      "pages": []
+      "release_date": "22-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/001.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/002.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/003.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/004.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/005.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/006.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/007.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/008.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/009.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/010.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/011.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/012.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/013.webp",
+        "https://img.manhuaus.com/image2025/manga_683dd674870d5/e50f2631299ca9b21e6591774666b65c/014.webp"
+      ]
     }
   ]
 }

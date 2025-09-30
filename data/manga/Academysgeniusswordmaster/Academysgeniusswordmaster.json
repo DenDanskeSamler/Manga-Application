@@ -5,7 +5,7 @@
   "description": "Academy’s Genuis Swordmaster Manhwa Ronan lived a wasteful life filled with regrets. A second chance befalls him at the end of his futile life. He went back to the time when he was a ten-year-old child! For the people who sacrificed themselves for him, he becomes determined to live a new life. 아카데미의 천재칼잡이, Academy’s Genius Swordsman",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/07/Academys-Genuis-Swordmaster-175x238.webp",
   "url": "https://manhuaus.com/manga/academys-genuis-swordmaster/",
-  "rank": "62nd, it has 4.1M monthly views",
+  "rank": "61st, it has 4.1M monthly views",
   "alternative_titles": [
     "Academy’s Genuis Swordmaster",
     "아카데미의 천재칼잡이"
@@ -19,7 +19,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 3,
-  "total_chapters": 119,
+  "total_chapters": 120,
+  "latest_chapters": [
+    {
+      "number": 119,
+      "release_date": "21-09-2025"
+    },
+    {
+      "number": 120,
+      "release_date": "28-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2560,7 +2570,7 @@
     {
       "number": 119,
       "title": "Chapter 119",
-      "release_date": "20-09-2025",
+      "release_date": "21-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_64c514083f4b7/fbe846619be509e4857c9390e25df1d5/001.webp",
         "https://img.manhuaus.com/image2025/manga_64c514083f4b7/fbe846619be509e4857c9390e25df1d5/003.webp",
@@ -2574,6 +2584,25 @@
         "https://img.manhuaus.com/image2025/manga_64c514083f4b7/fbe846619be509e4857c9390e25df1d5/017.webp",
         "https://img.manhuaus.com/image2025/manga_64c514083f4b7/fbe846619be509e4857c9390e25df1d5/018.webp",
         "https://img.manhuaus.com/image2025/manga_64c514083f4b7/fbe846619be509e4857c9390e25df1d5/019.webp"
+      ]
+    },
+    {
+      "number": 120,
+      "title": "Chapter 120",
+      "release_date": "28-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/001.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/003.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/005.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/007.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/009.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/011.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/013.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/015.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/016.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/017.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/018.webp",
+        "https://img.manhuaus.com/image2025/manga_64c514083f4b7/dcc61a811861677093c5c04fbee26372/019.webp"
       ]
     }
   ]

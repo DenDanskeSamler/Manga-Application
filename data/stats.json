@@ -1,0 +1,166 @@
+{
+  "manga_count": 1222,
+  "chapter_count": 137584,
+  "genres": [
+    {
+      "name": "Action",
+      "count": 1142
+    },
+    {
+      "name": "Fantasy",
+      "count": 1022
+    },
+    {
+      "name": "Adventure",
+      "count": 718
+    },
+    {
+      "name": "Martial Arts",
+      "count": 717
+    },
+    {
+      "name": "Drama",
+      "count": 683
+    },
+    {
+      "name": "Shounen",
+      "count": 506
+    },
+    {
+      "name": "Manhua",
+      "count": 149
+    },
+    {
+      "name": "Comedy",
+      "count": 144
+    },
+    {
+      "name": "Harem",
+      "count": 113
+    },
+    {
+      "name": "Supernatural",
+      "count": 106
+    },
+    {
+      "name": "Romance",
+      "count": 99
+    },
+    {
+      "name": "Historical",
+      "count": 94
+    },
+    {
+      "name": "School Life",
+      "count": 43
+    },
+    {
+      "name": "Sci-fi",
+      "count": 38
+    },
+    {
+      "name": "Seinen",
+      "count": 38
+    },
+    {
+      "name": "Horror",
+      "count": 34
+    },
+    {
+      "name": "Mystery",
+      "count": 30
+    },
+    {
+      "name": "Webtoon",
+      "count": 29
+    },
+    {
+      "name": "Ecchi",
+      "count": 28
+    },
+    {
+      "name": "Comic",
+      "count": 22
+    },
+    {
+      "name": "Cartoon",
+      "count": 21
+    },
+    {
+      "name": "Psychological",
+      "count": 12
+    },
+    {
+      "name": "Shoujo",
+      "count": 12
+    },
+    {
+      "name": "Slice of Life",
+      "count": 10
+    },
+    {
+      "name": "Tragedy",
+      "count": 5
+    },
+    {
+      "name": "Live action",
+      "count": 4
+    },
+    {
+      "name": "Mecha",
+      "count": 4
+    },
+    {
+      "name": "Doujinshi",
+      "count": 2
+    },
+    {
+      "name": "Gender Bender",
+      "count": 2
+    },
+    {
+      "name": "Manhwa",
+      "count": 2
+    },
+    {
+      "name": "Shounen Ai",
+      "count": 2
+    },
+    {
+      "name": "Adult",
+      "count": 1
+    },
+    {
+      "name": "Josei",
+      "count": 1
+    },
+    {
+      "name": "Manga",
+      "count": 1
+    },
+    {
+      "name": "Mature",
+      "count": 1
+    },
+    {
+      "name": "Parody",
+      "count": 1
+    },
+    {
+      "name": "Science Fiction",
+      "count": 1
+    },
+    {
+      "name": "Smut",
+      "count": 1
+    },
+    {
+      "name": "Sports",
+      "count": 1
+    },
+    {
+      "name": "Superhero",
+      "count": 1
+    }
+  ]
+}

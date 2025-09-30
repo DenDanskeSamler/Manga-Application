@@ -5,7 +5,7 @@
   "description": "Heaven’s Devourer Manhua 我独自吞天噬地, I Devour The Heaven And Earth",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/01/heaven-s-devourer-175x238.webp",
   "url": "https://manhuaus.com/manga/heavens-devourer/",
-  "rank": "N/A, it has 91.3K monthly views",
+  "rank": "N/A, it has 92.7K monthly views",
   "alternative_titles": [
     "我独自吞天噬地",
     "I Devour The Heaven And Earth"
@@ -17,11 +17,21 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 64,
+  "bookmarked": 65,
   "total_chapters": 17,
+  "latest_chapters": [
+    {
+      "number": 15,
+      "release_date": "07-05-2023"
+    },
+    {
+      "number": 16,
+      "release_date": "09-05-2023"
+    }
+  ],
   "chapters": [
     {
-      "number": 1,
+      "number": 0,
       "title": "Chapter 0",
       "release_date": "14-01-2023",
       "pages": [
@@ -37,7 +47,7 @@
       ]
     },
     {
-      "number": 2,
+      "number": 1,
       "title": "Chapter 1",
       "release_date": "14-02-2023",
       "pages": [
@@ -69,7 +79,7 @@
       ]
     },
     {
-      "number": 3,
+      "number": 2,
       "title": "Chapter 2",
       "release_date": "15-02-2023",
       "pages": [
@@ -107,7 +117,7 @@
       ]
     },
     {
-      "number": 4,
+      "number": 3,
       "title": "Chapter 3",
       "release_date": "15-02-2023",
       "pages": [
@@ -144,7 +154,7 @@
       ]
     },
     {
-      "number": 5,
+      "number": 4,
       "title": "Chapter 4",
       "release_date": "21-02-2023",
       "pages": [
@@ -171,7 +181,7 @@
       ]
     },
     {
-      "number": 6,
+      "number": 5,
       "title": "Chapter 5",
       "release_date": "28-02-2023",
       "pages": [
@@ -201,7 +211,7 @@
       ]
     },
     {
-      "number": 7,
+      "number": 6,
       "title": "Chapter 6",
       "release_date": "08-03-2023",
       "pages": [
@@ -229,7 +239,7 @@
       ]
     },
     {
-      "number": 8,
+      "number": 7,
       "title": "Chapter 7",
       "release_date": "16-03-2023",
       "pages": [
@@ -253,7 +263,7 @@
       ]
     },
     {
-      "number": 9,
+      "number": 8,
       "title": "Chapter 8",
       "release_date": "22-03-2023",
       "pages": [
@@ -277,7 +287,7 @@
       ]
     },
     {
-      "number": 10,
+      "number": 9,
       "title": "Chapter 9",
       "release_date": "01-04-2023",
       "pages": [
@@ -302,7 +312,7 @@
       ]
     },
     {
-      "number": 11,
+      "number": 10,
       "title": "Chapter 10",
       "release_date": "05-04-2023",
       "pages": [
@@ -327,7 +337,7 @@
       ]
     },
     {
-      "number": 12,
+      "number": 11,
       "title": "Chapter 11",
       "release_date": "13-04-2023",
       "pages": [
@@ -354,7 +364,7 @@
       ]
     },
     {
-      "number": 13,
+      "number": 12,
       "title": "Chapter 12",
       "release_date": "19-04-2023",
       "pages": [
@@ -382,7 +392,7 @@
       ]
     },
     {
-      "number": 14,
+      "number": 13,
       "title": "Chapter 13",
       "release_date": "29-04-2023",
       "pages": [
@@ -410,7 +420,7 @@
       ]
     },
     {
-      "number": 15,
+      "number": 14,
       "title": "Chapter 14",
       "release_date": "06-05-2023",
       "pages": [
@@ -438,7 +448,7 @@
       ]
     },
     {
-      "number": 16,
+      "number": 15,
       "title": "Chapter 15",
       "release_date": "07-05-2023",
       "pages": [
@@ -474,7 +484,7 @@
       ]
     },
     {
-      "number": 17,
+      "number": 16,
       "title": "Chapter 16",
       "release_date": "09-05-2023",
       "pages": [

@@ -5,7 +5,7 @@
   "description": "I Have No Talent For Cultivation So I Summon Gods Instead, 没有修炼天赋的我只好召唤神明",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/02/I-Have-No-Talent-For-Cultivation-So-I-Summon-Gods-Instead-175x238.webp",
   "url": "https://manhuaus.com/manga/i-have-no-talent-for-cultivation-so-i-summon-gods-instead/",
-  "rank": "N/A, it has 92.8K monthly views",
+  "rank": "N/A, it has 93.9K monthly views",
   "alternative_titles": [
     "没有修炼天赋的我只好召唤神明"
   ],
@@ -18,9 +18,19 @@
   "status": "OnGoing",
   "bookmarked": 45,
   "total_chapters": 4,
+  "latest_chapters": [
+    {
+      "number": 2,
+      "release_date": "20-03-2023"
+    },
+    {
+      "number": 3,
+      "release_date": "27-03-2023"
+    }
+  ],
   "chapters": [
     {
-      "number": 1,
+      "number": 0,
       "title": "Chapter 0",
       "release_date": "17-02-2023",
       "pages": [
@@ -28,7 +38,7 @@
       ]
     },
     {
-      "number": 2,
+      "number": 1,
       "title": "Chapter 1",
       "release_date": "10-03-2023",
       "pages": [
@@ -69,7 +79,7 @@
       ]
     },
     {
-      "number": 3,
+      "number": 2,
       "title": "Chapter 2",
       "release_date": "20-03-2023",
       "pages": [
@@ -94,7 +104,7 @@
       ]
     },
     {
-      "number": 4,
+      "number": 3,
       "title": "Chapter 3",
       "release_date": "27-03-2023",
       "pages": [

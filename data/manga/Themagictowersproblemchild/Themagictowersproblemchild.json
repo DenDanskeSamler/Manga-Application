@@ -20,6 +20,16 @@
   "status": "OnGoing",
   "bookmarked": 1,
   "total_chapters": 30,
+  "latest_chapters": [
+    {
+      "number": 29,
+      "release_date": "18-09-2025"
+    },
+    {
+      "number": 30,
+      "release_date": "23-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -707,7 +717,22 @@
       "number": 30,
       "title": "Chapter 30",
       "release_date": "23-09-2025",
-      "pages": []
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/009.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/010.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/011.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/012.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/013.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/014.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/015.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/016.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/017.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/018.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/019.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/020.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/021.webp",
+        "https://img.manhuaus.com/image2025/manga_67e873971dc73/c4e7f84b1856e3c3af07cefd8514fb80/022.webp"
+      ]
     }
   ]
 }

@@ -5,7 +5,7 @@
   "description": "Heavenly Grand Archive’s Young Master",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/01/Heavenly-Grand-Archives-Young-Master-175x238.webp",
   "url": "https://manhuaus.com/manga/heavenly-grand-archives-young-master/",
-  "rank": "N/A, it has 2.2M monthly views",
+  "rank": "N/A, it has 2.3M monthly views",
   "alternative_titles": [
     "Heavenly Grand Archive’s Young Master"
   ],
@@ -17,7 +17,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 146,
+  "total_chapters": 147,
+  "latest_chapters": [
+    {
+      "number": 146,
+      "release_date": "20-09-2025"
+    },
+    {
+      "number": 147,
+      "release_date": "26-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -3280,6 +3290,29 @@
         "https://img.manhuaus.com/image2025/manga_638093327526801347/da99b881ea4f3e1d5f18ca9e79128319/019.webp",
         "https://img.manhuaus.com/image2025/manga_638093327526801347/da99b881ea4f3e1d5f18ca9e79128319/020.webp",
         "https://img.manhuaus.com/image2025/manga_638093327526801347/da99b881ea4f3e1d5f18ca9e79128319/021.webp"
+      ]
+    },
+    {
+      "number": 147,
+      "title": "Chapter 147",
+      "release_date": "26-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/001.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/002.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/003.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/004.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/005.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/006.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/007.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/008.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/009.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/010.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/011.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/012.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/013.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/014.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/015.webp",
+        "https://img.manhuaus.com/image2025/manga_638093327526801347/24c30d171e26d890fbbb0b88094dc13e/016.webp"
       ]
     }
   ]

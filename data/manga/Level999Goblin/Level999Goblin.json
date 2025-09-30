@@ -5,7 +5,7 @@
   "description": "Level 999 Goblin Manhwa The protagonist Kim Chulsoo works his ass off for a living as a manual laborer in real life and by grinding for and selling items in a game. He finally gets the chance to switch to a hidden class, hoping for that one big shot in life…! But the hidden class turns out to be… a Goblin Summoner?!",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2025/05/Level-999-Goblin-175x238.webp",
   "url": "https://manhuaus.com/manga/level-999-goblin/",
-  "rank": "N/A, it has 1.5M monthly view",
+  "rank": "N/A, it has 1.6M monthly view",
   "alternative_titles": [
     "Level 999 Goblin",
     "레벨999 고블린"
@@ -17,7 +17,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 24,
+  "total_chapters": 25,
+  "latest_chapters": [
+    {
+      "number": 24,
+      "release_date": "20-09-2025"
+    },
+    {
+      "number": 25,
+      "release_date": "27-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -610,6 +620,29 @@
         "https://img.manhuaus.com/image2025/manga_68221d59a67aa/79dd99a752f0bc0e0b6bdbf8eee2f07e/026.webp",
         "https://img.manhuaus.com/image2025/manga_68221d59a67aa/79dd99a752f0bc0e0b6bdbf8eee2f07e/027.webp",
         "https://img.manhuaus.com/image2025/manga_68221d59a67aa/79dd99a752f0bc0e0b6bdbf8eee2f07e/028.webp"
+      ]
+    },
+    {
+      "number": 25,
+      "title": "Chapter 25",
+      "release_date": "27-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/008.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/009.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/010.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/011.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/012.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/013.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/014.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/015.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/016.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/017.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/018.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/019.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/020.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/021.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/022.webp",
+        "https://img.manhuaus.com/image2025/manga_68221d59a67aa/67c225852b2e565f49573991014b2483/023.webp"
       ]
     }
   ]

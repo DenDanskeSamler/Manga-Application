@@ -22,6 +22,16 @@
   "status": "OnGoing",
   "bookmarked": 1,
   "total_chapters": 86,
+  "latest_chapters": [
+    {
+      "number": 85,
+      "release_date": "13-09-2025"
+    },
+    {
+      "number": 86,
+      "release_date": "21-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -1465,7 +1475,7 @@
     {
       "number": 86,
       "title": "Chapter 86",
-      "release_date": "20-09-2025",
+      "release_date": "21-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_6659d320029a6/6c1ebaa179f99358eddafbae7758731b/001.webp",
         "https://img.manhuaus.com/image2025/manga_6659d320029a6/6c1ebaa179f99358eddafbae7758731b/002.webp",

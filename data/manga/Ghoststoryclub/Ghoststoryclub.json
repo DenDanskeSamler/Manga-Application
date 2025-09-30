@@ -5,7 +5,7 @@
   "description": "Ghost Story Club – Manhwa",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/08/ghost-story-club-175x238.jpg",
   "url": "https://manhuaus.com/manga/ghost-story-club/",
-  "rank": "N/A, it has 37.6K monthly views",
+  "rank": "N/A, it has 37.9K monthly views",
   "alternative_titles": [
     "괴담 동아리"
   ],
@@ -20,6 +20,16 @@
   "status": "OnGoing",
   "bookmarked": 10,
   "total_chapters": 20,
+  "latest_chapters": [
+    {
+      "number": 19,
+      "release_date": "14-09-2022"
+    },
+    {
+      "number": 20,
+      "release_date": "15-09-2022"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

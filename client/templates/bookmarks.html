@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bookmarks - MangaReader+</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="brand">
+                    <div class="logo-icon"></div>
+                    <a href="/" class="brand-text">MangaReader<span class="accent">+</span></a>
+                </div>
+            </div>
+            <div class="header-right">
+                {% if current_user.is_authenticated %}
+                    <div class="user-menu">
+                        <span class="username">{{ current_user.username }}</span>
+                        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+                    </div>
+                {% else %}
+                    <div class="auth-buttons">
+                        <a href="{{ url_for('login') }}" class="btn secondary">Login</a>
+                        <a href="{{ url_for('register') }}" class="btn primary">Register</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Main Sidebar -->
+    <aside class="main-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo"></div>
+                <span class="sidebar-title">Navigation</span>
+            </div>
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Features
+                </h3>
+                <nav class="sidebar-nav">
+                    <a href="/" class="nav-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                    <a href="/bookmarks" class="nav-item active">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Bookmarks</span>
+                    </a>
+                    <a href="/history" class="nav-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Reading History</span>
+                    </a>
+
+                    <!-- Latest Updates link removed -->
+                    <a href="/random" class="nav-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <polyline points="23,4 23,10 17,10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            <polyline points="1,20 1,14 7,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            <path d="M20.49 9C19.9828 7.56678 19.1209 6.28392 17.9845 5.27304C16.8482 4.26216 15.4745 3.55814 13.9917 3.22454C12.5089 2.89094 10.9652 2.93925 9.50481 3.36518C8.04437 3.79112 6.71475 4.58165 5.64 5.66L1 10M23 14L18.36 18.34C17.2853 19.4183 15.9556 20.2089 14.4952 20.6348C13.0348 21.0607 11.4911 21.109 10.0083 20.7755C8.52547 20.4419 7.1518 19.7378 6.01547 18.727C4.87913 17.7161 4.01719 16.4332 3.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <span>Random Manga</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="footer-info">
+                <span class="footer-text">Made with ❤️ by FBAMSE</span>
+                <div class="footer-version">v2.0</div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Your Bookmarks</h1>
+            <p class="page-subtitle">Manga you've saved for later reading</p>
+        </div>
+
+        {% if not current_user.is_authenticated %}
+            <div class="auth-required">
+                <div class="auth-message">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                        <path d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>Login Required</h3>
+                    <p>Please log in to view your bookmarks</p>
+                    <div class="auth-buttons">
+                        <a href="{{ url_for('login') }}" class="btn primary">Login</a>
+                        <a href="{{ url_for('register') }}" class="btn secondary">Register</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {% if bookmarks %}
+                <div class="manga-grid bookmarks-grid">
+                    {% for bookmark in bookmarks %}
+                        <div class="manga-card bookmark-card">
+                            <div class="thumb-container">
+                                <a href="/manga/{{ bookmark.manga_slug }}">
+                                    <img class="thumb" src="{{ bookmark.manga_thumbnail or '/static/default-thumbnail.svg' }}" alt="{{ bookmark.manga_title }}">
+                                </a>
+                                <button class="bookmark-remove" data-slug="{{ bookmark.manga_slug }}" title="Remove bookmark">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                        <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="summary">
+                                <h3 class="title">
+                                    <a href="/manga/{{ bookmark.manga_slug }}">{{ bookmark.manga_title }}</a>
+                                </h3>
+                                {% if bookmark.chapter_number %}
+                                    <div class="bookmark-chapter">
+                                        <a href="/manga/{{ bookmark.manga_slug }}/chapter-{{ bookmark.chapter_number }}">Ch. {{ bookmark.chapter_number }}{% if bookmark.chapter_title %} — {{ bookmark.chapter_title }}{% endif %}</a>
+                                    </div>
+                                {% endif %}
+                                <div class="bookmark-date">
+                                    Bookmarked {{ bookmark.created_at.strftime('%Y-%m-%d') }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                        <path d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>No Bookmarks Yet</h3>
+                    <p>Start bookmarking manga you want to read later!</p>
+                    <a href="/" class="btn primary">Browse Manga</a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- Bookmark confirmation modal (hidden by default) -->
+    <div class="bookmark-confirm-overlay" id="bookmarkConfirmOverlay" aria-hidden="true">
+        <div class="bookmark-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="bookmarkConfirmTitle">
+            <h3 id="bookmarkConfirmTitle">Remove bookmark?</h3>
+            <p id="bookmarkConfirmDesc">Are you sure you want to remove this bookmark? This action cannot be undone.</p>
+            <div class="bookmark-confirm-actions">
+                <button class="btn secondary" id="bookmarkCancelBtn">Cancel</button>
+                <button class="btn primary" id="bookmarkConfirmBtn">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebar = document.getElementById('sidebar');
+        const body = document.body;
+        
+        sidebarToggle && sidebarToggle.addEventListener('click', () => {
+            sidebar && sidebar.classList.add('active');
+            sidebarOverlay && sidebarOverlay.classList.add('active');
+            body.classList.add('sidebar-open');
+        });
+        
+        const closeSidebar = () => {
+            sidebar && sidebar.classList.remove('active');
+            sidebarOverlay && sidebarOverlay.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        };
+        
+        sidebarClose && sidebarClose.addEventListener('click', closeSidebar);
+        sidebarOverlay && sidebarOverlay.addEventListener('click', closeSidebar);
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar && sidebar.classList.contains('active')) {
+                closeSidebar();
+            }
+        });
+
+        // Bookmark removal functionality using custom modal
+        (function() {
+            const overlay = document.getElementById('bookmarkConfirmOverlay');
+            const confirmBtn = document.getElementById('bookmarkConfirmBtn');
+            const cancelBtn = document.getElementById('bookmarkCancelBtn');
+            let activeSlug = null;
+            let activeButton = null;
+
+            function openModal(slug, btn) {
+                activeSlug = slug;
+                activeButton = btn;
+                overlay.classList.add('active');
+                overlay.setAttribute('aria-hidden', 'false');
+                confirmBtn.focus();
+            }
+
+            function closeModal() {
+                overlay.classList.remove('active');
+                overlay.setAttribute('aria-hidden', 'true');
+                activeSlug = null;
+                activeButton = null;
+            }
+
+            document.querySelectorAll('.bookmark-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const slug = btn.dataset.slug;
+                    openModal(slug, btn);
+                });
+            });
+
+            cancelBtn.addEventListener('click', () => closeModal());
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+            confirmBtn.addEventListener('click', async () => {
+                if (!activeSlug || !activeButton) return closeModal();
+                try {
+                    const response = await fetch(`/api/bookmark/${activeSlug}`, {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    if (response.ok) {
+                        activeButton.closest('.manga-card').remove();
+                        if (document.querySelectorAll('.bookmark-card').length === 0) {
+                            location.reload();
+                        }
+                    } else {
+                        alert('Failed to remove bookmark');
+                    }
+                } catch (err) {
+                    alert('Error removing bookmark');
+                } finally {
+                    closeModal();
+                }
+            });
+
+            // Allow keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (overlay.classList.contains('active')) {
+                    if (e.key === 'Escape') closeModal();
+                    if (e.key === 'Enter') confirmBtn.click();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

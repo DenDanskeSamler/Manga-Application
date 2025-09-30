@@ -18,8 +18,18 @@
     "Shounen"
   ],
   "status": "OnGoing",
-  "bookmarked": 764,
+  "bookmarked": 762,
   "total_chapters": 80,
+  "latest_chapters": [
+    {
+      "number": 78,
+      "release_date": "12-09-2025"
+    },
+    {
+      "number": 79,
+      "release_date": "14-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -1226,7 +1236,7 @@
       ]
     },
     {
-      "number": 48,
+      "number": 48.5,
       "title": "Chapter 48.5",
       "release_date": "08-10-2024",
       "pages": [
@@ -1236,7 +1246,7 @@
       ]
     },
     {
-      "number": 49,
+      "number": 48,
       "title": "Chapter 48",
       "release_date": "29-06-2024",
       "pages": [
@@ -1263,7 +1273,7 @@
       ]
     },
     {
-      "number": 50,
+      "number": 49,
       "title": "Chapter 49",
       "release_date": "15-01-2025",
       "pages": [
@@ -1288,7 +1298,7 @@
       ]
     },
     {
-      "number": 51,
+      "number": 50,
       "title": "Chapter 50",
       "release_date": "15-01-2025",
       "pages": [
@@ -1311,7 +1321,7 @@
       ]
     },
     {
-      "number": 52,
+      "number": 51,
       "title": "Chapter 51",
       "release_date": "18-01-2025",
       "pages": [
@@ -1337,7 +1347,7 @@
       ]
     },
     {
-      "number": 53,
+      "number": 52,
       "title": "Chapter 52",
       "release_date": "18-01-2025",
       "pages": [
@@ -1363,7 +1373,7 @@
       ]
     },
     {
-      "number": 54,
+      "number": 53,
       "title": "Chapter 53",
       "release_date": "24-01-2025",
       "pages": [
@@ -1388,7 +1398,7 @@
       ]
     },
     {
-      "number": 55,
+      "number": 54,
       "title": "Chapter 54",
       "release_date": "31-01-2025",
       "pages": [
@@ -1414,7 +1424,7 @@
       ]
     },
     {
-      "number": 56,
+      "number": 55,
       "title": "Chapter 55",
       "release_date": "10-02-2025",
       "pages": [
@@ -1440,7 +1450,7 @@
       ]
     },
     {
-      "number": 57,
+      "number": 56,
       "title": "Chapter 56",
       "release_date": "21-02-2025",
       "pages": [
@@ -1466,7 +1476,7 @@
       ]
     },
     {
-      "number": 58,
+      "number": 57,
       "title": "Chapter 57",
       "release_date": "28-02-2025",
       "pages": [
@@ -1493,7 +1503,7 @@
       ]
     },
     {
-      "number": 59,
+      "number": 58,
       "title": "Chapter 58",
       "release_date": "07-03-2025",
       "pages": [
@@ -1520,7 +1530,7 @@
       ]
     },
     {
-      "number": 60,
+      "number": 59,
       "title": "Chapter 59",
       "release_date": "14-03-2025",
       "pages": [
@@ -1547,7 +1557,7 @@
       ]
     },
     {
-      "number": 61,
+      "number": 60,
       "title": "Chapter 60",
       "release_date": "21-03-2025",
       "pages": [
@@ -1573,7 +1583,7 @@
       ]
     },
     {
-      "number": 62,
+      "number": 61,
       "title": "Chapter 61",
       "release_date": "29-03-2025",
       "pages": [
@@ -1597,7 +1607,7 @@
       ]
     },
     {
-      "number": 63,
+      "number": 62,
       "title": "Chapter 62",
       "release_date": "04-04-2025",
       "pages": [
@@ -1623,7 +1633,7 @@
       ]
     },
     {
-      "number": 64,
+      "number": 63,
       "title": "Chapter 63",
       "release_date": "11-04-2025",
       "pages": [
@@ -1649,7 +1659,7 @@
       ]
     },
     {
-      "number": 65,
+      "number": 64,
       "title": "Chapter 64",
       "release_date": "18-04-2025",
       "pages": [
@@ -1673,7 +1683,7 @@
       ]
     },
     {
-      "number": 66,
+      "number": 65,
       "title": "Chapter 65",
       "release_date": "25-04-2025",
       "pages": [
@@ -1699,7 +1709,7 @@
       ]
     },
     {
-      "number": 67,
+      "number": 66,
       "title": "Chapter 66",
       "release_date": "02-05-2025",
       "pages": [
@@ -1726,7 +1736,7 @@
       ]
     },
     {
-      "number": 68,
+      "number": 67,
       "title": "Chapter 67",
       "release_date": "09-05-2025",
       "pages": [
@@ -1752,7 +1762,7 @@
       ]
     },
     {
-      "number": 69,
+      "number": 68,
       "title": "Chapter 68",
       "release_date": "16-05-2025",
       "pages": [
@@ -1777,7 +1787,7 @@
       ]
     },
     {
-      "number": 70,
+      "number": 69,
       "title": "Chapter 69",
       "release_date": "23-05-2025",
       "pages": [
@@ -1802,7 +1812,7 @@
       ]
     },
     {
-      "number": 71,
+      "number": 70,
       "title": "Chapter 70",
       "release_date": "02-06-2025",
       "pages": [
@@ -1828,7 +1838,7 @@
       ]
     },
     {
-      "number": 72,
+      "number": 71,
       "title": "Chapter 71",
       "release_date": "08-06-2025",
       "pages": [
@@ -1854,7 +1864,7 @@
       ]
     },
     {
-      "number": 73,
+      "number": 72,
       "title": "Chapter 72",
       "release_date": "05-08-2025",
       "pages": [
@@ -1880,7 +1890,7 @@
       ]
     },
     {
-      "number": 74,
+      "number": 73,
       "title": "Chapter 73",
       "release_date": "15-08-2025",
       "pages": [
@@ -1907,7 +1917,7 @@
       ]
     },
     {
-      "number": 75,
+      "number": 74,
       "title": "Chapter 74",
       "release_date": "18-08-2025",
       "pages": [
@@ -1930,7 +1940,7 @@
       ]
     },
     {
-      "number": 76,
+      "number": 75,
       "title": "Chapter 75",
       "release_date": "24-08-2025",
       "pages": [
@@ -1956,7 +1966,7 @@
       ]
     },
     {
-      "number": 77,
+      "number": 76,
       "title": "Chapter 76",
       "release_date": "05-09-2025",
       "pages": [
@@ -1982,7 +1992,7 @@
       ]
     },
     {
-      "number": 78,
+      "number": 77,
       "title": "Chapter 77",
       "release_date": "12-09-2025",
       "pages": [
@@ -2008,7 +2018,7 @@
       ]
     },
     {
-      "number": 79,
+      "number": 78,
       "title": "Chapter 78",
       "release_date": "12-09-2025",
       "pages": [
@@ -2034,7 +2044,7 @@
       ]
     },
     {
-      "number": 80,
+      "number": 79,
       "title": "Chapter 79",
       "release_date": "14-09-2025",
       "pages": [

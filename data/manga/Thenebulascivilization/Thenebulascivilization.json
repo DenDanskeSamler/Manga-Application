@@ -5,7 +5,7 @@
   "description": "The Nebula’s Civilization Manhwa 슬기로운 문명생활, Nebula’s Civilization Choi Seong-woon, achieves the top rank in the game “Lost World,” successfully completing all the game’s achievements. However, his joy doesn’t last long when he receives a suspicious email and is summoned to the real “Lost World,” where he embarks on a competition to become a “god.”",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/12/The-Nebulas-Civilization1-175x238.webp",
   "url": "https://manhuaus.com/manga/the-nebulas-civilization/",
-  "rank": "N/A, it has 1.6M monthly view",
+  "rank": "N/A, it has 1.7M monthly view",
   "alternative_titles": [
     "Nebula’s Civilization",
     "슬기로운 문명생활",
@@ -19,7 +19,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 108,
+  "total_chapters": 109,
+  "latest_chapters": [
+    {
+      "number": 108,
+      "release_date": "20-09-2025"
+    },
+    {
+      "number": 109,
+      "release_date": "28-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2180,6 +2190,28 @@
         "https://img.manhuaus.com/image2025/manga_6580584a9400e/df9c59189b87db5f6028fe1d3e52c9a4/019.webp",
         "https://img.manhuaus.com/image2025/manga_6580584a9400e/df9c59189b87db5f6028fe1d3e52c9a4/020.webp",
         "https://img.manhuaus.com/image2025/manga_6580584a9400e/df9c59189b87db5f6028fe1d3e52c9a4/021.webp"
+      ]
+    },
+    {
+      "number": 109,
+      "title": "Chapter 109",
+      "release_date": "28-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/01-1912.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/02-1911.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/03-1911.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/04-1909.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/05-1903.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/06-1861.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/07-1823.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/08-1750.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/09-1634.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/10-1533.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/11-1424.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/12-1246.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/13-1049.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/14-835.webp",
+        "https://img.manhuaus.com/image2025/manga_6580584a9400e/2373ed1aeca63ea3c6abf2b95b7e63b2/15-637.webp"
       ]
     }
   ]

@@ -21,6 +21,16 @@
   "status": "Completed",
   "bookmarked": 697,
   "total_chapters": 430,
+  "latest_chapters": [
+    {
+      "number": 429,
+      "release_date": "06-05-2025"
+    },
+    {
+      "number": 430,
+      "release_date": "09-05-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -43,7 +53,7 @@
     {
       "number": 3,
       "title": "chapter 3",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-3/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-3/002.jpg"
@@ -52,7 +62,7 @@
     {
       "number": 4,
       "title": "chapter 4",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-4/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-4/002.jpg"
@@ -61,7 +71,7 @@
     {
       "number": 5,
       "title": "chapter 5",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-5/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-5/002.jpg"
@@ -70,7 +80,7 @@
     {
       "number": 6,
       "title": "chapter 6",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-6/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-6/002.jpg"
@@ -79,7 +89,7 @@
     {
       "number": 7,
       "title": "chapter 7",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-7/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-7/002.jpg"
@@ -88,7 +98,7 @@
     {
       "number": 8,
       "title": "chapter 8",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-8/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-8/002.jpg"
@@ -97,7 +107,7 @@
     {
       "number": 9,
       "title": "chapter 9",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-9/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-9/002.jpg"
@@ -106,7 +116,7 @@
     {
       "number": 10,
       "title": "chapter 10",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-10/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-10/002.jpg"
@@ -115,7 +125,7 @@
     {
       "number": 11,
       "title": "chapter 11",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-11/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-11/002.jpg"
@@ -124,7 +134,7 @@
     {
       "number": 12,
       "title": "chapter 12",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-12/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-12/002.jpg",
@@ -157,7 +167,7 @@
     {
       "number": 13,
       "title": "chapter 13",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-13/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-13/002.jpg"
@@ -166,7 +176,7 @@
     {
       "number": 14,
       "title": "chapter 14",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-14/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-14/002.jpg",
@@ -201,7 +211,7 @@
     {
       "number": 15,
       "title": "chapter 15",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-15/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-15/002.jpg",
@@ -1459,7 +1469,7 @@
     {
       "number": 95,
       "title": "Chapter 95",
-      "release_date": "18-09-2025",
+      "release_date": "30-05-2022",
       "pages": [
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-95/001.jpg",
         "https://img.manhuaus.com/100000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor/chapter-95/002.jpg",

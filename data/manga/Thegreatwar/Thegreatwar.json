@@ -5,7 +5,7 @@
   "description": "The Great War Manhwa 대장전 | The Great War | The Great Battle | Captain’s Duel Summary: Im Dajun, who was abandoned by his family and now lives as the leader of a runaway group, one day brings Yeonwoo home by chance. Yeonwoo then commits a violent rampage in Incheon. Standing in the way of Yeonwoo, who was trying to kill a chaebol chairman for revenge, is Yoon Gamin, a top student hopeful. Meanwhile, Nahwajin of the School Authority Protection Bureau watches the situation with interest… The first crossover in the Blue String Universe! A massive showdown featuring the main characters from [True Education], [Study Group], and [How to Fight]. This is a record of an intense battle not covered in their own stories.",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2024/08/The-Great-War1-175x238.webp",
   "url": "https://manhuaus.com/manga/the-great-war/",
-  "rank": "N/A, it has 399K monthly views",
+  "rank": "N/A, it has 406K monthly views",
   "alternative_titles": [
     "대장전",
     "The Great War",
@@ -20,8 +20,18 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 173,
+  "bookmarked": 175,
   "total_chapters": 59,
+  "latest_chapters": [
+    {
+      "number": 58,
+      "release_date": "20-09-2025"
+    },
+    {
+      "number": 59,
+      "release_date": "22-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -1288,8 +1298,23 @@
     {
       "number": 59,
       "title": "Chapter 59",
-      "release_date": "23-09-2025",
-      "pages": []
+      "release_date": "22-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/001.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/002.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/003.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/004.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/005.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/006.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/007.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/008.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/009.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/010.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/011.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/012.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/013.webp",
+        "https://img.manhuaus.com/image2025/manga_66cde905540fb/76de51fc47581411fe30b9de377b0c1f/014.webp"
+      ]
     }
   ]
 }

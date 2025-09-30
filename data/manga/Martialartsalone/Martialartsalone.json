@@ -19,8 +19,18 @@
     "Shounen"
   ],
   "status": "OnGoing",
-  "bookmarked": 730,
+  "bookmarked": 728,
   "total_chapters": 110,
+  "latest_chapters": [
+    {
+      "number": 109,
+      "release_date": "18-05-2025"
+    },
+    {
+      "number": 110,
+      "release_date": "30-05-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

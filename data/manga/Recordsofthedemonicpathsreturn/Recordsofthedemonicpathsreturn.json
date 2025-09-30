@@ -18,8 +18,18 @@
     "Fantasy"
   ],
   "status": "OnGoing",
-  "bookmarked": 729,
+  "bookmarked": 730,
   "total_chapters": 75,
+  "latest_chapters": [
+    {
+      "number": 74,
+      "release_date": "14-08-2025"
+    },
+    {
+      "number": 75,
+      "release_date": "21-08-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

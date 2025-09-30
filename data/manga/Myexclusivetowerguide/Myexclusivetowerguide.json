@@ -5,7 +5,7 @@
   "description": "My Exclusive Tower Guide Manhwa [Which guide will you use?] A mysterious message came to me the same day the end of the world befell us and a survival game began. A tower that makes humans distrust one another, instigates fights, and leads humanity to destruction… I will not be shaken. I will see this to the end with the people I trust. …Yes, I will create a happy ending with them all! My Exclusive Tower Guide, 나만 보는 탑 공략집, My Very Own Tower Strategy Guide",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2024/04/My-Exclusive-Tower-Guide-175x238.webp",
   "url": "https://manhuaus.com/manga/my-exclusive-tower-guide/",
-  "rank": "N/A, it has 1.7M monthly view",
+  "rank": "N/A, it has 1.8M monthly view",
   "alternative_titles": [
     "My Exclusive Tower Guide",
     "나만 보는 탑 공략집",
@@ -19,7 +19,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 85,
+  "total_chapters": 86,
+  "latest_chapters": [
+    {
+      "number": 85,
+      "release_date": "23-09-2025"
+    },
+    {
+      "number": 86,
+      "release_date": "28-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -1815,7 +1825,39 @@
       "number": 85,
       "title": "Chapter 85",
       "release_date": "23-09-2025",
-      "pages": []
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/009.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/010.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/011.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/012.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/013.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/014.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/015.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/016.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/017.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/018.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/019.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/b7ecf6c54e4310f248c957d9d0c709fc/020.webp"
+      ]
+    },
+    {
+      "number": 86,
+      "title": "Chapter 86",
+      "release_date": "28-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/008.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/009.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/010.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/011.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/012.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/013.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/014.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/015.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/016.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/017.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/018.webp",
+        "https://img.manhuaus.com/image2025/manga_661d38cca6222/f15028c7946e6e99285cf9dbe848da52/019.webp"
+      ]
     }
   ]
 }

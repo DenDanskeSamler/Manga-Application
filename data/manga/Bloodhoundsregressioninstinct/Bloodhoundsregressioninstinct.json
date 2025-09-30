@@ -20,8 +20,18 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 857,
-  "total_chapters": 84,
+  "bookmarked": 867,
+  "total_chapters": 85,
+  "latest_chapters": [
+    {
+      "number": 84,
+      "release_date": "18-09-2025"
+    },
+    {
+      "number": 85,
+      "release_date": "24-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -1505,6 +1515,23 @@
         "https://img.manhuaus.com/image2025/manga_655f57254a33e/e133db01f0736d3716e44077d13ef579/015.webp",
         "https://img.manhuaus.com/image2025/manga_655f57254a33e/e133db01f0736d3716e44077d13ef579/016.webp",
         "https://img.manhuaus.com/image2025/manga_655f57254a33e/e133db01f0736d3716e44077d13ef579/017.webp"
+      ]
+    },
+    {
+      "number": 85,
+      "title": "Chapter 85",
+      "release_date": "24-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/001.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/002.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/003.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/004.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/005.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/006.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/007.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/008.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/009.webp",
+        "https://img.manhuaus.com/image2025/manga_655f57254a33e/0212bcfbe7593992f1bf6d1d1051b225/010.webp"
       ]
     }
   ]

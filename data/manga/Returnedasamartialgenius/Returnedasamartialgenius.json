@@ -24,6 +24,16 @@
   "status": "OnGoing",
   "bookmarked": 1,
   "total_chapters": 112,
+  "latest_chapters": [
+    {
+      "number": 111,
+      "release_date": "09-09-2025"
+    },
+    {
+      "number": 112,
+      "release_date": "16-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -3269,7 +3279,7 @@
     {
       "number": 112,
       "title": "Chapter 112",
-      "release_date": "15-09-2025",
+      "release_date": "16-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_64db009a6707a/cd5776e4e6b9a77dfafab741e9376e54/001.webp",
         "https://img.manhuaus.com/image2025/manga_64db009a6707a/cd5776e4e6b9a77dfafab741e9376e54/002.webp",

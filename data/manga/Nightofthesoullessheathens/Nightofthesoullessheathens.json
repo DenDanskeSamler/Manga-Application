@@ -5,7 +5,7 @@
   "description": "Night of the Soulless Heathens Manhwa The Herald Clan is a clan of untouchables, persecuted as soulless heretics. In order to break free of the curse they’ve inherited, they roamed the continent in order to gather the Emperor’s Golden Coins. And even amongst the heretics, Azadin bore the worst curse. Having zero talent for magic, he became the lowest-ranked herald with the skills he was taught by an elder. He roamed the continent, granting wishes for contractors in exchange for the Emperor’s Golden Coins. Then, a grimoire capable of realizing the clan’s wishes appears, and his twin sister Arael’s rebellion slowly unravels a great conspiracy that’s been hidden all along… How will the heretic Azadin resist the coming destruction?",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2025/01/Night-of-the-Soulless-Heathens-175x238.webp",
   "url": "https://manhuaus.com/manga/night-of-the-soulless-heathens/",
-  "rank": "N/A, it has 2.1M monthly views",
+  "rank": "N/A, it has 2.2M monthly views",
   "alternative_titles": [
     "The Shadowed Legacy of the Soulless Messenger",
     "영혼 없는 불경자의 밤"
@@ -20,6 +20,16 @@
   "status": "OnGoing",
   "bookmarked": 1,
   "total_chapters": 53,
+  "latest_chapters": [
+    {
+      "number": 52,
+      "release_date": "16-09-2025"
+    },
+    {
+      "number": 53,
+      "release_date": "23-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -1110,7 +1120,7 @@
     {
       "number": 52,
       "title": "Chapter 52",
-      "release_date": "15-09-2025",
+      "release_date": "16-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_6785273488fad/46db0a394f0f4483d7238a2483cfa9ce/001.webp",
         "https://img.manhuaus.com/image2025/manga_6785273488fad/46db0a394f0f4483d7238a2483cfa9ce/002.webp",
@@ -1132,7 +1142,23 @@
       "number": 53,
       "title": "Chapter 53",
       "release_date": "23-09-2025",
-      "pages": []
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/001.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/002.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/003.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/004.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/005.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/006.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/007.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/008.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/009.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/010.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/011.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/012.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/013.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/014.webp",
+        "https://img.manhuaus.com/image2025/manga_6785273488fad/d14c6227b3b8744451adfbef5273e730/015.webp"
+      ]
     }
   ]
 }

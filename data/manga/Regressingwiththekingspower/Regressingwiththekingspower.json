@@ -22,8 +22,18 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 2,
+  "bookmarked": 3,
   "total_chapters": 109,
+  "latest_chapters": [
+    {
+      "number": 108,
+      "release_date": "18-09-2025"
+    },
+    {
+      "number": 109,
+      "release_date": "23-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2705,7 +2715,22 @@
       "number": 109,
       "title": "Chapter 109",
       "release_date": "23-09-2025",
-      "pages": []
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/009.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/010.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/011.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/012.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/013.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/014.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/015.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/016.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/017.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/018.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/019.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/020.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/021.webp",
+        "https://img.manhuaus.com/image2025/manga_6544fdec2762d/eee760b8633f7eff6f5a5990c75121fa/022.webp"
+      ]
     }
   ]
 }

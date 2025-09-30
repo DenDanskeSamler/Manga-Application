@@ -19,6 +19,16 @@
   "status": "OnGoing",
   "bookmarked": 1,
   "total_chapters": 40,
+  "latest_chapters": [
+    {
+      "number": 39,
+      "release_date": "17-09-2025"
+    },
+    {
+      "number": 41,
+      "release_date": "21-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -690,9 +700,9 @@
       ]
     },
     {
-      "number": 40,
+      "number": 41,
       "title": "Chapter 41",
-      "release_date": "20-09-2025",
+      "release_date": "21-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_67f149ff9af1f/5ad60a7b0982ce67570d4dff0fa11f65/001.webp",
         "https://img.manhuaus.com/image2025/manga_67f149ff9af1f/5ad60a7b0982ce67570d4dff0fa11f65/002.webp",

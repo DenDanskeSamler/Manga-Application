@@ -5,7 +5,7 @@
   "description": "Barbarian’s Adventure in a Fantasy World Manhwa Every night, he prayed to every god in existence: Please, when I wake tomorrow, let me find myself in the middle of a fantasy. One day, that long-cherished prayer was answered— just not in the way he had hoped. He awoke to a blindingly… 판타지 세계 속 바바리안으로 살아가기",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2025/07/Barbarians-Adventure-in-a-Fantasy-World-175x238.webp",
   "url": "https://manhuaus.com/manga/barbarians-adventure-in-a-fantasy-world/",
-  "rank": "N/A, it has 4.6M monthly views",
+  "rank": "N/A, it has 4.8M monthly views",
   "alternative_titles": [
     "판타지 세계 속 바바리안으로 살아가기"
   ],
@@ -18,7 +18,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 2,
-  "total_chapters": 34,
+  "total_chapters": 35,
+  "latest_chapters": [
+    {
+      "number": 34,
+      "release_date": "18-09-2025"
+    },
+    {
+      "number": 35,
+      "release_date": "25-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -769,7 +779,7 @@
     {
       "number": 34,
       "title": "Chapter 34",
-      "release_date": "22-09-2025",
+      "release_date": "18-09-2025",
       "pages": [
         "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/ad1c6ea16bf1442af2e39b34670ac48c/001.webp",
         "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/ad1c6ea16bf1442af2e39b34670ac48c/002.webp",
@@ -785,6 +795,25 @@
         "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/ad1c6ea16bf1442af2e39b34670ac48c/012.webp",
         "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/ad1c6ea16bf1442af2e39b34670ac48c/013.webp",
         "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/ad1c6ea16bf1442af2e39b34670ac48c/014.webp"
+      ]
+    },
+    {
+      "number": 35,
+      "title": "Chapter 35",
+      "release_date": "25-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/001.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/002.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/003.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/004.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/005.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/006.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/007.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/008.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/009.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/010.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/011.webp",
+        "https://img.manhuaus.com/image2025/manga_688b8f51c94b3/e30caa42e344fbfebd44c7af25638a8c/012.webp"
       ]
     }
   ]

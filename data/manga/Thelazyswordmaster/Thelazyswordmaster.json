@@ -21,8 +21,18 @@
     "Supernatural"
   ],
   "status": "OnGoing",
-  "bookmarked": 421,
+  "bookmarked": 425,
   "total_chapters": 121,
+  "latest_chapters": [
+    {
+      "number": 120,
+      "release_date": "04-11-2024"
+    },
+    {
+      "number": 121,
+      "release_date": "11-11-2024"
+    }
+  ],
   "chapters": [
     {
       "number": 1,

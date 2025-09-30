@@ -5,7 +5,7 @@
   "description": "He Was the Boss 보스였음",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/11/i-used-to-be-a-boss-175x238.webp",
   "url": "https://manhuaus.com/manga/i-used-to-be-a-boss/",
-  "rank": "N/A, it has 821K monthly views",
+  "rank": "N/A, it has 840.4K monthly views",
   "alternative_titles": [
     "보스였음",
     "I Used to be a Boss",
@@ -17,8 +17,18 @@
     "Seinen"
   ],
   "status": "OnGoing",
-  "bookmarked": 780,
-  "total_chapters": 120,
+  "bookmarked": 791,
+  "total_chapters": 121,
+  "latest_chapters": [
+    {
+      "number": 119,
+      "release_date": "23-09-2025"
+    },
+    {
+      "number": 120,
+      "release_date": "28-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -2929,7 +2939,7 @@
       ]
     },
     {
-      "number": 100,
+      "number": 100.5,
       "title": "Chapter 100.5",
       "release_date": "09-11-2024",
       "pages": [
@@ -2943,7 +2953,7 @@
       ]
     },
     {
-      "number": 101,
+      "number": 100,
       "title": "Chapter 100",
       "release_date": "06-10-2024",
       "pages": [
@@ -2970,7 +2980,7 @@
       ]
     },
     {
-      "number": 102,
+      "number": 101,
       "title": "Chapter 101",
       "release_date": "22-05-2025",
       "pages": [
@@ -3012,7 +3022,7 @@
       ]
     },
     {
-      "number": 103,
+      "number": 102,
       "title": "Chapter 102",
       "release_date": "22-05-2025",
       "pages": [
@@ -3062,7 +3072,7 @@
       ]
     },
     {
-      "number": 104,
+      "number": 103,
       "title": "Chapter 103",
       "release_date": "22-05-2025",
       "pages": [
@@ -3089,7 +3099,7 @@
       ]
     },
     {
-      "number": 105,
+      "number": 104,
       "title": "Chapter 104",
       "release_date": "23-05-2025",
       "pages": [
@@ -3112,7 +3122,7 @@
       ]
     },
     {
-      "number": 106,
+      "number": 105,
       "title": "Chapter 105",
       "release_date": "23-05-2025",
       "pages": [
@@ -3140,7 +3150,7 @@
       ]
     },
     {
-      "number": 107,
+      "number": 106,
       "title": "Chapter 106",
       "release_date": "23-05-2025",
       "pages": [
@@ -3168,7 +3178,7 @@
       ]
     },
     {
-      "number": 108,
+      "number": 107,
       "title": "Chapter 107",
       "release_date": "03-06-2025",
       "pages": [
@@ -3189,7 +3199,7 @@
       ]
     },
     {
-      "number": 109,
+      "number": 108,
       "title": "Chapter 108",
       "release_date": "08-06-2025",
       "pages": [
@@ -3214,7 +3224,7 @@
       ]
     },
     {
-      "number": 110,
+      "number": 109,
       "title": "Chapter 109",
       "release_date": "14-06-2025",
       "pages": [
@@ -3238,7 +3248,7 @@
       ]
     },
     {
-      "number": 111,
+      "number": 110,
       "title": "Chapter 110",
       "release_date": "25-06-2025",
       "pages": [
@@ -3262,7 +3272,7 @@
       ]
     },
     {
-      "number": 112,
+      "number": 111,
       "title": "Chapter 111",
       "release_date": "01-07-2025",
       "pages": [
@@ -3286,7 +3296,7 @@
       ]
     },
     {
-      "number": 113,
+      "number": 112,
       "title": "Chapter 112",
       "release_date": "14-07-2025",
       "pages": [
@@ -3311,7 +3321,7 @@
       ]
     },
     {
-      "number": 114,
+      "number": 113,
       "title": "Chapter 113",
       "release_date": "22-07-2025",
       "pages": [
@@ -3334,7 +3344,7 @@
       ]
     },
     {
-      "number": 115,
+      "number": 114,
       "title": "Chapter 114",
       "release_date": "03-08-2025",
       "pages": [
@@ -3358,7 +3368,7 @@
       ]
     },
     {
-      "number": 116,
+      "number": 115,
       "title": "Chapter 115",
       "release_date": "20-08-2025",
       "pages": [
@@ -3381,7 +3391,7 @@
       ]
     },
     {
-      "number": 117,
+      "number": 116,
       "title": "Chapter 116",
       "release_date": "29-08-2025",
       "pages": [
@@ -3404,7 +3414,7 @@
       ]
     },
     {
-      "number": 118,
+      "number": 117,
       "title": "Chapter 117",
       "release_date": "12-09-2025",
       "pages": [
@@ -3428,7 +3438,7 @@
       ]
     },
     {
-      "number": 119,
+      "number": 118,
       "title": "Chapter 118",
       "release_date": "16-09-2025",
       "pages": [
@@ -3451,10 +3461,51 @@
       ]
     },
     {
-      "number": 120,
+      "number": 119,
       "title": "Chapter 119",
       "release_date": "23-09-2025",
-      "pages": []
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/006.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/008.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/010.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/012.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/014.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/016.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/018.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/019.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/020.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/021.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/022.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/023.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/024.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/025.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/026.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/027.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/216f5b7df47ae6e07cddb6178a7740b3/028.webp"
+      ]
+    },
+    {
+      "number": 120,
+      "title": "Chapter 120",
+      "release_date": "28-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/005.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/007.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/009.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/011.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/013.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/015.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/017.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/019.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/020.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/021.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/022.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/023.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/024.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/025.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/026.webp",
+        "https://img.manhuaus.com/image2025/manga_638048462925346636/443494a0058d7ebc0b43482e3ee8fc28/027.webp"
+      ]
     }
   ]
 }

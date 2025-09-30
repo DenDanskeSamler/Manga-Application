@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manga Reader - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="brand">
+                    <div class="logo-icon"></div>
+                    <a href="/" class="brand-text">MangaReader<span class="accent">+</span></a>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-stats" id="headerStats">
+                    <div class="stat-item">
+                        <span class="stat-value">-</span>
+                        <span class="stat-label">Manga</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-value">-</span>
+                        <span class="stat-label">Chapters</span>
+                    </div>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <div class="user-menu">
+                        <span class="username">{{ current_user.username }}</span>
+                        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+                    </div>
+                {% else %}
+                    <div class="auth-buttons">
+                        <a href="{{ url_for('login') }}" class="btn secondary">Login</a>
+                        <a href="{{ url_for('register') }}" class="btn primary">Register</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Main Sidebar -->
+    <aside class="main-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo"></div>
+                <span class="sidebar-title">Navigation</span>
+            </div>
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <!-- Sidebar stats (shown on small screens) -->
+            <div class="sidebar-stats" id="sidebarStats" style="display: none;">
+                <div class="stat-item">
+                    <span class="stat-value">-</span>
+                    <span class="stat-label">Manga</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value">-</span>
+                    <span class="stat-label">Chapters</span>
+                </div>
+            </div>
+            <!-- Navigation Section -->
+            <div class="sidebar-section">
+                <h3 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Features
+                </h3>
+                <nav class="sidebar-nav">
+                    <a href="/" class="nav-item active">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                    <a href="/bookmarks" class="nav-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Bookmarks</span>
+                    </a>
+                    <a href="/history" class="nav-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Reading History</span>
+                    </a>
+
+                        <!-- Latest Updates nav removed (duplicate of main page dropdown) -->
+                    <a href="/random" class="nav-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <polyline points="23,4 23,10 17,10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            <polyline points="1,20 1,14 7,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            <path d="M20.49 9C19.9828 7.56678 19.1209 6.28392 17.9845 5.27304C16.8482 4.26216 15.4745 3.55814 13.9917 3.22454C12.5089 2.89094 10.9652 2.93925 9.50481 3.36518C8.04437 3.79112 6.71475 4.58165 5.64 5.66L1 10M23 14L18.36 18.34C17.2853 19.4183 15.9556 20.2089 14.4952 20.6348C13.0348 21.0607 11.4911 21.109 10.0083 20.7755C8.52547 20.4419 7.1518 19.7378 6.01547 18.727C4.87913 17.7161 4.01719 16.4332 3.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <span>Random Manga</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Genres removed from sidebar: genres are available via Filters and the All Genres popup -->
+            
+                    </svg>
+                </h3>
+                
+            </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="footer-info">
+                <span class="footer-text">Made with ❤️ by FBAMSE</span>
+                <div class="footer-version">v2.0</div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="home-header">
+        <div class="hero-section">
+            <h1>Welcome to MangaReader+</h1>
+            <p class="hero-subtitle">Discover and read your favorite manga in one place</p>
+        </div>
+    </div>
+
+    <div class="container{% if request.path == '/' %} home-container{% endif %}">
+        <h1>Mangas</h1>
+        <div class="controls">
+            <!-- Search moved into filter panel (opened by the Filters button) -->
+            <div class="controls-right">
+                <button id="filterToggle" class="filter-btn" aria-expanded="false">Filters ▾</button>
+                <label for="sort-select" class="muted">Sort</label>
+                <select id="sort-select">
+                    <option value="">Default</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="latest">Latest updated</option>
+                </select>
+            </div>
+        </div>
+        <!-- Filter panel (hidden by default) -->
+        <div id="filter-panel" class="filter-panel" aria-hidden="true">
+            <div class="filter-panel-inner">
+                <button id="filterClose" class="filter-close" aria-label="Close filters">✕</button>
+                <h2 class="filter-title">Filters</h2>
+                <div class="filter-search">
+                    <input type="search" id="filter-search-input" placeholder="Search mangas by title..."
+                        aria-label="Search mangas">
+                </div>
+                <div id="genre-filters" class="genre-filters" aria-label="Genre filters"></div>
+                <div class="filter-actions">
+                    <button id="filterApply" class="btn primary">Apply</button>
+                    <button id="filterClear" class="btn">Clear</button>
+                </div>
+            </div>
+        </div>
+        <div id="top-pagination" class="pagination"></div>
+        <div id="manga-grid"></div>
+        <div id="bottom-pagination" class="pagination"></div>
+        <footer class="footer">
+            <div class="footer-content">
+                <span class="footer-text">Made with by FBAMSE</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // Home page: load and render site stats + genres
+            const statsUrl = '/api/stats';
+            const statsGrid = document.getElementById('statsGrid');
+            const genreTagsEl = document.getElementById('genreTags');
+            const showMoreBtn = document.getElementById('showMoreGenres');
+            const MAX_VISIBLE_GENRES = 6;
+
+            function setStatValues(mangaCount, chapterCount) {
+                // Update header stats
+                const headerStats = document.getElementById('headerStats');
+                if (headerStats) {
+                    const headerStatValues = headerStats.querySelectorAll('.stat-value');
+                    if (headerStatValues && headerStatValues.length >= 2) {
+                        headerStatValues[0].textContent = Number(mangaCount).toLocaleString();
+                        headerStatValues[1].textContent = Number(chapterCount).toLocaleString();
+                    }
+                }
+
+                // Also update sidebar stats (visible on small screens)
+                const sidebarStats = document.getElementById('sidebarStats');
+                if (sidebarStats) {
+                    const sVals = sidebarStats.querySelectorAll('.stat-value');
+                    if (sVals && sVals.length >= 2) {
+                        sVals[0].textContent = Number(mangaCount).toLocaleString();
+                        sVals[1].textContent = Number(chapterCount).toLocaleString();
+                    }
+                }
+
+                // Update sidebar stats (legacy)
+                const statValues = statsGrid?.querySelectorAll('.stat-value');
+                if (statValues && statValues.length >= 2) {
+                    statValues[0].textContent = Number(mangaCount).toLocaleString();
+                    statValues[1].textContent = Number(chapterCount).toLocaleString();
+
+                    // simple entrance animation
+                    statValues.forEach((el, i) => {
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            el.style.transition = 'all 0.6s cubic-bezier(0.4,0,0.2,1)';
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                        }, 120 + i * 80);
+                    });
+                }
+            }
+
+            function renderGenreTags(genres) {
+                // If the DOM doesn't include the genres area (removed by template),
+                // make this a no-op so the rest of the page continues to work.
+                if (!genreTagsEl) return;
+
+                if (!Array.isArray(genres) || genres.length === 0) {
+                    genreTagsEl.innerHTML = '<div class="genre-loading">No genres found</div>';
+                    showMoreBtn && (showMoreBtn.style.display = 'none');
+                    return;
+                }
+
+                const visible = genres.slice(0, MAX_VISIBLE_GENRES);
+                genreTagsEl.innerHTML = visible.map(g =>
+                    `<a href="/genre/${g.name.toLowerCase()}" class="genre-tag" title="${g.count} manga">${g.name}<span class="genre-count">${g.count}</span></a>`
+                ).join('');
+
+                if (genres.length > MAX_VISIBLE_GENRES && showMoreBtn) {
+                    showMoreBtn.style.display = 'flex';
+                    showMoreBtn.onclick = () => openGenrePopup(genres);
+                } else if (showMoreBtn) {
+                    showMoreBtn.style.display = 'none';
+                }
+
+                // staggered entrance for tags
+                const tags = genreTagsEl.querySelectorAll('.genre-tag');
+                tags.forEach((tag, idx) => {
+                    tag.style.opacity = '0';
+                    tag.style.transform = 'translateY(8px)';
+                    setTimeout(() => {
+                        tag.style.transition = 'all 0.5s cubic-bezier(0.4,0,0.2,1)';
+                        tag.style.opacity = '1';
+                        tag.style.transform = 'translateY(0)';
+                    }, 150 + idx * 35);
+                });
+            }
+
+            async function loadStats() {
+                try {
+                    const res = await fetch(statsUrl);
+                    const stats = await res.json();
+                    setStatValues(stats.manga_count || 0, stats.chapter_count || 0);
+                    // Only render genre tags if the DOM contains the container.
+                    if (genreTagsEl) renderGenreTags(stats.genres || []);
+                } catch (err) {
+                    console.error('Error loading stats:', err);
+                    if (statsGrid) statsGrid.innerHTML = '<p class="error-message">Failed to load stats</p>';
+                }
+            }
+
+            // Genre popup helpers
+            function openGenrePopup(genres) {
+                const overlay = document.createElement('div');
+                overlay.className = 'genre-popup-overlay';
+
+                const popup = document.createElement('div');
+                popup.className = 'genre-popup';
+                popup.innerHTML = `
+                <div class="popup-header">
+                    <h3>All Genres</h3>
+                    <button class="close-popup" aria-label="Close" id="closeGenrePopup">&times;</button>
+                </div>
+                <div class="popup-content">
+                    <div class="genre-grid">
+                        ${genres.map(g => `<a href="/genre/${g.name.toLowerCase()}" class="genre-tag popup-genre-tag" title="${g.count} manga">${g.name}<span class="genre-count">${g.count}</span></a>`).join('')}
+                    </div>
+                </div>`;
+
+                overlay.appendChild(popup);
+                document.body.appendChild(overlay);
+
+                requestAnimationFrame(() => overlay.classList.add('active'));
+
+                // handlers
+                overlay.addEventListener('click', (e) => { if (e.target === overlay) closeGenrePopup(); });
+                document.getElementById('closeGenrePopup').addEventListener('click', closeGenrePopup);
+                document.addEventListener('keydown', handleEscapeKey);
+            }
+
+            function closeGenrePopup() {
+                const overlay = document.querySelector('.genre-popup-overlay');
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                setTimeout(() => overlay.remove(), 300);
+                document.removeEventListener('keydown', handleEscapeKey);
+            }
+
+            function handleEscapeKey(e) {
+                if (e.key === 'Escape') closeGenrePopup();
+            }
+
+            // Set active nav item based on current path
+            const currentPath = window.location.pathname;
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPath || (href === '/' && currentPath === '/')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // initialize
+            loadStats();
+        })();
+
+        (function () {
+            // Main index logic: catalog fetch, filtering, pagination, and UI wiring
+            const API_CATALOG = '/api/catalog';
+            const itemsPerPage = 25;
+            const sortMode = "{{ sort if sort is defined else '' }}";
+
+            // Jinja-rendered initial page value (kept as template expression)
+            let currentPage = {{ (current_page or 1) | tojson }};
+            // Optional initial genre provided by the server when visiting /genre/<name>
+            // This will be an empty string when not set. Use the default filter.
+            const initialGenre = {{ genre | default('') | tojson }};
+            // Track whether the page is currently showing a server-requested genre
+            let initialGenreActive = false;
+            // User authentication
+            const userLoggedIn = {{ current_user.is_authenticated | tojson }};
+
+        // State
+        let catalog = [];
+        let filteredCatalog = [];
+
+        // Elements
+        const grid = document.getElementById('manga-grid');
+        const topPagination = document.getElementById('top-pagination');
+        const bottomPagination = document.getElementById('bottom-pagination');
+        const searchInput = document.getElementById('filter-search-input') || document.querySelector('.hero-search input');
+        const genreFiltersContainer = document.getElementById('genre-filters');
+        const sortSelect = document.getElementById('sort-select');
+        const filterToggle = document.getElementById('filterToggle');
+        const filterPanel = document.getElementById('filter-panel');
+        const filterClose = document.getElementById('filterClose');
+        const filterApply = document.getElementById('filterApply');
+        const filterClear = document.getElementById('filterClear');
+
+        // Helpers
+        function parseReleaseDate(dateStr) {
+            if (!dateStr) return 0;
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                const [d, m, y] = parts.map(p => parseInt(p, 10));
+                if (!isNaN(d) && !isNaN(m) && !isNaN(y)) return new Date(y, m - 1, d).getTime();
+            }
+            const parsed = Date.parse(dateStr);
+            return isNaN(parsed) ? 0 : parsed;
+        }
+
+        // Normalize strings to a simple slug for reliable comparisons
+        function slugify(input) {
+            return String(input || '').toLowerCase()
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '') // remove diacritics (older browsers may not need this)
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                ;
+        }
+
+        function getLatestTimestamp(manga) {
+            return (manga.latest_chapters || []).reduce((max, c) => {
+                const t = parseReleaseDate(c.release_date || c.releaseDate || '');
+                return t > max ? t : max;
+            }, 0);
+        }
+
+        function getPopularity(manga) {
+            if (!manga) return 0;
+            if (manga.views) return Number(manga.views) || 0;
+            if (manga.popularity) return Number(manga.popularity) || 0;
+            if (manga.rating) return Number(manga.rating) || 0;
+            return (manga.chapters || []).length || 0;
+        }
+
+        // Rendering
+        function renderGrid(list) {
+            if (!Array.isArray(list) || !list.length) {
+                grid.innerHTML = '<p class="muted">No manga found.</p>';
+                return;
+            }
+
+            grid.innerHTML = list.map(m => {
+                const thumb = m.thumbnail || '';
+                const latest = (m.latest_chapters || []).slice(-2).reverse().map(c => `
+                    <div class="chapter-item"><a href="/manga/${m.slug}/chapter-${c.number}" class="chapter-link">Ch. ${c.number}${c.title ? ` | ${c.title}` : ''}</a><span class="release-date">${c.release_date || ''}</span></div>`
+                ).join('');
+
+                return `
+                <div class="manga-card" data-slug="${m.slug}">
+                    <div class="thumb-container">
+                        <a href="/manga/${m.slug}"><img class="thumb lazy" data-src="${thumb}" alt="${m.title}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="></a>
+                    </div>
+                    <div class="summary">
+                        <h3 class="title"><a href="/manga/${m.slug}">${m.title}</a></h3>
+                        <div class="chapter-list">${latest}</div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            lazyLoadImages();
+        }
+
+        function renderPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            if (totalPages <= 1) {
+                topPagination.innerHTML = '';
+                bottomPagination.innerHTML = '';
+                return;
+            }
+
+            const path = window.location.pathname || '/';
+            const base = path.startsWith('/latest') ? '/latest' : path.startsWith('/popular') ? '/popular' : '/';
+
+            const makePagePath = (pageNum) => {
+                if (pageNum === 1) return base;
+                return base === '/' ? `/page-${pageNum}` : `${base}/page-${pageNum}`;
+            };
+
+            const prevPage = currentPage > 1 ? makePagePath(currentPage - 1) : '#';
+            const nextPage = currentPage < totalPages ? makePagePath(currentPage + 1) : '#';
+
+            const paginationHTML = `
+                <a href="${prevPage}" class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''}>Prev</a>
+                <span class="page-info">Page ${currentPage} of ${totalPages}</span>
+                <a href="${nextPage}" class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''}>Next</a>
+            `;
+
+            topPagination.innerHTML = paginationHTML;
+            bottomPagination.innerHTML = paginationHTML;
+        }
+
+        function displayPage() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = filteredCatalog.slice(start, end);
+            renderGrid(pageItems);
+            renderPagination(filteredCatalog.length);
+        }
+
+        // Utilities
+        function lazyLoadImages() {
+            const lazyImages = document.querySelectorAll('img.lazy');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            obs.unobserve(img);
+                        }
+                    });
+                }, { rootMargin: '200px 0px' });
+                lazyImages.forEach(img => observer.observe(img));
+            } else {
+                lazyImages.forEach(img => img.src = img.dataset.src);
+            }
+        }
+
+        // Data fetch & filtering
+        async function loadCatalog() {
+            try {
+                const res = await fetch(API_CATALOG);
+                const list = await res.json();
+                catalog = list || [];
+
+                // Default client-side sorts based on route
+                const path = window.location.pathname || '/';
+                if (path.startsWith('/popular')) {
+                    catalog.sort((a, b) => getPopularity(b) - getPopularity(a));
+                } else if (path.startsWith('/latest')) {
+                    catalog.sort((a, b) => getLatestTimestamp(b) - getLatestTimestamp(a));
+                }
+
+                buildGenreFilters();
+
+                // Initialize filteredCatalog to the full catalog. We'll apply any
+                // server-requested initialGenre after the filters UI is built.
+                filteredCatalog = [...catalog];
+
+                // If the server requested a specific genre (via /genre/<name>),
+                // prefer filtering directly using slugified genre names so the
+                // page works reliably even if checkboxes aren't matched perfectly.
+                if (initialGenre) {
+                    initialGenreActive = true;
+                    try {
+                        const selSlug = slugify(initialGenre);
+
+                        // Build normalized genres for each manga and filter by slug
+                        filteredCatalog = catalog.filter(m => {
+                            let genres = [];
+                            if (Array.isArray(m.genres)) genres = m.genres;
+                            else if (m.genre) genres = m.genre.split(',').map(s => s.trim()).filter(Boolean);
+                            return genres.map(g => slugify(g)).includes(selSlug);
+                        });
+
+                        // Try to check the matching checkbox for a consistent UI, but
+                        // don't rely on it for filtering correctness. Create a fallback
+                        // hidden input immediately so other flows can see the requested
+                        // genre even if checkboxes are not present yet.
+                        const existingFallback = document.getElementById('initialGenreFallback');
+                        if (!existingFallback) {
+                            const fh = document.createElement('input');
+                            fh.type = 'hidden';
+                            fh.id = 'initialGenreFallback';
+                            fh.value = String(initialGenre).replace(/-/g, ' ');
+                            genreFiltersContainer.appendChild(fh);
+                        } else {
+                            existingFallback.value = String(initialGenre).replace(/-/g, ' ');
+                        }
+
+                        setTimeout(() => {
+                            try {
+                                const checkboxes = genreFiltersContainer.querySelectorAll('input[type="checkbox"]');
+                                const match = Array.from(checkboxes).find(cb => slugify(cb.value || '') === selSlug);
+                                if (match) {
+                                    match.checked = true;
+                                    // dispatch change so bound handlers update the UI
+                                    match.dispatchEvent(new Event('change', { bubbles: true }));
+                                }
+                            } catch (e) { /* ignore */ }
+                        }, 10);
+
+                        displayPage();
+
+                        // Re-apply a few times to cover any timing races where
+                        // checkbox handlers or other UI wiring haven't taken effect yet.
+                        const reapply = () => {
+                            try {
+                                if (filterApply) filterApply.click(); else applyFilters();
+                            } catch (e) { try { applyFilters(); } catch (e2) { /* ignore */ } }
+                        };
+                        setTimeout(reapply, 0);
+                        setTimeout(reapply, 150);
+                        setTimeout(reapply, 500);
+                    } catch (err) {
+                        console.warn('[genre] direct filtering failed, falling back', err);
+                        filteredCatalog = [...catalog];
+                        displayPage();
+                    }
+                } else {
+                    // No initial genre requested — show the full (unfiltered) list
+                    displayPage();
+                }
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = '<p class="muted">Failed to load catalog.</p>';
+            }
+        }
+
+        function buildGenreFilters() {
+            const genreSet = new Set();
+            catalog.forEach(m => {
+                if (Array.isArray(m.genres)) m.genres.forEach(g => genreSet.add(g));
+                else if (m.genre && typeof m.genre === 'string') m.genre.split(',').map(s => s.trim()).filter(Boolean).forEach(g => genreSet.add(g));
+            });
+
+            if (!genreSet.size) {
+                genreFiltersContainer.innerHTML = '';
+                return;
+            }
+
+            const genres = Array.from(genreSet).sort((a, b) => a.localeCompare(b));
+            genreFiltersContainer.innerHTML = genres.map(g => `<label class="genre-item"><input type="checkbox" value="${g}"> ${g}</label>`).join('');
+
+            const checkboxes = genreFiltersContainer.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.addEventListener('change', () => { currentPage = 1; applyFilters(); }));
+        }
+
+        function applyFilters() {
+            const q = (searchInput && searchInput.value || '').trim().toLowerCase();
+            let selected = Array.from(genreFiltersContainer.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value);
+
+            // If no checkbox is selected but the server provided an initialGenre fallback,
+            // honor it so /genre/<name> pages still filter correctly.
+            if (selected.length === 0) {
+                const fallback = document.getElementById('initialGenreFallback');
+                if (fallback && fallback.value) {
+                    selected = [fallback.value];
+                }
+            }
+
+            filteredCatalog = catalog.filter(m => {
+                const titleMatch = !q || (m.title || '').toLowerCase().includes(q);
+                let genres = [];
+                if (Array.isArray(m.genres)) genres = m.genres;
+                else if (m.genre) genres = m.genre.split(',').map(s => s.trim()).filter(Boolean);
+
+                // Normalize genre strings for case-insensitive comparison. This
+                // ensures server-provided slugs or fallback values match catalog genres
+                // even when casing or spacing differs.
+                const normalizedGenres = genres.map(g => (g || '').toLowerCase());
+                const genreMatch = selected.length === 0 || selected.every(s => normalizedGenres.includes((s || '').toLowerCase()));
+                return titleMatch && genreMatch;
+            });
+
+            const s = sortSelect.value || '';
+            if (s === 'title') filteredCatalog.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+            else if (s === 'popular') filteredCatalog.sort((a, b) => getPopularity(b) - getPopularity(a));
+            else if (s === 'latest') filteredCatalog.sort((a, b) => getLatestTimestamp(b) - getLatestTimestamp(a));
+
+            displayPage();
+        }
+
+        // Event wiring
+        sortSelect && sortSelect.addEventListener('change', () => { currentPage = 1; applyFilters(); });
+        if (searchInput) searchInput.addEventListener('input', () => { currentPage = 1; applyFilters(); });
+
+        if (filterToggle && filterPanel) {
+            filterToggle.addEventListener('click', () => {
+                const expanded = filterToggle.getAttribute('aria-expanded') === 'true';
+                filterToggle.setAttribute('aria-expanded', String(!expanded));
+                filterPanel.classList.toggle('open');
+                filterPanel.setAttribute('aria-hidden', String(!filterPanel.classList.contains('open')));
+                if (filterPanel.classList.contains('open')) { const fsi = document.getElementById('filter-search-input'); fsi && fsi.focus(); }
+            });
+        }
+
+        filterClose && filterClose.addEventListener('click', () => { filterPanel.classList.remove('open'); filterPanel.setAttribute('aria-hidden', 'true'); filterToggle && filterToggle.setAttribute('aria-expanded', 'false'); });
+        filterApply && filterApply.addEventListener('click', () => { currentPage = 1; applyFilters(); filterPanel.classList.remove('open'); filterPanel.setAttribute('aria-hidden', 'true'); filterToggle && filterToggle.setAttribute('aria-expanded', 'false'); });
+        filterClear && filterClear.addEventListener('click', () => { if (searchInput) searchInput.value = ''; const boxes = genreFiltersContainer.querySelectorAll('input[type="checkbox"]'); boxes.forEach(b => b.checked = false); currentPage = 1; applyFilters(); });
+
+        // SPA-like pagination handler
+        [topPagination, bottomPagination].forEach(control => {
+            control && control.addEventListener('click', e => {
+                const target = e.target.closest('a.pagination-btn');
+                if (!target || target.hasAttribute('disabled')) return;
+                e.preventDefault();
+                const url = new URL(target.href, window.location.origin);
+                const path = url.pathname;
+                if (path.startsWith('/page-')) currentPage = parseInt(path.split('-')[1], 10);
+                else currentPage = 1;
+                history.pushState({ page: currentPage }, '', path);
+                displayPage();
+            });
+        });
+
+        // Sidebar toggle wiring (header button)
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebar = document.getElementById('sidebar');
+        const body = document.body;
+        
+        // Open sidebar
+        sidebarToggle && sidebarToggle.addEventListener('click', () => {
+            sidebar && sidebar.classList.add('active');
+            sidebarOverlay && sidebarOverlay.classList.add('active');
+            body.classList.add('sidebar-open');
+        });
+        
+        // Close sidebar
+        const closeSidebar = () => {
+            sidebar && sidebar.classList.remove('active');
+            sidebarOverlay && sidebarOverlay.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        };
+        
+        sidebarClose && sidebarClose.addEventListener('click', closeSidebar);
+        sidebarOverlay && sidebarOverlay.addEventListener('click', closeSidebar);
+        
+        // Close sidebar on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar && sidebar.classList.contains('active')) {
+                closeSidebar();
+            }
+        });
+
+        // Make sidebar and popup genre links immediately apply filters instead of
+        // navigating or requiring the user to click Apply. This intercepts clicks
+        // on genre links, prevents navigation, applies the filter, and updates
+        // the URL via pushState for a smooth SPA-like experience.
+        document.addEventListener('click', (e) => {
+            // find the nearest genre link (supports both inline tags and popup tags)
+            const link = e.target && e.target.closest ? e.target.closest('a.genre-tag, a.popup-genre-tag') : null;
+            if (!link) return;
+            // Prevent the default navigation immediately
+            e.preventDefault();
+
+            // Determine genre from href or text
+            let genreFromHref = '';
+            try {
+                const href = link.getAttribute('href') || '';
+                const m = href.match(/\/genre\/([^\/\?#]+)/);
+                if (m && m[1]) {
+                    genreFromHref = decodeURIComponent(m[1]).replace(/-/g, ' ');
+                }
+            } catch (err) { /* ignore */ }
+
+            const genreName = (genreFromHref || link.textContent || '').trim();
+            if (!genreName) return;
+
+            // Directly filter the in-memory catalog by slug so the result appears
+            // immediately and doesn't depend on checkbox change handlers or timing.
+            try {
+                const selSlug = slugify(genreName);
+                filteredCatalog = catalog.filter(m => {
+                    let genres = [];
+                    if (Array.isArray(m.genres)) genres = m.genres;
+                    else if (m.genre) genres = m.genre.split(',').map(s => s.trim()).filter(Boolean);
+                    return genres.map(g => slugify(g)).includes(selSlug);
+                });
+            } catch (e) {
+                console.warn('[genre click] direct filter failed, falling back to checkbox flow', e);
+            }
+
+            // If the filter checkboxes are built, try to find and check the matching one
+            // for consistent UI, but don't rely on it for the filtering itself.
+            const boxes = genreFiltersContainer.querySelectorAll('input[type="checkbox"]');
+            const match = Array.from(boxes).find(cb => slugify(cb.value || '') === slugify(genreName));
+            if (match) {
+                match.checked = true;
+                match.dispatchEvent(new Event('change', { bubbles: true }));
+            } else {
+                let fallback = document.getElementById('initialGenreFallback');
+                if (!fallback) {
+                    fallback = document.createElement('input');
+                    fallback.type = 'hidden';
+                    fallback.id = 'initialGenreFallback';
+                    genreFiltersContainer.appendChild(fallback);
+                }
+                fallback.value = genreName;
+            }
+
+            // Apply and reset to page 1, close popup/sidebar for a cleaner UX.
+            // Prefer hitting the Apply button behaviour if present so any UI closing
+            // logic remains consistent.
+            currentPage = 1;
+            if (filterApply) filterApply.click(); else displayPage();
+            closeGenrePopup();
+            if (sidebar && sidebar.classList.contains('active')) closeSidebar();
+
+            // Update browser URL to the genre path without navigating
+            try {
+                const slug = (genreFromHref || genreName).toLowerCase().replace(/\s+/g, '-');
+                const newPath = `/genre/${encodeURIComponent(slug)}`;
+                history.pushState({ genre: slug }, '', newPath);
+            } catch (err) { /* ignore */ }
+        });
+
+        // Initialize
+        loadCatalog();
+
+        // Safety: if a server-provided initialGenre exists but filters didn't take
+        // effect due to timing or DOM differences, re-run the apply flow after a
+        // short delay to ensure the user sees the filtered results. Skip this
+        // if initialGenreActive is true because it means we already applied it.
+        if (initialGenre && !initialGenreActive) {
+            setTimeout(() => {
+                try {
+                    if (filterApply) {
+                        filterApply.click();
+                    } else {
+                        applyFilters();
+                    }
+                } catch (e) {
+                    try { applyFilters(); } catch (e2) { /* ignore */ }
+                }
+            }, 300);
+        }
+
+        // Final fallback: after a short time, if an initialGenre was requested but
+        // the grid still appears unfiltered (same length as full catalog), do a
+        // direct slug-based filter and rerender. This catches stubborn race
+        // conditions where earlier re-applies didn't take effect.
+        if (initialGenre) {
+            setTimeout(() => {
+                try {
+                    if (Array.isArray(filteredCatalog) && Array.isArray(catalog) && filteredCatalog.length === catalog.length && catalog.length > 20) {
+                        const selSlug = slugify(initialGenre);
+                        filteredCatalog = catalog.filter(m => {
+                            let genres = [];
+                            if (Array.isArray(m.genres)) genres = m.genres;
+                            else if (m.genre) genres = m.genre.split(',').map(s => s.trim()).filter(Boolean);
+                            return genres.map(g => slugify(g)).includes(selSlug);
+                        });
+                        displayPage();
+                    }
+                } catch (e) { /* ignore */ }
+            }, 1000);
+        }
+
+
+    }) ();
+    </script>
+    
+    <script src="/static/js/utils.js"></script>
+    
+
+</body>
+
+</html>

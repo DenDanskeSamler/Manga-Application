@@ -22,8 +22,18 @@
     "Tragedy"
   ],
   "status": "OnGoing",
-  "bookmarked": 891,
+  "bookmarked": 892,
   "total_chapters": 249,
+  "latest_chapters": [
+    {
+      "number": 248.5,
+      "release_date": "17-10-2023"
+    },
+    {
+      "number": 248,
+      "release_date": "17-10-2023"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -5972,7 +5982,7 @@
       ]
     },
     {
-      "number": 248,
+      "number": 248.5,
       "title": "Chapter 248.5",
       "release_date": "17-10-2023",
       "pages": [
@@ -5982,7 +5992,7 @@
       ]
     },
     {
-      "number": 249,
+      "number": 248,
       "title": "Chapter 248",
       "release_date": "17-10-2023",
       "pages": [

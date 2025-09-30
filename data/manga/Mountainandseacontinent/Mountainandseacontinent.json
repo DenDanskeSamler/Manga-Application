@@ -5,7 +5,7 @@
   "description": "Mountain and Sea Continent Manhua A programmer reincarnated to the Mountain and Sea Continent, a world full of strange monsters. How will the protagonist survive? 山海大陆",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2024/09/Mountain-and-Sea-Continent-175x238.webp",
   "url": "https://manhuaus.com/manga/mountain-and-sea-continent/",
-  "rank": "N/A, it has 79.5K monthly views",
+  "rank": "N/A, it has 80.4K monthly views",
   "alternative_titles": [
     "山海大陆"
   ],
@@ -19,9 +19,19 @@
   "status": "OnGoing",
   "bookmarked": 99,
   "total_chapters": 7,
+  "latest_chapters": [
+    {
+      "number": 5,
+      "release_date": "02-10-2024"
+    },
+    {
+      "number": 6,
+      "release_date": "02-10-2024"
+    }
+  ],
   "chapters": [
     {
-      "number": 1,
+      "number": 0,
       "title": "Chapter 0",
       "release_date": "01-09-2024",
       "pages": [
@@ -50,7 +60,7 @@
       ]
     },
     {
-      "number": 2,
+      "number": 1,
       "title": "Chapter 1",
       "release_date": "01-09-2024",
       "pages": [
@@ -74,7 +84,7 @@
       ]
     },
     {
-      "number": 3,
+      "number": 2,
       "title": "Chapter 2",
       "release_date": "01-09-2024",
       "pages": [
@@ -93,7 +103,7 @@
       ]
     },
     {
-      "number": 4,
+      "number": 3,
       "title": "Chapter 3",
       "release_date": "11-09-2024",
       "pages": [
@@ -115,7 +125,7 @@
       ]
     },
     {
-      "number": 5,
+      "number": 4,
       "title": "Chapter 4",
       "release_date": "24-09-2024",
       "pages": [
@@ -134,7 +144,7 @@
       ]
     },
     {
-      "number": 6,
+      "number": 5,
       "title": "Chapter 5",
       "release_date": "02-10-2024",
       "pages": [
@@ -157,7 +167,7 @@
       ]
     },
     {
-      "number": 7,
+      "number": 6,
       "title": "Chapter 6",
       "release_date": "02-10-2024",
       "pages": [

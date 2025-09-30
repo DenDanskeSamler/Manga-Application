@@ -5,7 +5,7 @@
   "description": "The Knight King Who Returned with a God Manhwa I returned to Earth after hunting demons in the otherworld for three hundred years. But I did not return alone.",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/05/The-Knight-King-Who-Returned-with-175x238.webp",
   "url": "https://manhuaus.com/manga/the-knight-king-who-returned-with-a-god/",
-  "rank": "69th, it has 3.9M monthly views",
+  "rank": "69th, it has 4M monthly views",
   "alternative_titles": [
     "The Knight King Who Returned with a God",
     "신과함께 돌아온 기사왕님"
@@ -17,7 +17,17 @@
   ],
   "status": "OnGoing",
   "bookmarked": 2,
-  "total_chapters": 130,
+  "total_chapters": 131,
+  "latest_chapters": [
+    {
+      "number": 130,
+      "release_date": "21-09-2025"
+    },
+    {
+      "number": 131,
+      "release_date": "28-09-2025"
+    }
+  ],
   "chapters": [
     {
       "number": 1,
@@ -3217,6 +3227,25 @@
         "https://img.manhuaus.com/image2025/manga_646b8c968e39a/102b2ef34c9ee20f25d134c1d31a935e/013.webp",
         "https://img.manhuaus.com/image2025/manga_646b8c968e39a/102b2ef34c9ee20f25d134c1d31a935e/014.webp",
         "https://img.manhuaus.com/image2025/manga_646b8c968e39a/102b2ef34c9ee20f25d134c1d31a935e/015.webp"
+      ]
+    },
+    {
+      "number": 131,
+      "title": "Chapter 131",
+      "release_date": "28-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/001.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/002.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/003.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/004.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/005.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/006.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/007.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/008.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/009.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/010.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/011.webp",
+        "https://img.manhuaus.com/image2025/manga_646b8c968e39a/3cc03961016781180e6516babf0d2fdb/012.webp"
       ]
     }
   ]

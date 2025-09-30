@@ -5,7 +5,7 @@
   "description": "Jian Yi Hua Xing Sword Intent Sword Intent Transformation 剑意化形",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/12/Sword-Intent-175x238.webp",
   "url": "https://manhuaus.com/manga/sword-intent/",
-  "rank": "N/A, it has 34.8K monthly views",
+  "rank": "N/A, it has 35.2K monthly views",
   "alternative_titles": [
     "Jianyi Huaxing",
     "Sword Intent Transformation",
@@ -20,9 +20,19 @@
   "status": "OnGoing",
   "bookmarked": 33,
   "total_chapters": 4,
+  "latest_chapters": [
+    {
+      "number": 2,
+      "release_date": "06-06-2023"
+    },
+    {
+      "number": 3,
+      "release_date": "09-06-2023"
+    }
+  ],
   "chapters": [
     {
-      "number": 1,
+      "number": 0,
       "title": "Chapter 0",
       "release_date": "02-12-2022",
       "pages": [
@@ -50,7 +60,7 @@
       ]
     },
     {
-      "number": 2,
+      "number": 1,
       "title": "Chapter 1",
       "release_date": "05-06-2023",
       "pages": [
@@ -72,7 +82,7 @@
       ]
     },
     {
-      "number": 3,
+      "number": 2,
       "title": "Chapter 2",
       "release_date": "06-06-2023",
       "pages": [
@@ -98,7 +108,7 @@
       ]
     },
     {
-      "number": 4,
+      "number": 3,
       "title": "Chapter 3",
       "release_date": "09-06-2023",
       "pages": [
