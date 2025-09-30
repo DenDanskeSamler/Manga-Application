@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Settings - Admin Panel - MangaReader+</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <style>
+        .admin-panel {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .admin-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .admin-header h1 {
+            color: #e0e6ed;
+            margin-bottom: 0.5rem;
+        }
+        
+        .settings-section {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .settings-header {
+            background: #0f172a;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .settings-header h2 {
+            color: #e0e6ed;
+            margin: 0;
+        }
+        
+        .settings-form {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #e0e6ed;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            color: #e0e6ed;
+            font-size: 1rem;
+        }
+        
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .form-group .form-description {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.75rem;
+            accent-color: #3b82f6;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        .btn-save {
+            background: #059669;
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .btn-save:hover {
+            background: #047857;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-view {
+            background: #3b82f6;
+            color: #fff;
+        }
+        
+        .btn-view:hover {
+            background: #2563eb;
+        }
+        
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        
+        .alert.success {
+            background: #065f46;
+            border: 1px solid #059669;
+            color: #d1fae5;
+        }
+        
+        .alert.error {
+            background: #7f1d1d;
+            border: 1px solid #dc2626;
+            color: #fecaca;
+        }
+        
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            color: #3b82f6;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .nav-back:hover {
+            color: #2563eb;
+        }
+        
+        .nav-back::before {
+            content: '←';
+            margin-right: 0.5rem;
+        }
+        
+        .settings-info {
+            background: #1e40af;
+            border: 1px solid #3b82f6;
+            color: #dbeafe;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .admin-panel {
+                padding: 0 1rem;
+                margin: 1rem auto;
+            }
+            
+            .admin-header {
+                text-align: left;
+            }
+            
+            .admin-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .admin-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 1rem !important;
+            }
+            
+            .admin-nav .btn-sm {
+                margin-right: 0 !important;
+                text-align: center;
+            }
+            
+            .settings-section {
+                margin-bottom: 1rem;
+            }
+            
+            .settings-form {
+                padding: 1rem;
+            }
+            
+            .form-group input[type="text"],
+            .form-group input[type="number"] {
+                padding: 0.5rem;
+            }
+            
+            .btn-save {
+                width: 100%;
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site default-header">
+        <div class="wrap">
+            <div class="brand">
+                <span class="logo"></span>
+                <a href="/">MangaReader<span class="accent">+</span></a>
+            </div>
+            <div class="user-info">
+                {% if current_user.is_authenticated %}
+                    <div class="user-info-col">
+                        <span class="username">{{ current_user.username }}</span>
+                        {% if current_user.is_administrator() %}
+                            <a href="{{ url_for('admin_panel') }}" class="admin-btn" style="color:#dc2626; text-decoration:none; font-size:0.85rem;">Admin</a>
+                        {% endif %}
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-panel">
+        <a href="{{ url_for('admin_panel') }}" class="nav-back">Back to Admin Panel</a>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="admin-header">
+            <h1>Admin Settings</h1>
+            <p>Configure application settings and policies</p>
+            <div class="admin-nav" style="margin-top: 1rem;">
+                <a href="{{ url_for('admin_panel') }}" class="btn-sm btn-view" style="margin-right: 0.5rem;">Users</a>
+                <a href="{{ url_for('admin_settings') }}" class="btn-sm btn-view" style="background: #059669;">Settings</a>
+            </div>
+        </div>
+        
+        <div class="settings-info">
+            <strong>Note:</strong> These settings control how users can access the application. Changes take effect immediately.
+        </div>
+        
+        <div class="settings-section">
+            <div class="settings-header">
+                <h2>User Access Settings</h2>
+            </div>
+            <div class="settings-form">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            {{ form.require_registration() }}
+                            {{ form.require_registration.label() }}
+                        </div>
+                        <div class="form-description">Require user registration to access the site</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.max_users.label() }}
+                        {{ form.max_users(class="form-control") }}
+                        <div class="form-description">Maximum number of users allowed (0 = unlimited)</div>
+                        {% if form.max_users.errors %}
+                            {% for error in form.max_users.errors %}
+                                <div style="color: #f87171; font-size: 0.875rem; margin-top: 0.25rem;">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    {{ form.submit(class="btn-save") }}
+                </form>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <div class="settings-header">
+                <h2>System Information</h2>
+            </div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label>Application Version</label>
+                    <div style="color: #94a3b8;">MangaReader+ v1.0.0</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Database Status</label>
+                    <div style="color: #10b981;">Connected</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Configuration</label>
+                    <div style="color: #94a3b8;">Settings are stored in the application database</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

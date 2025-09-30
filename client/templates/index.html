@@ -26,20 +26,14 @@
                 </div>
             </div>
             <div class="header-right">
-                <div class="header-stats" id="headerStats">
-                    <div class="stat-item">
-                        <span class="stat-value">-</span>
-                        <span class="stat-label">Manga</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-value">-</span>
-                        <span class="stat-label">Chapters</span>
-                    </div>
-                </div>
                 {% if current_user.is_authenticated %}
                     <div class="user-menu">
-                        <span class="username">{{ current_user.username }}</span>
+                        <div class="user-info-col">
+                            <span class="username">{{ current_user.username }}</span>
+                            {% if current_user.is_administrator() %}
+                                <a href="{{ url_for('admin_panel') }}" class="admin-btn" style="color: #dc2626; text-decoration: none; font-size: 0.9rem;">Admin</a>
+                            {% endif %}
+                        </div>
                         <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
                     </div>
                 {% else %}
@@ -72,7 +66,7 @@
         
         <div class="sidebar-content">
             <!-- Sidebar stats (shown on small screens) -->
-            <div class="sidebar-stats" id="sidebarStats" style="display: none;">
+            <div class="sidebar-stats" id="sidebarStats">
                 <div class="stat-item">
                     <span class="stat-value">-</span>
                     <span class="stat-label">Manga</span>

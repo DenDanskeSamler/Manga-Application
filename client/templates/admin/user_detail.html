@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User Details: {{ user.username }} - MangaReader+</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <style>
+        .admin-panel {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .user-header {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .user-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            min-width: 0; /* allow children to shrink */
+        }
+
+        /* Responsive heading: scale down on small screens and avoid overflow */
+        .user-title h1 {
+            color: #e0e6ed;
+            margin: 0;
+            /* responsive font that stays within container */
+            font-size: clamp(1rem, 2.2vw + 0.5rem, 1.75rem);
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .admin-badge {
+            background: #dc2626;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .disabled-badge {
+            background: #f59e0b;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .guest-badge {
+            background: #8b5cf6;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        /* User header info layout (scoped to avoid colliding with site header .user-info) */
+        .user-header .user-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            color: #94a3b8;
+        }
+
+        /* Allow grid items to shrink on small screens so long strings (emails) don't overflow */
+        .user-header .info-item {
+            min-width: 0;
+        }
+
+        /* Ensure long single-word values (like long emails) wrap nicely */
+        .user-header .info-value {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            color: #e0e6ed;
+            font-weight: 500;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .info-value {
+            color: #e0e6ed;
+            font-weight: 500;
+        }
+        
+        .section {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .section-header {
+            background: #0f172a;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .section-header h2 {
+            color: #e0e6ed;
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            color: #94a3b8;
+            padding: 2rem;
+        }
+        
+        .bookmark-item,
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .bookmark-item:last-child,
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .manga-thumbnail {
+            width: 60px;
+            height: 80px;
+            background: #0f172a;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .manga-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .manga-info {
+            flex: 1;
+        }
+        
+        .manga-title {
+            color: #e0e6ed;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .manga-meta {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            color: #3b82f6;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .nav-back:hover {
+            color: #2563eb;
+        }
+        
+        .nav-back::before {
+            content: '←';
+            margin-right: 0.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background: #0f172a;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3b82f6;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Search functionality */
+        .search-container {
+            position: relative;
+            margin-left: auto;
+            max-width: 300px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: #e0e6ed;
+            font-size: 0.875rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        /* Grouped history styles */
+        .manga-history-item {
+            border-bottom: 1px solid #334155;
+            margin-bottom: 1rem;
+        }
+        
+        .manga-history-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .manga-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        
+        .manga-header .manga-thumbnail {
+            width: 60px;
+            height: 80px;
+            background: #0f172a;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .manga-header .manga-info {
+            flex: 1;
+        }
+        
+        .chapters-list {
+            background: #0f172a;
+            padding: 1rem;
+        }
+        
+        .chapter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #334155;
+            font-size: 0.875rem;
+        }
+        
+        .chapter-item:last-child {
+            border-bottom: none;
+        }
+        
+        .chapter-number {
+            color: #3b82f6;
+            font-weight: 500;
+            min-width: 60px;
+        }
+        
+        .chapter-date {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+        
+        /* Hidden state for search */
+        .manga-history-item.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="site default-header">
+        <div class="wrap">
+            <div class="brand">
+                <span class="logo"></span>
+                <a href="/">MangaReader<span class="accent">+</span></a>
+            </div>
+            <div class="user-info">
+                {% if current_user.is_authenticated %}
+                    <div class="user-info-col">
+                        <span class="username">{{ current_user.username }}</span>
+                        {% if current_user.is_administrator() %}
+                            <a href="{{ url_for('admin_panel') }}" class="admin-btn" style="color:#dc2626; text-decoration:none; font-size:0.85rem;">Admin</a>
+                        {% endif %}
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-panel">
+        <a href="{{ url_for('admin_panel') }}" class="nav-back">Back to Admin Panel</a>
+        
+        <div class="user-header">
+            <div class="user-title">
+                <h1>{{ user.username }}</h1>
+                {% if user.is_admin %}
+                    <span class="admin-badge">Admin</span>
+                {% endif %}
+                {% if user.is_disabled %}
+                    <span class="disabled-badge">Disabled</span>
+                {% endif %}
+                <!-- Guest badge removed -->
+            </div>
+            <div class="user-info">
+                <div class="info-item">
+                    <span class="info-label">User ID</span>
+                    <span class="info-value">{{ user.id }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email</span>
+                    <span class="info-value">{{ user.email }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Created</span>
+                    <span class="info-value">{{ user.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Account Type</span>
+                    <span class="info-value">{% if user.is_admin %}Administrator{% else %}User{% endif %}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-number">{{ bookmarks|length }}</span>
+                <div class="stat-label">Bookmarks</div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">{{ history|length }}</span>
+                <div class="stat-label">Reading History</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-header">
+                <h2>Bookmarks ({{ bookmarks|length }})</h2>
+            </div>
+            <div class="section-content">
+                {% if bookmarks %}
+                    {% for bookmark in bookmarks %}
+                    <div class="bookmark-item">
+                        <div class="manga-thumbnail">
+                            {% if bookmark.manga_thumbnail %}
+                                {# Remote absolute URL -> use as-is #}
+                                {% if bookmark.manga_thumbnail.startswith('http') %}
+                                    <img src="{{ bookmark.manga_thumbnail }}" alt="{{ bookmark.manga_title }}" loading="lazy">
+                                {% elif bookmark.manga_thumbnail.startswith('/') %}
+                                    {# Already absolute static path -> use as-is #}
+                                    <img src="{{ bookmark.manga_thumbnail }}" alt="{{ bookmark.manga_title }}" loading="lazy">
+                                {% elif bookmark.manga_thumbnail.startswith('static/') %}
+                                    {# Stored without leading slash, convert to url_for static #}
+                                    <img src="{{ url_for('static', filename=bookmark.manga_thumbnail.replace('static/', '')) }}" alt="{{ bookmark.manga_title }}" loading="lazy">
+                                {% else %}
+                                    {# Assume it's a thumbnail filename inside the thumbnails folder #}
+                                    <img src="{{ url_for('static', filename='thumbnail/' ~ bookmark.manga_thumbnail) }}" alt="{{ bookmark.manga_title }}" loading="lazy">
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="manga-info">
+                            <div class="manga-title">{{ bookmark.manga_title }}</div>
+                            <div class="manga-meta">
+                                Bookmarked {{ bookmark.created_at.strftime('%B %d, %Y') }}
+                                {% if bookmark.chapter_number %}
+                                    • Chapter {{ bookmark.chapter_number }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <p>No bookmarks found for this user.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-header">
+                <h2>Reading History ({{ grouped_history|length }} manga)</h2>
+                <div class="search-container">
+                    <input type="text" id="historySearch" placeholder="Search manga..." class="search-input">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="M21 21L16.5 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="section-content">
+                {% if grouped_history %}
+                    <div class="manga-history-list">
+                        {% for manga in grouped_history %}
+                        <div class="manga-history-item" data-manga-title="{{ manga.manga_title|lower }}">
+                            <div class="manga-header">
+                                <div class="manga-thumbnail">
+                                    {% if manga.manga_thumbnail %}
+                                        {% if manga.manga_thumbnail.startswith('http') %}
+                                            <img src="{{ manga.manga_thumbnail }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                        {% elif manga.manga_thumbnail.startswith('/') %}
+                                            <img src="{{ manga.manga_thumbnail }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                        {% elif manga.manga_thumbnail.startswith('static/') %}
+                                            <img src="{{ url_for('static', filename=manga.manga_thumbnail.replace('static/', '')) }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                        {% else %}
+                                            <img src="{{ url_for('static', filename='thumbnail/' ~ manga.manga_thumbnail) }}" alt="{{ manga.manga_title }}" loading="lazy">
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="manga-info">
+                                    <div class="manga-title">{{ manga.manga_title }}</div>
+                                    <div class="manga-meta">
+                                        {{ manga.chapters|length }} chapters read
+                                        • Latest: {{ manga.latest_read.strftime('%B %d, %Y') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chapters-list">
+                                {% for chapter in manga.chapters|sort(attribute='number', reverse=true) %}
+                                <div class="chapter-item">
+                                    <span class="chapter-number">Ch. {{ chapter.number }}</span>
+                                    <span class="chapter-date">{{ chapter.read_at.strftime('%b %d, %Y at %I:%M %p') }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <p>No reading history found for this user.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('historySearch');
+        const mangaItems = document.querySelectorAll('.manga-history-item');
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                mangaItems.forEach(item => {
+                    const title = item.getAttribute('data-manga-title');
+                    if (title.includes(searchTerm)) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        }
+        
+
+    </script>
+</body>
+</html>

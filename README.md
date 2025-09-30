@@ -5,6 +5,8 @@ A modern web-based manga reading application built with Flask. The project has b
 ## Features
 
 - **User Authentication**: Secure user registration and login system
+- **Admin Panel**: Comprehensive admin interface for user management
+- **User Management**: View, edit, and delete user accounts (admin only)
 - **Manga Catalog**: Browse and search through manga collection
 - **Reading Interface**: Clean, responsive manga reading experience
 - **Bookmarks**: Save favorite manga with chapter-specific bookmarks
@@ -64,6 +66,16 @@ copy .env
 ```powershell
 python app.py
 # The server will bind to FLASK_HOST:FLASK_PORT from your .env (default port 8000)
+```
+
+6. Create an admin user (after first run):
+
+```powershell
+# Method 1: Create new admin user
+python create_admin.py
+
+# Method 2: Make existing user admin
+python migrate_db.py make-admin <username>
 ```
 
 ## Configuration
@@ -166,6 +178,17 @@ Manga-Application/
 - Secure password hashing with Werkzeug
 - SQL injection prevention with SQLAlchemy ORM
 - Input validation and sanitization
+
+## Admin Features
+
+The application includes a comprehensive admin panel for user management:
+
+- **Admin Dashboard**: View system statistics and manage users
+- **User Management**: View, edit admin status, and delete user accounts
+- **Access Control**: Admin-only routes with proper authorization
+- **Safety Features**: Cannot delete own account, requires confirmation for deletions
+
+For detailed admin documentation, see [ADMIN_FEATURES.md](ADMIN_FEATURES.md).
 - Session management with Flask-Login
 - Environment-based configuration
 

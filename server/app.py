@@ -2,7 +2,7 @@ import json
 import random
 import os
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from flask import Flask, render_template, jsonify, send_file, redirect, url_for, request, flash
 from sqlalchemy import text
@@ -15,8 +15,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Import our models, forms, and config
-from server.src.database.models import db, User, Bookmark, ReadingHistory
-from server.src.web.forms import LoginForm, RegistrationForm
+from server.src.database.models import db, User, Bookmark, ReadingHistory, AppSettings
+from server.src.web.forms import LoginForm, RegistrationForm, DeleteUserForm, MakeAdminForm, RemoveAdminForm, SettingsForm
 from server.src.config import config_map
 
 # Get configuration based on environment
@@ -53,6 +53,67 @@ app.logger.setLevel(log_level)
 
 # Initialize extensions
 db.init_app(app)
+
+# Initialize database and run migrations
+with app.app_context():
+    db.create_all()
+    
+    # Runtime-safe migration: add optional chapter columns to Bookmark if they don't exist
+    try:
+        # Use string literal for table name to avoid type checker issues
+        table_name = 'bookmark'
+        res = db.session.execute(text(f"PRAGMA table_info({table_name});")).fetchall()
+        existing_cols = [r[1] for r in res]
+        altered = False
+        if 'chapter_number' not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE {table_name} ADD COLUMN chapter_number INTEGER"))
+            altered = True
+        if 'chapter_title' not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE {table_name} ADD COLUMN chapter_title VARCHAR(200)"))
+            altered = True
+        if altered:
+            db.session.commit()
+            app.logger.info('[migration] Added chapter columns to Bookmark table')
+    except Exception as e:
+        app.logger.error(f'Migration check error: {e}')
+    
+    # Runtime-safe migration: add new columns to User if they don't exist
+    try:
+        user_table = 'user'
+        res = db.session.execute(text(f"PRAGMA table_info({user_table});")).fetchall()
+        existing_cols = [r[1] for r in res]
+        altered = False
+        if 'is_admin' not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE {user_table} ADD COLUMN is_admin BOOLEAN DEFAULT 0 NOT NULL"))
+            altered = True
+        if 'is_disabled' not in existing_cols:
+            db.session.execute(text(f"ALTER TABLE {user_table} ADD COLUMN is_disabled BOOLEAN DEFAULT 0 NOT NULL"))
+            altered = True
+
+            altered = True
+        if altered:
+            db.session.commit()
+            app.logger.info('[migration] Added new columns to User table')
+    except Exception as e:
+        app.logger.error(f'User table migration error: {e}')
+    
+    # Initialize default settings if they don't exist
+    try:
+        if not AppSettings.query.first():
+            default_settings = [
+                ('require_registration', 'false', 'Require user registration to access the site'),
+                ('max_users', '1000', 'Maximum number of users allowed')
+            ]
+            
+            for key, value, description in default_settings:
+                setting = AppSettings(key=key, value=value, description=description)
+                db.session.add(setting)
+            
+            db.session.commit()
+            app.logger.info('[migration] Initialized default settings')
+    except Exception as e:
+        app.logger.error(f'Settings initialization error: {e}')
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -61,6 +122,20 @@ login_manager.login_message = 'Please log in to access this page.'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+# Admin required decorator
+from functools import wraps
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return redirect(url_for('login'))
+        if not current_user.is_administrator():
+            flash('Admin access required.')
+            return redirect(url_for('root'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # --- Authentication routes ---
 @app.route('/login', methods=['GET', 'POST'])
@@ -72,6 +147,9 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(form.password.data):
+            if user.is_disabled:
+                flash('This account has been disabled. Please contact an administrator.')
+                return render_template('login.html', form=form)
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('root'))
@@ -92,6 +170,8 @@ def register():
         flash('Registration successful!')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
+
 
 @app.route('/logout')
 @login_required
@@ -401,30 +481,181 @@ def clear_history():
     db.session.commit()
     return jsonify({"status": "cleared"})
 
-if __name__ == "__main__":
-    # Create database tables
-    with app.app_context():
-        db.create_all()
-        
-        # Runtime-safe migration: add optional chapter columns to Bookmark if they don't exist
-        try:
-            # Use string literal for table name to avoid type checker issues
-            table_name = 'bookmark'
-            res = db.session.execute(text(f"PRAGMA table_info({table_name});")).fetchall()
-            existing_cols = [r[1] for r in res]
-            altered = False
-            if 'chapter_number' not in existing_cols:
-                db.session.execute(text(f"ALTER TABLE {table_name} ADD COLUMN chapter_number INTEGER"))
-                altered = True
-            if 'chapter_title' not in existing_cols:
-                db.session.execute(text(f"ALTER TABLE {table_name} ADD COLUMN chapter_title VARCHAR(200)"))
-                altered = True
-            if altered:
-                db.session.commit()
-                app.logger.info('[migration] Added chapter columns to Bookmark table')
-        except Exception as e:
-            app.logger.error(f'Migration check error: {e}')
+# --- Admin routes ---
+@app.route('/admin')
+@admin_required
+def admin_panel():
+    """Admin panel showing all users and system statistics."""
+    users = User.query.order_by(User.created_at.desc()).all()
     
+    # Get statistics
+    total_users = User.query.count()
+    total_admins = User.query.filter_by(is_admin=True).count()
+    disabled_users = User.query.filter_by(is_disabled=True).count()
+    total_bookmarks = Bookmark.query.count()
+    total_history = ReadingHistory.query.count()
+    
+    stats = {
+        'total_users': total_users,
+        'total_admins': total_admins,
+        'disabled_users': disabled_users,
+        'total_bookmarks': total_bookmarks,
+        'total_history': total_history
+    }
+    
+    return render_template('admin/panel.html', users=users, stats=stats)
+
+@app.route('/admin/user/<int:user_id>')
+@admin_required
+def admin_user_detail(user_id):
+    """View detailed information about a specific user."""
+    user = User.query.get_or_404(user_id)
+    user_bookmarks = Bookmark.query.filter_by(user_id=user_id).all()
+    user_history = ReadingHistory.query.filter_by(user_id=user_id).order_by(ReadingHistory.last_read_at.desc()).all()
+    
+    # Group reading history by manga
+    grouped_history = {}
+    for item in user_history:
+        manga_key = item.manga_slug
+        if manga_key not in grouped_history:
+            grouped_history[manga_key] = {
+                'manga_title': item.manga_title,
+                'manga_thumbnail': item.manga_thumbnail,
+                'manga_slug': item.manga_slug,
+                'chapters': [],
+                'latest_read': item.last_read_at
+            }
+        
+        grouped_history[manga_key]['chapters'].append({
+            'number': item.chapter_number,
+            'title': item.chapter_title,
+            'read_at': item.last_read_at
+        })
+        
+        # Update latest read time if this chapter was read more recently
+        if item.last_read_at > grouped_history[manga_key]['latest_read']:
+            grouped_history[manga_key]['latest_read'] = item.last_read_at
+    
+    # Sort grouped history by latest read time (most recent first)
+    grouped_history_list = sorted(grouped_history.values(), key=lambda x: x['latest_read'], reverse=True)
+    
+    return render_template('admin/user_detail.html', 
+                         user=user, 
+                         bookmarks=user_bookmarks, 
+                         history=user_history,
+                         grouped_history=grouped_history_list)
+
+@app.route('/admin/delete-user/<int:user_id>', methods=['GET', 'POST'])
+@admin_required
+def admin_delete_user(user_id):
+    """Delete a user account (admin only)."""
+    user = User.query.get_or_404(user_id)
+    
+    # Prevent admin from deleting themselves
+    if user.id == current_user.id:
+        flash('You cannot delete your own account.', 'error')
+        return redirect(url_for('admin_panel'))
+    
+    form = DeleteUserForm()
+    
+    if form.validate_on_submit():
+        if form.confirm_username.data == user.username:
+            # Delete user and all associated data (cascaded by relationships)
+            username = user.username
+            db.session.delete(user)
+            db.session.commit()
+            flash(f'User "{username}" has been deleted successfully.', 'success')
+            return redirect(url_for('admin_panel'))
+        else:
+            flash('Username confirmation does not match.', 'error')
+    
+    return render_template('admin/delete_user.html', user=user, form=form)
+
+@app.route('/admin/toggle-admin/<int:user_id>', methods=['POST'])
+@admin_required
+def admin_toggle_admin(user_id):
+    """Toggle admin status of a user."""
+    user = User.query.get_or_404(user_id)
+    
+    # Prevent admin from removing their own admin status
+    if user.id == current_user.id:
+        flash('You cannot modify your own admin status.', 'error')
+        return redirect(url_for('admin_panel'))
+    
+    user.is_admin = not user.is_admin
+    db.session.commit()
+    
+    status = "granted" if user.is_admin else "revoked"
+    flash(f'Admin privileges {status} for user "{user.username}".', 'success')
+    
+    return redirect(url_for('admin_panel'))
+
+@app.route('/admin/toggle-disabled/<int:user_id>', methods=['POST'])
+@admin_required
+def admin_toggle_disabled(user_id):
+    """Toggle disabled status of a user."""
+    user = User.query.get_or_404(user_id)
+    
+    # Prevent admin from disabling themselves
+    if user.id == current_user.id:
+        flash('You cannot disable your own account.', 'error')
+        return redirect(url_for('admin_panel'))
+    
+    user.is_disabled = not user.is_disabled
+    db.session.commit()
+    
+    status = "disabled" if user.is_disabled else "enabled"
+    flash(f'User "{user.username}" has been {status}.', 'success')
+    
+    return redirect(url_for('admin_panel'))
+
+
+@app.route('/admin/delete-user-direct/<int:user_id>', methods=['POST'])
+@admin_required
+def admin_delete_user_direct(user_id):
+    """Directly delete a user account (admin only). This bypasses the confirmation page and should
+    only be used by trusted admins. Prevents deleting your own account."""
+    user = User.query.get_or_404(user_id)
+
+    if user.id == current_user.id:
+        flash('You cannot delete your own account.', 'error')
+        return redirect(url_for('admin_panel'))
+
+    username = user.username
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        flash(f'User "{username}" has been deleted successfully.', 'success')
+    except Exception as e:
+        app.logger.error(f'Error deleting user {user_id}: {e}')
+        db.session.rollback()
+        flash('An error occurred while deleting the user.', 'error')
+
+    return redirect(url_for('admin_panel'))
+
+@app.route('/admin/settings', methods=['GET', 'POST'])
+@admin_required
+def admin_settings():
+    """Admin settings page."""
+    form = SettingsForm()
+    
+    if form.validate_on_submit():
+        # Save settings to database
+        AppSettings.set_setting('require_registration', form.require_registration.data, 'Require user registration to access the site')
+        AppSettings.set_setting('max_users', form.max_users.data or 1000, 'Maximum number of users')
+        
+        flash('Settings saved successfully!', 'success')
+        return redirect(url_for('admin_settings'))
+    else:
+        # Load current settings
+        form.require_registration.data = AppSettings.get_setting('require_registration', False)
+        form.max_users.data = AppSettings.get_setting('max_users', 1000)
+    
+    return render_template('admin/settings.html', form=form)
+
+
+
+if __name__ == "__main__":
     app.logger.info(f"[server] Static dir: {config.STATIC_DIR}")
     app.logger.info(f"[server] Template dir: {config.TEMPLATE_DIR}")
     

@@ -136,6 +136,54 @@ body {
     gap: 16px;
 }
 
+/* User menu: username above admin tag, logout on the far right */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-menu .user-info-col {
+    display: flex;
+    flex-direction: row; /* show username and admin link side-by-side */
+    align-items: center;
+    gap: 8px;
+    line-height: 1;
+}
+
+.user-menu .username {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.user-menu .admin-btn {
+    font-size: 0.82rem;
+    margin-top: 2px;
+}
+
+.logout-btn {
+    margin-left: 12px;
+    background: transparent;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    /* On small screens keep brand left, but right items stack sensibly */
+    .header-container {
+        padding: 0 12px;
+    }
+
+    .header-right {
+        gap: 8px;
+    }
+
+    /* header-stats removed from header; stats now live in sidebar */
+
+    .user-menu .user-info-col { align-items: center; gap: 6px; }
+}
+
 /* Modern Sidebar Toggle */
 .sidebar-toggle {
     position: relative;
@@ -187,38 +235,42 @@ body.sidebar-open .hamburger-line:nth-child(3) {
 }
 
 /* Header Stats */
-.header-stats {
+.sidebar-stats {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.04);
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 8px 16px;
-    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 14px 18px; /* increased padding for breathing room */
+    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+    backdrop-filter: blur(6px);
+    margin-bottom: 12px;
 }
 
-.header-stats .stat-item {
+.sidebar-stats .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    min-width: 72px;
 }
 
-.header-stats .stat-value {
-    font-size: 16px;
-    font-weight: 700;
+.sidebar-stats .stat-value {
+    font-size: 18px;
+    font-weight: 800;
     color: var(--accent);
     line-height: 1;
 }
 
-.header-stats .stat-label {
-    font-size: 11px;
+.sidebar-stats .stat-label {
+    font-size: 12px;
     color: var(--muted);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
+    letter-spacing: 0.6px;
+    margin-top: 4px;
 }
 
 .stat-divider {

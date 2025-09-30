@@ -12,7 +12,13 @@
       "Science Fiction"
     ],
     "bookmarked": 0,
-    "total_chapters": 1
+    "total_chapters": 1,
+    "latest_chapters": [
+      {
+        "number": 1,
+        "release_date": ""
+      }
+    ]
   },
   {
     "slug": "100-000-levels-of-body-refining-all-the-dogs-i-raise-are-the-emperor",

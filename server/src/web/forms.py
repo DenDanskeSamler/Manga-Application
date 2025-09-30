@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField, BooleanField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField, BooleanField, IntegerField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError, Optional
 from server.src.database.models import User
 
 class LoginForm(FlaskForm):
@@ -52,3 +52,25 @@ class RegistrationForm(FlaskForm):
             
             if not (has_upper and has_lower and has_digit):
                 raise ValidationError('Password must contain at least one uppercase letter, one lowercase letter, and one number.')
+
+
+class DeleteUserForm(FlaskForm):
+    user_id = IntegerField('User ID', validators=[DataRequired()])
+    confirm_username = StringField('Confirm Username', validators=[DataRequired()])
+    submit = SubmitField('Delete User')
+
+
+class MakeAdminForm(FlaskForm):
+    user_id = IntegerField('User ID', validators=[DataRequired()])
+    submit = SubmitField('Make Admin')
+
+
+class RemoveAdminForm(FlaskForm):
+    user_id = IntegerField('User ID', validators=[DataRequired()])
+    submit = SubmitField('Remove Admin')
+
+
+class SettingsForm(FlaskForm):
+    require_registration = BooleanField('Require User Registration', default=False)
+    max_users = IntegerField('Maximum Users', validators=[Optional()], default=1000)
+    submit = SubmitField('Save Settings')

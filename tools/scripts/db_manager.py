@@ -9,11 +9,11 @@ from datetime import datetime
 from pathlib import Path
 
 # Add the project root to Python path
-project_root = Path(__file__).parent.parent
+project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from app import app, db
-from src.database.models import User, Bookmark, ReadingHistory
+from server.app import app
+from server.src.database.models import db, User, Bookmark, ReadingHistory
 
 
 def create_tables():
@@ -95,10 +95,36 @@ def create_admin_user():
         
         user = User(username=username, email=email)
         user.set_password(password)
+        user.is_admin = True  # Set as admin
         db.session.add(user)
         db.session.commit()
         
         print(f"✓ Admin user '{username}' created successfully")
+
+
+def make_user_admin():
+    """Make an existing user an admin."""
+    with app.app_context():
+        print("Make existing user an admin...")
+        username = input("Username: ").strip()
+        
+        if not username:
+            print("❌ Username is required")
+            return
+        
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            print("❌ User not found")
+            return
+        
+        if user.is_admin:
+            print(f"ℹ️  User '{username}' is already an admin")
+            return
+        
+        user.is_admin = True
+        db.session.commit()
+        
+        print(f"✓ User '{username}' is now an admin")
 
 
 def main():
@@ -112,6 +138,7 @@ def main():
         print("  backup       - Create database backup")
         print("  stats        - Show database statistics")
         print("  create-admin - Create an admin user")
+        print("  make-admin   - Make existing user an admin")
 
         return
     
@@ -127,7 +154,8 @@ def main():
         show_stats()
     elif command == "create-admin":
         create_admin_user()
-
+    elif command == "make-admin":
+        make_user_admin()
     else:
         print(f"❌ Unknown command: {command}")
         print("Use 'python db_manager.py' to see available commands")

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Delete User: {{ user.username }} - MangaReader+</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <style>
+        .admin-panel {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .delete-form {
+            background: #1e293b;
+            border: 1px solid #dc2626;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .warning-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .warning-icon {
+            font-size: 3rem;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .warning-title {
+            color: #dc2626;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning-text {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        .user-info {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .user-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-detail:last-child {
+            margin-bottom: 0;
+        }
+        
+        .user-label {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        .user-value {
+            color: #e0e6ed;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: #e0e6ed;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: #e0e6ed;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-errors {
+            margin-top: 0.5rem;
+        }
+        
+        .error {
+            color: #ef4444;
+            font-size: 0.875rem;
+            display: block;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .btn-danger {
+            background: #dc2626;
+            color: #fff;
+        }
+        
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+        
+        .btn-secondary {
+            background: #374151;
+            color: #e0e6ed;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            color: #3b82f6;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .nav-back:hover {
+            color: #2563eb;
+        }
+        
+        .nav-back::before {
+            content: '←';
+            margin-right: 0.5rem;
+        }
+        
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        
+        .alert.error {
+            background: #7f1d1d;
+            border: 1px solid #dc2626;
+            color: #fecaca;
+        }
+        
+        .consequences {
+            background: #7f1d1d;
+            border: 1px solid #dc2626;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .consequences h3 {
+            color: #fecaca;
+            margin: 0 0 1rem 0;
+            font-size: 1rem;
+        }
+        
+        .consequences ul {
+            color: #fecaca;
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .consequences li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="site default-header">
+        <div class="wrap">
+            <div class="brand">
+                <span class="logo"></span>
+                <a href="/">MangaReader<span class="accent">+</span></a>
+            </div>
+            <div class="user-info">
+                {% if current_user.is_authenticated %}
+                    <div class="user-info-col">
+                        <span class="username">{{ current_user.username }}</span>
+                        {% if current_user.is_administrator() %}
+                            <a href="{{ url_for('admin_panel') }}" class="admin-btn" style="color:#dc2626; text-decoration:none; font-size:0.85rem;">Admin</a>
+                        {% endif %}
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-panel">
+        <a href="{{ url_for('admin_panel') }}" class="nav-back">Back to Admin Panel</a>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="delete-form">
+            <div class="warning-header">
+                <div class="warning-icon">⚠️</div>
+                <h1 class="warning-title">Delete User Account</h1>
+                <p class="warning-text">
+                    You are about to permanently delete this user account. This action cannot be undone.
+                </p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-detail">
+                    <span class="user-label">Username:</span>
+                    <span class="user-value">{{ user.username }}</span>
+                </div>
+                <div class="user-detail">
+                    <span class="user-label">Email:</span>
+                    <span class="user-value">{{ user.email }}</span>
+                </div>
+                <div class="user-detail">
+                    <span class="user-label">Created:</span>
+                    <span class="user-value">{{ user.created_at.strftime('%B %d, %Y') }}</span>
+                </div>
+                <div class="user-detail">
+                    <span class="user-label">Admin Status:</span>
+                    <span class="user-value">{% if user.is_admin %}Administrator{% else %}Regular User{% endif %}</span>
+                </div>
+            </div>
+            
+            <div class="consequences">
+                <h3>This action will permanently delete:</h3>
+                <ul>
+                    <li>The user account and login credentials</li>
+                    <li>All bookmarks saved by this user</li>
+                    <li>All reading history records</li>
+                    <li>Any other user-specific data</li>
+                </ul>
+            </div>
+            
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    {{ form.confirm_username.label(class="form-label") }}
+                    {{ form.confirm_username(class="form-input", placeholder="Type '" + user.username + "' to confirm") }}
+                    {% if form.confirm_username.errors %}
+                        <div class="form-errors">
+                            {% for error in form.confirm_username.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <small style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.5rem; display: block;">
+                        Type the username exactly as shown above to confirm deletion.
+                    </small>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Cancel</a>
+                    {{ form.submit(class="btn btn-danger") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

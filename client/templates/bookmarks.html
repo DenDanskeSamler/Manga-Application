@@ -26,7 +26,12 @@
             <div class="header-right">
                 {% if current_user.is_authenticated %}
                     <div class="user-menu">
-                        <span class="username">{{ current_user.username }}</span>
+                        <div class="user-info-col">
+                            <span class="username">{{ current_user.username }}</span>
+                            {% if current_user.is_administrator() %}
+                                <a href="{{ url_for('admin_panel') }}" class="admin-btn" style="color: #dc2626; text-decoration: none; font-size: 0.9rem;">Admin</a>
+                            {% endif %}
+                        </div>
                         <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
                     </div>
                 {% else %}
