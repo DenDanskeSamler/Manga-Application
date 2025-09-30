@@ -1,6 +1,6 @@
 # Manga Reader Application
 
-A modern web-based manga reading application built with Flask, featuring user authentication, bookmarks, reading history, and personalized categories.
+A modern web-based manga reading application built with Flask. The project has been reorganized to separate server and client code for easier development and deployment.
 
 ## Features
 
@@ -26,62 +26,60 @@ A modern web-based manga reading application built with Flask, featuring user au
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.10+ (3.12 tested in this workspace)
 - pip (Python package installer)
 
-### Setup
+### Setup (quick)
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd Manga-Application
-   ```
+1. Clone the repository and change into it:
 
-2. **Create virtual environment**
-   ```bash
-   python -m venv .venv
-   ```
+```powershell
+git clone <repository-url>
+cd "Manga-Application"
+```
 
-3. **Activate virtual environment**
-   ```bash
-   # Windows
-   .venv\Scripts\activate
-   
-   # macOS/Linux
-   source .venv/bin/activate
-   ```
+2. Create and activate a virtual environment:
 
-4. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```powershell
+# Windows PowerShell
+python -m venv .venv
+& .venv\Scripts\Activate.ps1
+```
 
-5. **Configure environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env file with your configuration
-   ```
+3. Install dependencies:
 
-6. **Initialize database**
-   ```bash
-   python app.py
-   # Database tables will be created automatically on first run
-   ```
+```powershell
+pip install -r requirements.txt
+```
+
+4. Create a `.env` from the example and edit values (especially `SECRET_KEY`):
+
+```powershell
+copy .env
+# Edit .env with your preferred editor
+```
+
+5. Run the app (project root `app.py` honors `.env` values for host/port/debug):
+
+```powershell
+python app.py
+# The server will bind to FLASK_HOST:FLASK_PORT from your .env (default port 8000)
+```
 
 ## Configuration
 
 ### Environment Variables
 
-Create a `.env` file based on `.env.example`:
+Configuration is read from a `.env` file (generated from `.env`). Important variables:
 
-```env
-SECRET_KEY=your-secret-key-here
-FLASK_ENV=development
-FLASK_DEBUG=True
-FLASK_HOST=127.0.0.1
-FLASK_PORT=8000
-DATABASE_URL=sqlite:///manga_app.db
-```
+- `SECRET_KEY` — required in production; keep secret
+- `FLASK_ENV` — `development` / `production` / `testing` (selects config class)
+- `FLASK_DEBUG` — `True`/`False` (enables Flask debug reloader)
+- `FLASK_HOST` — host interface to bind (default `127.0.0.1`)
+- `FLASK_PORT` — port to bind (default `8000` in `.env`)
+- `DATABASE_URL` — SQLAlchemy connection string (default SQLite)
+
+The project root `app.py` reads `.env` (if present) and starts the server using those values, so you can change the port in `.env` and simply run `python app.py`.
 
 ### Production Configuration
 
@@ -97,20 +95,25 @@ For production deployment:
 
 ### Development
 
-```bash
+Start the app from the project root. The entrypoint honors values in `.env`:
+
+```powershell
 python app.py
 ```
 
-The application will be available at `http://127.0.0.1:8000`
+By default (from `.env`) the app runs at `http://127.0.0.1:8000`.
 
 ### Production
 
-Use a WSGI server like Gunicorn:
+Use a WSGI server behind a reverse proxy. Example with Gunicorn (server module path):
 
-```bash
+```powershell
 pip install gunicorn
-gunicorn app:app
+# From project root
+gunicorn server.app:app -b 0.0.0.0:8000
 ```
+
+Ensure you set `FLASK_ENV=production` and a strong `SECRET_KEY` in your environment when deploying.
 
 ## API Endpoints
 
@@ -130,21 +133,23 @@ gunicorn app:app
 
 ```
 Manga-Application/
-├── app.py              # Main Flask application
-├── config.py           # Configuration settings
-├── models.py           # Database models
-├── forms.py            # WTForms form definitions
-├── requirements.txt    # Python dependencies
-├── .env.example       # Environment variables template
-├── static/
-│   ├── styles/        # CSS files
-│   ├── js/           # JavaScript utilities
-│   ├── templates/    # Jinja2 templates
-│   └── Manga/        # Manga image files
-└── data/
-    ├── catalog.json  # Manga catalog
-    ├── stats.json    # Statistics
-    └── manga/        # Individual manga data
+├── app.py                # Project entrypoint (loads server.app and honors .env)
+├── server/               # Server-side Flask application
+│   ├── app.py           # Flask application (routes, APIs)
+│   └── src/
+│       ├── config.py    # Configuration classes
+│       ├── database/    # SQLAlchemy models
+│       └── web/         # Forms and web utilities
+├── client/               # Client-side code (templates & static assets)
+│   ├── templates/
+│   └── static/
+├── data/                 # Application data (catalog, stats, manga files)
+├── manga_data/           # Raw manga JSON data (large)
+├── logs/                 # Log files
+├── tools/                # Scrapers and helper scripts
+├── requirements.txt
+├── .env
+└── RESTRUCTURE_NOTES.md
 ```
 
 ## Contributing
