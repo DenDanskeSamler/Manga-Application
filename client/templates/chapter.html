@@ -138,33 +138,6 @@
 					chapterSelectBottom.selectedIndex = currentIndex;
 					window.scrollTo({ top: 0 });
 				
-					// If user is logged in, add a "Bookmark this chapter" control
-					{% if current_user.is_authenticated %}
-					const bookmarkChapterBtn = document.createElement('button');
-					bookmarkChapterBtn.className = 'btn secondary mt-10';
-					bookmarkChapterBtn.id = 'bookmarkChapterBtn';
-					bookmarkChapterBtn.textContent = 'Bookmark this chapter';
-					document.querySelector('.nav-controls').appendChild(bookmarkChapterBtn);
-
-					bookmarkChapterBtn.addEventListener('click', async () => {
-						const chapter = chapters[currentIndex];
-						try {
-							const resp = await fetch(`/api/bookmark/${slug}`, {
-								method: 'POST',
-								headers: { 'Content-Type': 'application/json' },
-								body: JSON.stringify({ chapter_number: chapter.number, chapter_title: chapter.title })
-							});
-							if (resp.ok) {
-								alert('Chapter bookmarked');
-							} else {
-								const j = await resp.json().catch(() => ({}));
-								alert('Failed to bookmark chapter: ' + (j.status || resp.status));
-							}
-						} catch (err) {
-							alert('Error bookmarking chapter');
-						}
-					});
-					{% endif %}
 				}
 
 				prevBtn.onclick = () => navigateToChapter(currentIndex - 1);
