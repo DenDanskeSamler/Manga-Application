@@ -2529,9 +2529,36 @@ p.muted { color: var(--muted); text-align: center; }
         gap: 4px;
     }
     
-    .auth-buttons {
+    /* Default small-screen layout for auth areas (modals / empty states) */
+    .auth-required .auth-buttons,
+    .auth-message .auth-buttons {
         flex-direction: column;
         gap: 8px;
+        align-items: stretch;
+    }
+
+    .auth-required .auth-buttons .btn,
+    .auth-message .auth-buttons .btn {
+        width: 100%;
+        padding: 10px 16px;
+    }
+
+    /* Header-specific auth buttons: compact and side-by-side (wrap if needed) */
+    .main-header .header-right .auth-buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .main-header .header-right .auth-buttons .btn {
+        width: auto; /* keep buttons compact in the header bar */
+        padding: 8px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+        min-width: 72px;
     }
 }
 
@@ -2540,3 +2567,52 @@ p.muted { color: var(--muted); text-align: center; }
 header.site { position: sticky !important; top: 0 !important; z-index: 1200 !important; height: var(--header-height) !important; }
 .sidebar { position: fixed !important; top: var(--header-height) !important; left: 0 !important; z-index: 1100 !important; }
 .container, .home-container { position: relative; z-index: 1; }
+
+/* Phone-specific tweaks: make history page compact and readable on small phones */
+@media (max-width: 480px) {
+    .container { padding: 12px; }
+
+    /* Controls: make clear button span full width for easy tapping */
+    .controls { margin-bottom: 12px; display: flex; gap: 8px; }
+    .controls .btn { flex: 1 1 auto; padding: 10px 12px; font-size: 14px; }
+
+    /* History list: show items in a compact row with tight spacing */
+    .history-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .history-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .history-thumb img {
+        width: 56px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .history-content {
+        flex: 1 1 auto;
+        min-width: 0; /* allow long titles to truncate */
+    }
+
+    .history-title { font-size: 15px; margin-bottom: 4px; }
+
+    .history-chapter { font-size: 13px; color: var(--muted); margin-bottom: 2px; }
+
+    .history-date { font-size: 12px; color: var(--muted); }
+
+    /* Actions stay to the right but smaller */
+    .history-actions { flex-shrink: 0; margin-left: 8px; }
+    .history-remove { width: 36px; height: 36px; border-radius: 8px; }
+
+    /* If the header control area has auth buttons, keep them side-by-side compactly */
+    .main-header .header-right .auth-buttons .btn { padding: 8px 10px; }
+
+    /* Reduce auth-required modal padding to fit smaller screens */
+    .auth-message { padding: 24px; max-width: calc(100% - 24px); }
+}
