@@ -398,6 +398,107 @@ body.sidebar-open .hamburger-line:nth-child(3) {
     width: 6px;
 }
 
+/* --- Manga detail page restyle (Ravenscans-like) --- */
+.manga-page .summary-background {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.manga-page .cover {
+    flex: 0 0 180px;
+    max-width: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.45);
+}
+.manga-page .cover img { width: 100%; display: block; }
+
+.manga-page .info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.manga-page .info h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.4px; }
+.manga-page .meta-list { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); }
+.manga-page .meta-item { font-size: 0.95rem; }
+.manga-page .genres { margin-top: 6px; }
+.manga-page .genres .genre-tag { display: inline-block; margin-right: 8px; margin-bottom: 8px; padding: 6px 10px; background: rgba(255,255,255,0.02); border-radius: 999px; color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+
+/* Read button near cover for quick access */
+.manga-actions { margin-top: 8px; display: flex; gap: 8px; }
+.manga-actions .btn { padding: 8px 12px; }
+
+.manga-actions-bottom { margin: 18px 0; display: flex; justify-content: flex-start; }
+.read-btn { font-size: 1.05rem; padding: 12px 18px; border-radius: 10px; align-items: center; display: inline-flex; gap: 10px; }
+
+/* Chapters panel: clean list with large clickable rows */
+.chapters-panel { margin-top: 18px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
+.chapters-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.chapters-list { max-height: 420px; overflow: auto; padding: 8px 12px; }
+.chapter-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: 8px; margin-bottom: 8px; background: transparent; color: var(--text); text-decoration: none; border: 1px solid transparent; transition: all 0.14s ease; }
+.chapter-item:hover { background: rgba(255,255,255,0.02); transform: translateY(-2px); border-color: rgba(255,255,255,0.02); }
+.chapter-item .chapter-title { font-weight: 600; }
+.chapter-item .release-date { color: var(--muted); font-size: 0.9rem; }
+
+/* Chapter navigation controls */
+.nav-controls { display: flex; gap: 8px; align-items: center; margin: 12px 0; }
+.nav-controls .btn { padding: 8px 10px; }
+
+@media (max-width: 900px) {
+    .manga-page .summary-background { flex-direction: column; align-items: center; text-align: center; }
+    .manga-page .cover { width: 160px; max-width: 160px; }
+    .manga-page .meta-list { justify-content: center; }
+    .manga-actions-bottom { justify-content: center; }
+}
+
+/* Ensure the bottom Read Now button matches global primary button styles */
+.manga-actions-bottom .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.manga-actions-bottom .btn.primary {
+    background: var(--accent);
+    color: white;
+}
+.manga-actions-bottom .btn.primary:hover {
+    background: #e63461;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(255, 61, 110, 0.3);
+}
+
+/* Small helper to visually de-emphasize the summary when collapsed */
+.summary-panel #summary { max-height: 120px; overflow: hidden; }
+.summary-panel.expanded #summary { max-height: none; }
+
+/* --- Reader / Chapter page styles --- */
+.chapter .chapter-header { margin-bottom: 12px; }
+.container.chapter { max-width: 900px; }
+.nav-controls { position: sticky; top: 74px; background: linear-gradient(180deg, rgba(14,14,16,0.7), rgba(14,14,16,0.35)); padding: 10px; z-index: 900; backdrop-filter: blur(6px); border-radius: 8px; }
+#pages { display: flex; flex-direction: column; gap: 18px; align-items: center; }
+#pages img { max-width: 920px; width: 100%; height: auto; box-shadow: 0 12px 40px rgba(2,6,23,0.6); border-radius: 6px; }
+
+@media (max-width: 940px) {
+    #pages img { max-width: 100%; }
+    .container.chapter { padding: 14px; }
+}
+
+
 .sidebar-content::-webkit-scrollbar-track {
     background: transparent;
 }
@@ -2616,3 +2717,31 @@ header.site { position: sticky !important; top: 0 !important; z-index: 1200 !imp
     /* Reduce auth-required modal padding to fit smaller screens */
     .auth-message { padding: 24px; max-width: calc(100% - 24px); }
 }
+
+/* Stronger override to ensure Read Now matches primary buttons even if global rules appear later */
+.manga-actions-bottom > a.btn.primary,
+.manga-actions-bottom .btn.primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 12px 24px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    background: var(--accent) !important;
+    color: white !important;
+}
+.manga-actions-bottom > a.btn.primary:hover,
+.manga-actions-bottom .btn.primary:hover {
+    background: #e63461 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 16px rgba(255, 61, 110, 0.3) !important;
+}
+
+/* Utility visibility helpers for JS toggles (used by Read Now button) */
+.hidden { display: none !important; }
+.visible { display: inline-flex !important; }

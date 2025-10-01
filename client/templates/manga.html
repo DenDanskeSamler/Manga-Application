@@ -39,6 +39,10 @@
 						<div class="meta-item hidden" id="source-item"><strong>Source:</strong> <a id="sourceLink" target="_blank" rel="noopener noreferrer">Visit Source</a></div>
 					</div>
 					<div id="genres" class="genres"></div>
+					<!-- Read Now button placed at top of the summary panel -->
+					<div class="manga-actions-bottom">
+						<a id="readNowBtn" class="btn primary read-btn visible" href="#">Read Now ▸</a>
+					</div>
 					{% if current_user.is_authenticated %}
 						<div class="manga-actions">
 							<button id="bookmarkBtn" class="btn secondary">
@@ -65,6 +69,8 @@
 				<button id="sortChaptersBtn">Sort: Newest</button>
 			</div>
 		</div>
+		
+		<!-- Read Now button (styled by CSS, href set by JS to latest chapter) -->
 		<div id="chapters" class="chapters-list"></div>
 	</div>
 
@@ -230,6 +236,23 @@
 				currentChapters = data.chapters || [];
 				renderChapters(currentChapters);
 				setupChapterClickHandler(); // Set up click handler once after chapters load
+
+				// Configure the Read Now button to point to the latest chapter
+				try {
+					const readNowBtn = document.getElementById('readNowBtn');
+					if (readNowBtn && Array.isArray(currentChapters) && currentChapters.length) {
+						// choose the chapter with the highest number as "latest"
+						let latest = currentChapters.reduce((acc, c) => {
+							const num = Number(c.number) || 0;
+							return num > (acc.number || 0) ? c : acc;
+						}, currentChapters[0]);
+						if (latest && latest.number) {
+							readNowBtn.href = `/manga/${slug}/chapter-${latest.number}`;
+							readNowBtn.classList.remove('hidden');
+							readNowBtn.classList.add('visible');
+						}
+					}
+				} catch (e) { /* ignore */ }
 			})
 			.catch(() => {
 				document.querySelector('.container').innerHTML =

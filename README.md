@@ -74,128 +74,157 @@ python app.py
 # Method 1: Create new admin user
 python create_admin.py
 
-# Method 2: Make existing user admin
-python migrate_db.py make-admin <username>
-```
+# Manga Reader Application
 
-## Configuration
+A lightweight web-based manga reader built with Flask. This README provides a concise, practical guide to get the project running locally on Windows (PowerShell) and explains common admin and maintenance tasks.
 
-### Environment Variables
+## Quick summary
 
-Configuration is read from a `.env` file (generated from `.env`). Important variables:
+- Language: Python (Flask)
+- Database: SQLite by default (SQLAlchemy)
+- UI: Server-rendered HTML templates + static assets in `client/`
+- Entry point: `app.py` (project root) which loads the Flask app in `server.app`
 
-- `SECRET_KEY` — required in production; keep secret
-- `FLASK_ENV` — `development` / `production` / `testing` (selects config class)
-- `FLASK_DEBUG` — `True`/`False` (enables Flask debug reloader)
-- `FLASK_HOST` — host interface to bind (default `127.0.0.1`)
-- `FLASK_PORT` — port to bind (default `8000` in `.env`)
-- `DATABASE_URL` — SQLAlchemy connection string (default SQLite)
+## Features
 
-The project root `app.py` reads `.env` (if present) and starts the server using those values, so you can change the port in `.env` and simply run `python app.py`.
+- User authentication and sessions
+- Admin panel for user & catalog management
+- Browse/search manga catalog and view chapter lists
+- Reading interface with bookmarks and history
+- Category/genre filtering
+- Small utility scripts for migrations and maintenance
 
-### Production Configuration
+## Requirements
 
-For production deployment:
+- Python 3.10+ (3.12 has been used in this workspace)
+- pip
+- Git (optional, for cloning)
 
-1. Set `FLASK_ENV=production`
-2. Set `FLASK_DEBUG=False`
-3. Use a strong, unique `SECRET_KEY`
-4. Configure a production database (PostgreSQL recommended)
-5. Use a reverse proxy (nginx) with HTTPS
+See `requirements.txt` for Python package dependencies.
 
-## Usage
+## Windows (PowerShell) — Quickstart
 
-### Development
+1. Clone (if needed) and open the project folder:
 
-Start the app from the project root. The entrypoint honors values in `.env`:
+	git clone <repository-url>
+	cd "Manga-Application"
 
-```powershell
-python app.py
-```
+2. Create and activate a virtual environment:
 
-By default (from `.env`) the app runs at `http://127.0.0.1:8000`.
+	python -m venv .venv
+	# PowerShell
+	& .venv\Scripts\Activate.ps1
 
-### Production
+3. Install dependencies:
 
-Use a WSGI server behind a reverse proxy. Example with Gunicorn (server module path):
+	pip install -r requirements.txt
 
-```powershell
-pip install gunicorn
-# From project root
-gunicorn server.app:app -b 0.0.0.0:8000
-```
+4. Create a `.env` file (if an example exists, copy it). If no example exists, create one with at least `SECRET_KEY`:
 
-Ensure you set `FLASK_ENV=production` and a strong `SECRET_KEY` in your environment when deploying.
+	# If there is a .env.example file
+	copy .env.example .env
 
-## API Endpoints
+	# Or create a minimal .env manually (example values):
+	# SECRET_KEY=replace-me
+	# FLASK_ENV=development
+	# FLASK_DEBUG=True
+	# FLASK_HOST=127.0.0.1
+	# FLASK_PORT=8000
 
-### Public Endpoints
-- `GET /api/catalog` - Get manga catalog
-- `GET /api/stats` - Get catalog statistics
-- `GET /api/manga/<slug>` - Get manga details
-- `GET /api/manga/<slug>/all_chapters` - Get all chapters
+5. Initialize or migrate the database (project includes helper scripts):
 
-### Authenticated Endpoints
-- `POST/DELETE /api/bookmark/<slug>` - Manage bookmarks
-- `GET /api/bookmark/check/<slug>` - Check bookmark status
-- `GET/POST /api/categories` - Manage categories
-- `DELETE /api/history/<id>` - Delete history item
+	# Example: create/upgrade the local DB (script names present in repo)
+	python migrate_db.py
+	python migrate_new_features.py
 
-## File Structure
+6. (Optional) Normalize thumbnails / perform maintenance:
 
-```
-Manga-Application/
-├── app.py                # Project entrypoint (loads server.app and honors .env)
-├── server/               # Server-side Flask application
-│   ├── app.py           # Flask application (routes, APIs)
-│   └── src/
-│       ├── config.py    # Configuration classes
-│       ├── database/    # SQLAlchemy models
-│       └── web/         # Forms and web utilities
-├── client/               # Client-side code (templates & static assets)
-│   ├── templates/
-│   └── static/
-├── data/                 # Application data (catalog, stats, manga files)
-├── manga_data/           # Raw manga JSON data (large)
-├── logs/                 # Log files
-├── tools/                # Scrapers and helper scripts
-├── requirements.txt
-├── .env
-└── RESTRUCTURE_NOTES.md
-```
+	python normalize_thumbnails.py
+
+7. Start the app:
+
+	# Option A: top-level entrypoint
+	python app.py
+
+	# Option B: run Flask app module directly
+	& .venv\Scripts\python.exe -m server.app
+
+Open http://127.0.0.1:8000 (or the address set in your `.env`) in your browser.
+
+## Admin tasks
+
+- Create an admin user interactively:
+
+	python create_admin.py
+
+- Promote an existing user to admin (example helper provided):
+
+	python migrate_db.py make-admin <username>
+
+- View logs: see `logs/` and `manga_app.log` for application activity.
+
+## Configuration (.env)
+
+Important settings (common):
+
+- SECRET_KEY — required for sessions and CSRF. Use a strong random string in production.
+- FLASK_ENV — `development` or `production`
+- FLASK_DEBUG — `True`/`False`
+- FLASK_HOST — host to bind (default `127.0.0.1`)
+- FLASK_PORT — port to bind (default `8000`)
+- DATABASE_URL — optional SQLAlchemy connection string (sqlite by default)
+
+app.py at project root reads `.env` (if present) and configures the server accordingly.
+
+Security note: Never commit secrets or production `SECRET_KEY` into the repository.
+
+## Running in production
+
+For production, run the Flask WSGI app behind a reverse proxy (NGINX) or with a process manager. Example using Gunicorn (Linux):
+
+	pip install gunicorn
+	gunicorn server.app:app -b 0.0.0.0:8000
+
+On Windows, consider using a service wrapper or deploy to a Linux host for production.
+
+## Project layout (important files)
+
+- app.py — top-level entrypoint that loads `server.app`
+- server/ — Flask application package (routes, models, config)
+- client/ — templates and static assets used by the frontend
+- data/ — catalog & stats JSON used by the app
+- manga_data/ — raw manga JSON files (content)
+- logs/ — log files (application log: `manga_app.log`)
+- create_admin.py, migrate_db.py, migrate_new_features.py — helper scripts
+- requirements.txt — Python dependencies
+
+## Maintenance & utilities
+
+- Rebuild catalog or regenerate derived data using scripts in `tools/` (see `tools/` for available scripts).
+- Use `normalize_thumbnails.py` to standardize thumbnail images and metadata.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Fork and branch: `git checkout -b feature/your-feature`
+2. Make commits with clear messages
+3. Run any existing tests and ensure linting (if configured)
+4. Push and open a pull request
 
-## Security Features
-
-- CSRF protection on all forms
-- Secure password hashing with Werkzeug
-- SQL injection prevention with SQLAlchemy ORM
-- Input validation and sanitization
-
-## Admin Features
-
-The application includes a comprehensive admin panel for user management:
-
-- **Admin Dashboard**: View system statistics and manage users
-- **User Management**: View, edit admin status, and delete user accounts
-- **Access Control**: Admin-only routes with proper authorization
-- **Safety Features**: Cannot delete own account, requires confirmation for deletions
-
-For detailed admin documentation, see [ADMIN_FEATURES.md](ADMIN_FEATURES.md).
-- Session management with Flask-Login
-- Environment-based configuration
+Please open issues for bugs or feature requests.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is provided under the MIT License. See the `LICENSE` file in the repository for details.
 
 ## Support
 
-If you encounter any issues or have questions, please open an issue on the GitHub repository.
+If you run into problems, include logs from `logs/manga_app.log` and a short description, then open an issue in the GitHub repository.
+
+---
+
+If you'd like, I can also:
+
+- add a small troubleshooting section with common errors seen in this project, or
+- create a `.env.example` for the repository (I can draft it and add sensible defaults).
+
+Tell me which follow-up you prefer and I'll make it.
