@@ -182,14 +182,26 @@
 								.then(r => r.json())
 								.then(j => {
 									const savedImageIndex = parseInt(j && j.image_index || 0, 10) || 0;
-									if (savedImageIndex > 0) {
-										// Scroll to the saved image after a short delay
+									const scrollOffsetPercent = parseInt(j && j.scroll_offset_percent || 0, 10) || 0;
+									
+									if (savedImageIndex > 0 || scrollOffsetPercent > 0) {
+										// Scroll to the saved image and position within that image
 										setTimeout(() => {
 											const targetImg = pagesContainer.children[savedImageIndex];
 											if (targetImg) {
-												targetImg.scrollIntoView({ behavior: 'auto', block: 'start' });
+												const rect = targetImg.getBoundingClientRect();
+												const imgTop = rect.top + (window.scrollY || window.pageYOffset || 0);
+												
+												// Calculate the exact scroll position within the image
+												const offsetInImage = (rect.height * scrollOffsetPercent) / 100;
+												const targetScrollPosition = imgTop + offsetInImage;
+												
+												window.scrollTo({ 
+													top: Math.max(0, targetScrollPosition), 
+													behavior: 'auto' 
+												});
 											}
-										}, 200);
+										}, 300); // Slightly longer delay for image layout
 									}
 								})
 								.catch(() => {});
@@ -218,10 +230,12 @@
 		let _scrollTimer = null;
 		let _currentChapter = null;
 		let _lastSavedImageIndex = -1; // Track last saved image index to avoid redundant saves
+		let _lastSavedScrollOffset = 0; // Track scroll offset within current image
 		
 		function setupScrollSaving(chapterNumber) {
 			_currentChapter = chapterNumber;
 			_lastSavedImageIndex = -1;
+			_lastSavedScrollOffset = 0;
 
 			// Remove previously attached handler, then add a fresh one
 			window.removeEventListener('scroll', _onScroll);
@@ -231,46 +245,93 @@
 				if (_scrollTimer) clearTimeout(_scrollTimer);
 				_scrollTimer = setTimeout(() => {
 					const currentImageIndex = getCurrentVisibleImageIndex();
-					// Only save if visible image index changed
-					if (currentImageIndex !== _lastSavedImageIndex && currentImageIndex >= 0) {
-						sendImagePosition(_currentChapter, currentImageIndex);
+					const scrollOffsetPercent = getCurrentScrollOffsetInImage();
+					
+					// Save if image index changed OR if we've scrolled significantly within the same image (>10% change)
+					const shouldSave = currentImageIndex !== _lastSavedImageIndex || 
+									  (currentImageIndex === _lastSavedImageIndex && Math.abs(scrollOffsetPercent - (_lastSavedScrollOffset || 0)) > 10);
+					
+					if (shouldSave && currentImageIndex >= 0) {
+						sendImagePosition(_currentChapter, currentImageIndex, scrollOffsetPercent);
 						_lastSavedImageIndex = currentImageIndex;
+						_lastSavedScrollOffset = scrollOffsetPercent;
 					}
-				}, 500); // Reduced debounce time since we're saving less frequently
+				}, 500);
 			}
 		}
 
 		function getCurrentVisibleImageIndex() {
 			const images = pagesContainer.children;
 			const scrollTop = window.scrollY || window.pageYOffset || 0;
-			const viewportHeight = window.innerHeight;
-			const viewportCenter = scrollTop + (viewportHeight / 2);
+			const viewportTop = scrollTop;
+			const viewportBottom = scrollTop + window.innerHeight;
 
-			// Find which image is closest to the center of the viewport
-			let closestIndex = 0;
-			let closestDistance = Infinity;
+			// Find which image the viewport center is currently in
+			for (let i = 0; i < images.length; i++) {
+				const img = images[i];
+				const rect = img.getBoundingClientRect();
+				const imgTop = rect.top + scrollTop;
+				const imgBottom = imgTop + rect.height;
+
+				// Check if viewport center is within this image
+				const viewportCenter = scrollTop + (window.innerHeight / 2);
+				if (viewportCenter >= imgTop && viewportCenter <= imgBottom) {
+					return i;
+				}
+			}
+
+			// Fallback: find the image that has the most visible area
+			let maxVisibleArea = 0;
+			let bestIndex = 0;
 
 			for (let i = 0; i < images.length; i++) {
 				const img = images[i];
 				const rect = img.getBoundingClientRect();
 				const imgTop = rect.top + scrollTop;
-				const imgCenter = imgTop + (rect.height / 2);
-				const distance = Math.abs(imgCenter - viewportCenter);
+				const imgBottom = imgTop + rect.height;
 
-				if (distance < closestDistance) {
-					closestDistance = distance;
-					closestIndex = i;
+				// Calculate visible area of this image
+				const visibleTop = Math.max(imgTop, viewportTop);
+				const visibleBottom = Math.min(imgBottom, viewportBottom);
+				const visibleArea = Math.max(0, visibleBottom - visibleTop);
+
+				if (visibleArea > maxVisibleArea) {
+					maxVisibleArea = visibleArea;
+					bestIndex = i;
 				}
 			}
 
-			return closestIndex;
+			return bestIndex;
 		}
 
-		function sendImagePosition(chapterNumber, imageIndex) {
+		function getCurrentScrollOffsetInImage() {
+			const images = pagesContainer.children;
+			const scrollTop = window.scrollY || window.pageYOffset || 0;
+			const currentImageIndex = getCurrentVisibleImageIndex();
+			
+			if (currentImageIndex >= 0 && currentImageIndex < images.length) {
+				const img = images[currentImageIndex];
+				const rect = img.getBoundingClientRect();
+				const imgTop = rect.top + scrollTop;
+				
+				// Calculate how far into this image we are (as a percentage)
+				const offsetInImage = scrollTop - imgTop;
+				const imageHeight = rect.height;
+				const percentInImage = imageHeight > 0 ? Math.max(0, Math.min(100, (offsetInImage / imageHeight) * 100)) : 0;
+				
+				return Math.round(percentInImage);
+			}
+			
+			return 0;
+		}
+
+		function sendImagePosition(chapterNumber, imageIndex, scrollOffsetPercent = 0) {
 			try {
 				const totalImages = pagesContainer.children.length;
-				// Calculate percent based on image progress
-				const percent = totalImages > 0 ? Math.round((imageIndex / Math.max(totalImages - 1, 1)) * 100) : 0;
+				// Calculate overall progress: (imageIndex + scrollOffsetPercent/100) / totalImages
+				const overallProgress = totalImages > 0 ? 
+					((imageIndex + (scrollOffsetPercent / 100)) / totalImages) * 100 : 0;
+				const percent = Math.round(Math.max(0, Math.min(100, overallProgress)));
 				
 				// Send image position with error handling
 				fetch('/api/history/scroll', {
@@ -281,6 +342,7 @@
 						chapter: chapterNumber, 
 						scroll: 0, // Keep for backward compatibility
 						image_index: imageIndex,
+						scroll_offset_percent: scrollOffsetPercent,
 						percent: percent, 
 						manga_title: mangaTitleEl.textContent || 'Unknown' 
 					})

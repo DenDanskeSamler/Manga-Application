@@ -349,6 +349,7 @@ def save_history_scroll():
         chapter = int(payload.get('chapter') or 0)
         scroll = int(payload.get('scroll') or 0)
         image_index = int(payload.get('image_index') or 0)
+        scroll_offset_percent = int(payload.get('scroll_offset_percent') or 0)
         percent = None
         if 'percent' in payload:
             try:
@@ -363,12 +364,13 @@ def save_history_scroll():
 
     entry = ReadingHistory.query.filter_by(user_id=current_user.id, manga_slug=manga_slug, chapter_number=chapter).first()
     if not entry:
-        # create an entry to store scroll position/percent/image_index
-        entry = ReadingHistory(user_id=current_user.id, manga_slug=manga_slug, manga_title=payload.get('manga_title',''), manga_thumbnail=payload.get('manga_thumbnail',''), chapter_number=chapter, scroll_position=scroll, scroll_percent=percent, image_index=image_index)
+        # create an entry to store scroll position/percent/image_index/offset
+        entry = ReadingHistory(user_id=current_user.id, manga_slug=manga_slug, manga_title=payload.get('manga_title',''), manga_thumbnail=payload.get('manga_thumbnail',''), chapter_number=chapter, scroll_position=scroll, scroll_percent=percent, image_index=image_index, scroll_offset_percent=scroll_offset_percent)
         db.session.add(entry)
     else:
         entry.scroll_position = scroll
         entry.image_index = image_index
+        entry.scroll_offset_percent = scroll_offset_percent
         if percent is not None:
             entry.scroll_percent = percent
         entry.last_read_at = datetime.utcnow()
@@ -401,11 +403,12 @@ def get_history_scroll():
 
     entry = ReadingHistory.query.filter_by(user_id=current_user.id, manga_slug=manga_slug, chapter_number=chapter).first()
     if not entry:
-        return jsonify({'scroll': 0, 'percent': 0, 'image_index': 0}), 200
+        return jsonify({'scroll': 0, 'percent': 0, 'image_index': 0, 'scroll_offset_percent': 0}), 200
     sp = int(getattr(entry, 'scroll_position', 0) or 0)
     pct = int(getattr(entry, 'scroll_percent', 0) or 0)
     img_idx = int(getattr(entry, 'image_index', 0) or 0)
-    return jsonify({'scroll': sp, 'percent': pct, 'image_index': img_idx}), 200
+    scroll_offset = int(getattr(entry, 'scroll_offset_percent', 0) or 0)
+    return jsonify({'scroll': sp, 'percent': pct, 'image_index': img_idx, 'scroll_offset_percent': scroll_offset}), 200
 
 @app.get("/random")
 def random_manga():
