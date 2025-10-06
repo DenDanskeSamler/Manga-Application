@@ -127,25 +127,25 @@
 				if (!chapterNum) return;
 				
 				// Check cache first, then fetch if needed
-				let scroll = scrollCache.get(chapterNum);
-				if (scroll === undefined) {
+				let imageIndex = scrollCache.get(chapterNum);
+				if (imageIndex === undefined) {
 					try {
 						const res = await fetch(`/api/history/scroll?manga_slug=${encodeURIComponent(slug)}&chapter=${chapterNum}`);
 						if (res.ok) {
 							const j = await res.json();
-							scroll = parseInt(j && j.scroll || 0, 10) || 0;
+							imageIndex = parseInt(j && j.image_index || 0, 10) || 0;
 						} else {
-							scroll = 0;
+							imageIndex = 0;
 						}
 					} catch (err) {
-						scroll = 0;
+						imageIndex = 0;
 					}
-					scrollCache.set(chapterNum, scroll);
+					scrollCache.set(chapterNum, imageIndex);
 				}
 				
-				// Update href with scroll parameter if available
+				// Update href with scroll parameter (now using image index) if available
 				const baseHref = `/manga/${slug}/chapter-${chapterNum}`;
-				anchor.href = scroll > 0 ? `${baseHref}?scroll=${scroll}` : baseHref;
+				anchor.href = imageIndex > 0 ? `${baseHref}?scroll=${imageIndex}` : baseHref;
 			});
 			
 			// Main click handler for left-click navigation

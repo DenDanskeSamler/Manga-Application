@@ -5,7 +5,7 @@
   "description": "Cong Da Shu Kaishi De Jinhua, Evolution Begins With a Big Tree, Evolution From the Big Tree, 从大树开始的进化, Evolution From a Tree",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2023/02/Evolution-From-a-Tree-175x238.webp",
   "url": "https://manhuaus.com/manga/evolution-from-a-tree/",
-  "rank": "8th, it has 7.9M monthly views",
+  "rank": "8th, it has 8.1M monthly views",
   "alternative_titles": [
     "Cong Da Shu Kaishi De Jinhua",
     "Evolution Begins With a Big Tree",
@@ -22,15 +22,15 @@
   ],
   "status": "OnGoing",
   "bookmarked": 2,
-  "total_chapters": 439,
+  "total_chapters": 440,
   "latest_chapters": [
-    {
-      "number": 432,
-      "release_date": "27-09-2025"
-    },
     {
       "number": 433,
       "release_date": "28-09-2025"
+    },
+    {
+      "number": 434,
+      "release_date": "01-10-2025"
     }
   ],
   "chapters": [
@@ -8142,6 +8142,20 @@
         "https://img.manhuaus.com/image2025/manga_638116425669379554/d0062edb63b727e5a9914af015495857/014.webp",
         "https://img.manhuaus.com/image2025/manga_638116425669379554/d0062edb63b727e5a9914af015495857/015.webp",
         "https://img.manhuaus.com/image2025/manga_638116425669379554/d0062edb63b727e5a9914af015495857/016.webp"
+      ]
+    },
+    {
+      "number": 434,
+      "title": "Chapter 434",
+      "release_date": "01-10-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638116425669379554/7c1e672b76ef64737fc67c975c7e80e6/009_001.webp",
+        "https://img.manhuaus.com/image2025/manga_638116425669379554/7c1e672b76ef64737fc67c975c7e80e6/009_002.webp",
+        "https://img.manhuaus.com/image2025/manga_638116425669379554/7c1e672b76ef64737fc67c975c7e80e6/009_003.webp",
+        "https://img.manhuaus.com/image2025/manga_638116425669379554/7c1e672b76ef64737fc67c975c7e80e6/010_001.webp",
+        "https://img.manhuaus.com/image2025/manga_638116425669379554/7c1e672b76ef64737fc67c975c7e80e6/010_002.webp",
+        "https://img.manhuaus.com/image2025/manga_638116425669379554/7c1e672b76ef64737fc67c975c7e80e6/010_003.webp",
+        "https://img.manhuaus.com/image2025/manga_638116425669379554/7c1e672b76ef64737fc67c975c7e80e6/011.webp"
       ]
     }
   ]

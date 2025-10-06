@@ -5,7 +5,7 @@
   "description": "The Ultimate Shut-In MANHWA Synopsis: One day, the end of the world suddenly arrived. The Ultimate Shut-In cannot leave the house. In order to save my family, I must survive… no matter what. 집구석 절대자",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2024/11/The-Ultimate-Shut-In-175x238.webp",
   "url": "https://manhuaus.com/manga/the-ultimate-shut-in/",
-  "rank": "N/A, it has 3.4M monthly views",
+  "rank": "N/A, it has 3.5M monthly views",
   "alternative_titles": [
     "The Ultimate Shut-In",
     "집구석 절대자"
@@ -19,15 +19,15 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 48,
+  "total_chapters": 49,
   "latest_chapters": [
-    {
-      "number": 47,
-      "release_date": "20-09-2025"
-    },
     {
       "number": 48,
       "release_date": "23-09-2025"
+    },
+    {
+      "number": 49,
+      "release_date": "01-10-2025"
     }
   ],
   "chapters": [
@@ -1105,6 +1105,26 @@
         "https://img.manhuaus.com/image2025/manga_6749e06d606d6/79ef9bef26f371f448a5fe22f15572c4/018.webp",
         "https://img.manhuaus.com/image2025/manga_6749e06d606d6/79ef9bef26f371f448a5fe22f15572c4/019.webp",
         "https://img.manhuaus.com/image2025/manga_6749e06d606d6/79ef9bef26f371f448a5fe22f15572c4/020.webp"
+      ]
+    },
+    {
+      "number": 49,
+      "title": "Chapter 49",
+      "release_date": "01-10-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/002.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/003.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/004.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/005.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/006.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/007.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/008.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/009.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/010.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/011.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/012.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/013.webp",
+        "https://img.manhuaus.com/image2025/manga_6749e06d606d6/e204a60e0d2c4eff5e72b6e57494b29e/014.webp"
       ]
     }
   ]

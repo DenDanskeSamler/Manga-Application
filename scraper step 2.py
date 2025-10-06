@@ -9,7 +9,7 @@ import time
 
 # Paths
 MANGA_LIST_FILE = "manga_list.json"
-OUTPUT_FOLDER = "../../manga_data"  # Output to project root manga_data folder
+OUTPUT_FOLDER = "manga_data"  # Output to project root manga_data folder
 NUM_THREADS = 10
 MAX_RETRIES = 5
 RETRY_DELAY = 5  # seconds between retries

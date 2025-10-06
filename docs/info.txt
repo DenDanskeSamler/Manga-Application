@@ -48,3 +48,9 @@ git clean -fd
 
 login to the server using visual studio:
 ssh Username@ServerIP
+
+
+
+login
+fbamse1
+#ya9rpdQ9ja5ykE$

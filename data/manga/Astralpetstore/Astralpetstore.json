@@ -5,7 +5,7 @@
   "description": "Chao Shen Chong Shou Dian Super God Pet Shop 超神宠兽店",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/11/Astral-Pet-Store-175x238.webp",
   "url": "https://manhuaus.com/manga/astral-pet-store/",
-  "rank": "52nd, it has 3M monthly views",
+  "rank": "52nd, it has 3.1M monthly views",
   "alternative_titles": [
     "Astral Pet Store",
     "Super God Pet Shop",
@@ -19,15 +19,15 @@
   ],
   "status": "OnGoing",
   "bookmarked": 2,
-  "total_chapters": 202,
+  "total_chapters": 203,
   "latest_chapters": [
-    {
-      "number": 192,
-      "release_date": "06-09-2025"
-    },
     {
       "number": 193,
       "release_date": "13-09-2025"
+    },
+    {
+      "number": 194,
+      "release_date": "01-10-2025"
     }
   ],
   "chapters": [
@@ -4620,6 +4620,22 @@
         "https://img.manhuaus.com/image2025/manga_638053608795359976/96f080ce1401e4e4bee6f7eade4ccb22/12.webp",
         "https://img.manhuaus.com/image2025/manga_638053608795359976/96f080ce1401e4e4bee6f7eade4ccb22/13.webp",
         "https://img.manhuaus.com/image2025/manga_638053608795359976/96f080ce1401e4e4bee6f7eade4ccb22/14.webp"
+      ]
+    },
+    {
+      "number": 194,
+      "title": "Chapter 194",
+      "release_date": "01-10-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/009_001.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/009_002.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/009_003.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/010_001.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/010_002.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/010_003.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/011_001.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/011_002.webp",
+        "https://img.manhuaus.com/image2025/manga_638053608795359976/d044c182e58e94c7128be14a9a670b91/011_003.webp"
       ]
     }
   ]

@@ -5,7 +5,7 @@
   "description": "The Boundless Necromancer 나 혼자 특성빨로 무한 성장 나 혼자 특성빨로 무한성장",
   "thumbnail": "https://manhuaus.com/wp-content/uploads/2022/12/Boundless-Necromancer-175x238.webp",
   "url": "https://manhuaus.com/manga/boundless-necromancer/",
-  "rank": "74th, it has 2.9M monthly views",
+  "rank": "74th, it has 3M monthly views",
   "alternative_titles": [
     "The Boundless Necromancer",
     "나 혼자 특성빨로 무한 성장",
@@ -18,15 +18,15 @@
   ],
   "status": "OnGoing",
   "bookmarked": 2,
-  "total_chapters": 155,
+  "total_chapters": 156,
   "latest_chapters": [
-    {
-      "number": 154,
-      "release_date": "27-09-2025"
-    },
     {
       "number": 155,
       "release_date": "27-09-2025"
+    },
+    {
+      "number": 156,
+      "release_date": "01-10-2025"
     }
   ],
   "chapters": [
@@ -4632,6 +4632,25 @@
         "https://img.manhuaus.com/image2025/manga_638069086768209565/7d45b9a411941849feb02607b2ed4358/019.webp",
         "https://img.manhuaus.com/image2025/manga_638069086768209565/7d45b9a411941849feb02607b2ed4358/020.webp",
         "https://img.manhuaus.com/image2025/manga_638069086768209565/7d45b9a411941849feb02607b2ed4358/021.webp"
+      ]
+    },
+    {
+      "number": 156,
+      "title": "Chapter 156",
+      "release_date": "01-10-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/008.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/009.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/010.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/011.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/012.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/013.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/014.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/015.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/016.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/017.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/018.webp",
+        "https://img.manhuaus.com/image2025/manga_638069086768209565/0ecf1d0195e84f3727a3f01ea2e21980/019.webp"
       ]
     }
   ]

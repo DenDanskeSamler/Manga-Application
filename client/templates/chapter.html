@@ -124,28 +124,50 @@
 					history.replaceState(null, '', `/manga/${slug}/chapter-${chapter.number}`);
 					pagesContainer.innerHTML = '<p class="muted">Loading pages...</p>';
 
-					// Preload images
+					// Create placeholder elements first (100px height each)
+					const placeholders = chapter.pages.map((_, index) => 
+						`<div class="page-placeholder" data-page="${index}" style="height: 100px; background: #333; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; color: #666;">Loading page ${index + 1}...</div>`
+					).join('');
+					pagesContainer.innerHTML = placeholders;
+
+					// Get saved image position from query or API
+					let targetImageIndex = 0;
+					if (queryScroll > 0) {
+						// If queryScroll is provided, treat it as image index
+						targetImageIndex = Math.max(0, Math.min(queryScroll, chapter.pages.length - 1));
+					}
+
+					// Scroll to target placeholder immediately
+					if (targetImageIndex > 0) {
+						const targetPlaceholder = document.querySelector(`[data-page="${targetImageIndex}"]`);
+						if (targetPlaceholder) {
+							targetPlaceholder.scrollIntoView({ behavior: 'auto', block: 'start' });
+						}
+					}
+
+					// Preload images and replace placeholders
 					let loadedImages = 0;
-					let scrollRestored = false; // Prevent multiple scroll attempts
-					const imageElements = chapter.pages.map(p => {
+					const imageElements = chapter.pages.map((pageSrc, index) => {
 						const img = new Image();
-						img.src = p;
+						img.src = pageSrc;
 						img.onload = () => {
 							loadedImages++;
-							if (loadedImages === chapter.pages.length && !scrollRestored) {
-								pagesContainer.innerHTML = chapter.pages.map(pageSrc => `<img src="${pageSrc}" alt="Page">`).join('');
-								scrollRestored = true;
-								
-								// Restore scroll position after all images are loaded
-								if (queryScroll > 0) {
-									// Small timeout to let layout settle after images render
-									setTimeout(() => {
-										window.scrollTo({ top: queryScroll, behavior: 'instant' });
-									}, 100);
-								} else {
-									// Reset to top if no scroll position to restore
-									window.scrollTo({ top: 0, behavior: 'instant' });
-								}
+							// Replace individual placeholder with actual image
+							const placeholder = document.querySelector(`[data-page="${index}"]`);
+							if (placeholder) {
+								const imgElement = document.createElement('img');
+								imgElement.src = pageSrc;
+								imgElement.alt = `Page ${index + 1}`;
+								imgElement.style.display = 'block';
+								imgElement.style.maxWidth = '100%';
+								imgElement.style.marginBottom = '5px';
+								placeholder.parentNode.replaceChild(imgElement, placeholder);
+							}
+
+							// After all images loaded, restore scroll to saved image position
+							if (loadedImages === chapter.pages.length && targetImageIndex === 0) {
+								// Only fetch saved position if no query scroll was provided
+								restoreSavedImagePosition(chapter.number);
 							}
 						};
 						return img;
@@ -154,21 +176,20 @@
 					chapterSelect.selectedIndex = currentIndex;
 					chapterSelectBottom.selectedIndex = currentIndex;
 
-					// If no explicit query param scroll was provided, fall back to the server-stored value
-					if (queryScroll <= 0) {
+					function restoreSavedImagePosition(chapterNumber) {
 						try {
-							fetch(`/api/history/scroll?manga_slug=${encodeURIComponent(slug)}&chapter=${chapter.number}`)
+							fetch(`/api/history/scroll?manga_slug=${encodeURIComponent(slug)}&chapter=${chapterNumber}`)
 								.then(r => r.json())
 								.then(j => {
-									const target = parseInt(j && j.scroll || 0, 10) || 0;
-									if (target > 0 && !scrollRestored) {
-										// Allow time for images/layout to settle, then restore saved position
+									const savedImageIndex = parseInt(j && j.image_index || 0, 10) || 0;
+									if (savedImageIndex > 0) {
+										// Scroll to the saved image after a short delay
 										setTimeout(() => {
-											if (!scrollRestored) {
-												window.scrollTo({ top: target, behavior: 'instant' });
-												scrollRestored = true;
+											const targetImg = pagesContainer.children[savedImageIndex];
+											if (targetImg) {
+												targetImg.scrollIntoView({ behavior: 'auto', block: 'start' });
 											}
-										}, 800);
+										}, 200);
 									}
 								})
 								.catch(() => {});
@@ -193,14 +214,14 @@
 				pagesContainer.innerHTML = '<p class="muted">Failed to load chapters.</p>';
 			});
 
-		// Scroll saving logic (defined after the chapters are loaded so helper is available)
+		// Image-based scroll saving logic
 		let _scrollTimer = null;
 		let _currentChapter = null;
-		let _lastSavedScroll = -1; // Track last saved position to avoid redundant saves
+		let _lastSavedImageIndex = -1; // Track last saved image index to avoid redundant saves
 		
 		function setupScrollSaving(chapterNumber) {
 			_currentChapter = chapterNumber;
-			_lastSavedScroll = -1;
+			_lastSavedImageIndex = -1;
 
 			// Remove previously attached handler, then add a fresh one
 			window.removeEventListener('scroll', _onScroll);
@@ -209,44 +230,66 @@
 			function _onScroll() {
 				if (_scrollTimer) clearTimeout(_scrollTimer);
 				_scrollTimer = setTimeout(() => {
-					const currentScroll = Math.round(window.scrollY || window.pageYOffset || 0);
-					// Only save if scroll position changed significantly (>50px difference)
-					if (Math.abs(currentScroll - _lastSavedScroll) > 50) {
-						sendScroll(_currentChapter, currentScroll);
-						_lastSavedScroll = currentScroll;
+					const currentImageIndex = getCurrentVisibleImageIndex();
+					// Only save if visible image index changed
+					if (currentImageIndex !== _lastSavedImageIndex && currentImageIndex >= 0) {
+						sendImagePosition(_currentChapter, currentImageIndex);
+						_lastSavedImageIndex = currentImageIndex;
 					}
-				}, 800); // Increased debounce time to reduce API calls
+				}, 500); // Reduced debounce time since we're saving less frequently
 			}
 		}
 
-		function sendScroll(chapterNumber, scrollY) {
+		function getCurrentVisibleImageIndex() {
+			const images = pagesContainer.children;
+			const scrollTop = window.scrollY || window.pageYOffset || 0;
+			const viewportHeight = window.innerHeight;
+			const viewportCenter = scrollTop + (viewportHeight / 2);
+
+			// Find which image is closest to the center of the viewport
+			let closestIndex = 0;
+			let closestDistance = Infinity;
+
+			for (let i = 0; i < images.length; i++) {
+				const img = images[i];
+				const rect = img.getBoundingClientRect();
+				const imgTop = rect.top + scrollTop;
+				const imgCenter = imgTop + (rect.height / 2);
+				const distance = Math.abs(imgCenter - viewportCenter);
+
+				if (distance < closestDistance) {
+					closestDistance = distance;
+					closestIndex = i;
+				}
+			}
+
+			return closestIndex;
+		}
+
+		function sendImagePosition(chapterNumber, imageIndex) {
 			try {
-				// compute percent (approx) based on document height
-				let percent = 0;
-				try {
-					const total = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-					percent = Math.round((scrollY / total) * 100);
-					if (percent < 0) percent = 0;
-					if (percent > 100) percent = 100;
-				} catch (e) { percent = 0; }
+				const totalImages = pagesContainer.children.length;
+				// Calculate percent based on image progress
+				const percent = totalImages > 0 ? Math.round((imageIndex / Math.max(totalImages - 1, 1)) * 100) : 0;
 				
-				// Send scroll position with error handling
+				// Send image position with error handling
 				fetch('/api/history/scroll', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({ 
 						manga_slug: slug, 
 						chapter: chapterNumber, 
-						scroll: scrollY, 
+						scroll: 0, // Keep for backward compatibility
+						image_index: imageIndex,
 						percent: percent, 
 						manga_title: mangaTitleEl.textContent || 'Unknown' 
 					})
 				}).catch(() => {
 					// Silently handle network errors - scroll saving is not critical
-					console.debug('Failed to save scroll position');
+					console.debug('Failed to save image position');
 				});
 			} catch (e) { 
-				console.debug('Error in sendScroll:', e);
+				console.debug('Error in sendImagePosition:', e);
 			}
 		}
 	</script>

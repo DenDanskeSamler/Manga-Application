@@ -18,16 +18,16 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 0,
-  "total_chapters": 32,
+  "bookmarked": 1,
+  "total_chapters": 33,
   "latest_chapters": [
-    {
-      "number": 31,
-      "release_date": "18-09-2025"
-    },
     {
       "number": 32,
       "release_date": "25-09-2025"
+    },
+    {
+      "number": 33,
+      "release_date": "01-10-2025"
     }
   ],
   "chapters": [
@@ -651,6 +651,27 @@
         "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/7f601969a0fb16550fb6bae6f53dcd2e/012.webp",
         "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/7f601969a0fb16550fb6bae6f53dcd2e/013.webp",
         "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/7f601969a0fb16550fb6bae6f53dcd2e/014.webp"
+      ]
+    },
+    {
+      "number": 33,
+      "title": "Chapter 33",
+      "release_date": "01-10-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/001.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/002.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/003.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/004.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/005.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/006.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/007.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/008.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/009.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/010.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/011.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/012.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/013.webp",
+        "https://img.manhuaus.com/image2025/manga_67f3f059ca1b9/05413e0f80f95374d3f961165349040d/014.webp"
       ]
     }
   ]

@@ -20,15 +20,15 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 37,
+  "total_chapters": 38,
   "latest_chapters": [
-    {
-      "number": 35,
-      "release_date": "17-09-2025"
-    },
     {
       "number": 36,
       "release_date": "24-09-2025"
+    },
+    {
+      "number": 37,
+      "release_date": "02-10-2025"
     }
   ],
   "chapters": [
@@ -899,6 +899,26 @@
         "https://img.manhuaus.com/image2025/manga_681332b7c66a4/1add463ef186d1d1b613caf5a9427803/012.webp",
         "https://img.manhuaus.com/image2025/manga_681332b7c66a4/1add463ef186d1d1b613caf5a9427803/013.webp",
         "https://img.manhuaus.com/image2025/manga_681332b7c66a4/1add463ef186d1d1b613caf5a9427803/014.webp"
+      ]
+    },
+    {
+      "number": 37,
+      "title": "Chapter 37",
+      "release_date": "02-10-2025",
+      "pages": [
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/01.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/02.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/03.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/04.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/05.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/06.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/07.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/08.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/09.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/10.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/11.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/12.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_681332b7c66a4/41dc735e4e014e6b371672b23bb22df1/13.webp"
       ]
     }
   ]

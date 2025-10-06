@@ -20,16 +20,16 @@
     "Martial Arts"
   ],
   "status": "OnGoing",
-  "bookmarked": 782,
-  "total_chapters": 36,
+  "bookmarked": 790,
+  "total_chapters": 37,
   "latest_chapters": [
-    {
-      "number": 35,
-      "release_date": "12-09-2025"
-    },
     {
       "number": 36,
       "release_date": "17-09-2025"
+    },
+    {
+      "number": 37,
+      "release_date": "02-10-2025"
     }
   ],
   "chapters": [
@@ -860,6 +860,26 @@
         "https://img.manhuaus.com/image2025/manga_67b40cb3e9148/e8675bbb3127a89225c5256668ae16f5/010.webp",
         "https://img.manhuaus.com/image2025/manga_67b40cb3e9148/e8675bbb3127a89225c5256668ae16f5/011.webp",
         "https://img.manhuaus.com/image2025/manga_67b40cb3e9148/e8675bbb3127a89225c5256668ae16f5/012.webp"
+      ]
+    },
+    {
+      "number": 37,
+      "title": "Chapter 37",
+      "release_date": "02-10-2025",
+      "pages": [
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/001.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/002.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/003.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/004.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/005.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/006.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/007.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/008.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/009.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/010.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/011.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/012.webp",
+        "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_67b40cb3e9148/d7769847638742437f9ed4ff4b2e8e88/013.webp"
       ]
     }
   ]

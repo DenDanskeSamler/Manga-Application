@@ -23,16 +23,16 @@
     "Shounen"
   ],
   "status": "Completed",
-  "bookmarked": 733,
-  "total_chapters": 694,
+  "bookmarked": 741,
+  "total_chapters": 695,
   "latest_chapters": [
-    {
-      "number": 692,
-      "release_date": "18-09-2025"
-    },
     {
       "number": 693,
       "release_date": "25-09-2025"
+    },
+    {
+      "number": 694,
+      "release_date": "30-09-2025"
     }
   ],
   "chapters": [
@@ -13476,6 +13476,24 @@
         "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/d7f7c2bd027616b39547292bcd093904/08.webp",
         "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/d7f7c2bd027616b39547292bcd093904/09.webp",
         "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/d7f7c2bd027616b39547292bcd093904/10.webp"
+      ]
+    },
+    {
+      "number": 694,
+      "title": "Chapter 694",
+      "release_date": "30-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/01.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/02.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/03.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/04.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/05.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/06.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/07.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/08.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/09.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/10.webp",
+        "https://img.manhuaus.com/image2025/manga_61cb2e6928e4d/6f7cfd934d1dccd8d20024f83bf7c3cb/11.webp"
       ]
     }
   ]

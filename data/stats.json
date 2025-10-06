@@ -1,26 +1,26 @@
 {
-  "manga_count": 1222,
-  "chapter_count": 137584,
+  "manga_count": 1223,
+  "chapter_count": 134803,
   "genres": [
     {
       "name": "Action",
-      "count": 1142
+      "count": 1143
     },
     {
       "name": "Fantasy",
-      "count": 1022
+      "count": 1023
     },
     {
       "name": "Adventure",
-      "count": 718
+      "count": 719
     },
     {
       "name": "Martial Arts",
-      "count": 717
+      "count": 718
     },
     {
       "name": "Drama",
-      "count": 683
+      "count": 684
     },
     {
       "name": "Shounen",

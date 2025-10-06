@@ -81,6 +81,8 @@ class ReadingHistory(db.Model):
     scroll_position = db.Column(db.Integer)
     # store last-known scroll percent (0-100) for this chapter
     scroll_percent = db.Column(db.Integer)
+    # store last-known image index (0-based) for this chapter
+    image_index = db.Column(db.Integer, default=0)
     last_read_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     def __init__(self, user_id=None, manga_slug=None, manga_title=None, 

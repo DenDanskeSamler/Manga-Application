@@ -28,12 +28,12 @@
   "total_chapters": 2250,
   "latest_chapters": [
     {
-      "number": 3848,
-      "release_date": "16-09-2025"
-    },
-    {
       "number": 3849,
       "release_date": "22-09-2025"
+    },
+    {
+      "number": 3850,
+      "release_date": "29-09-2025"
     }
   ],
   "chapters": [
@@ -18417,25 +18417,6 @@
         "https://img.manhuaus.com/martial-peak-3/chapter-2550/010.jpg",
         "https://img.manhuaus.com/martial-peak-3/chapter-2550/011.jpg",
         "https://img.manhuaus.com/martial-peak-3/chapter-2550/012.jpg"
-      ]
-    },
-    {
-      "number": 2551,
-      "title": "Chapter 2551",
-      "release_date": "31-08-2022",
-      "pages": [
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/001.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/002.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/003.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/004.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/005.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/006.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/007.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/008.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/009.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/010.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/011.jpg",
-        "https://img.manhuaus.com/martial-peak-3/chapter-2551/012.jpg"
       ]
     },
     {
@@ -43096,6 +43077,28 @@
         "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/e0e67b3593962f0544cc50979b782cd0/10.webp",
         "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/e0e67b3593962f0544cc50979b782cd0/11.webp",
         "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/e0e67b3593962f0544cc50979b782cd0/12.webp"
+      ]
+    },
+    {
+      "number": 3850,
+      "title": "Chapter 3850",
+      "release_date": "29-09-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/001.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/002.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/003.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/004.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/005.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/006.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/007.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/008.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/009.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/010.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/011.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/012.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/013.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/014.webp",
+        "https://img.manhuaus.com/image2025/manga_61bda3fbd01cb/bb4b545aeaa28df5d8ddbd6af7448e55/015.webp"
       ]
     }
   ]
