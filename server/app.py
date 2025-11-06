@@ -812,6 +812,19 @@ def admin_delete_user_direct(user_id):
 
     return redirect(url_for('admin_panel'))
 
+@app.route('/api/scraper/start', methods=['POST'])
+@admin_required
+def start_scraper_cycle():
+    """Trigger the scraping cycle by running run_scrapers.py in the background."""
+    import subprocess
+    import sys
+    try:
+        # Use sys.executable for correct Python interpreter
+        subprocess.Popen([sys.executable, 'run_scrapers.py'], cwd=Path(__file__).parent.parent)
+        return jsonify({'status': 'started'}), 200
+    except Exception as e:
+        app.logger.error(f"Error starting scraper: {e}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 @app.route('/admin/settings', methods=['GET', 'POST'])
 @admin_required
 def admin_settings():
