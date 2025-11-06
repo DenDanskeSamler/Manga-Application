@@ -783,17 +783,24 @@
                     },
                     credentials: 'same-origin'
                 });
+                const data = await resp.json();
                 if (resp.ok) {
-                    startScraperBtn.textContent = 'Started!';
-                    statusText.textContent = 'Scraper started!';
+                    if (data.status === 'already_running') {
+                        startScraperBtn.textContent = 'Already Running';
+                        statusText.textContent = 'Scraper is already running';
+                    } else {
+                        startScraperBtn.textContent = 'Started!';
+                        statusText.textContent = 'Scraper started successfully!';
+                    }
                     setTimeout(() => {
                         startScraperBtn.textContent = 'Start Scraping Cycle';
                         startScraperBtn.disabled = false;
                         scraperLoadingSpinner.style.display = 'none';
+                        updateScraperStatus(); // Refresh status immediately
                     }, 2000);
                 } else {
                     startScraperBtn.textContent = 'Failed!';
-                    statusText.textContent = 'Failed to start scraper.';
+                    statusText.textContent = data.message || 'Failed to start scraper.';
                     setTimeout(() => {
                         startScraperBtn.textContent = 'Start Scraping Cycle';
                         startScraperBtn.disabled = false;
@@ -801,6 +808,7 @@
                     }, 2000);
                 }
             } catch (err) {
+                console.error('Error starting scraper:', err);
                 startScraperBtn.textContent = 'Error!';
                 statusText.textContent = 'Error starting scraper.';
                 setTimeout(() => {
