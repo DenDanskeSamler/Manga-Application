@@ -148,6 +148,9 @@
     <div class="container{% if request.path == '/' %} home-container{% endif %}">
         <h1>Mangas</h1>
         <div class="controls">
+            <div class="filter-search">
+                <input type="search" id="filter-search-input" placeholder="Search mangas by title..." aria-label="Search mangas">
+            </div>
             <!-- Search moved into filter panel (opened by the Filters button) -->
             <div class="controls-right">
                 <button id="filterToggle" class="filter-btn" aria-expanded="false">Filters ▾</button>
@@ -164,10 +167,6 @@
             <div class="filter-panel-inner">
                 <button id="filterClose" class="filter-close" aria-label="Close filters">✕</button>
                 <h2 class="filter-title">Filters</h2>
-                <div class="filter-search">
-                    <input type="search" id="filter-search-input" placeholder="Search mangas by title..."
-                        aria-label="Search mangas">
-                </div>
                 <div id="genre-filters" class="genre-filters" aria-label="Genre filters"></div>
                 <div class="filter-actions">
                     <button id="filterApply" class="btn primary">Apply</button>
