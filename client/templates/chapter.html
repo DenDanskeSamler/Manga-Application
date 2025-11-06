@@ -126,7 +126,7 @@
 
 					// Create placeholder elements first (100px height each)
 					const placeholders = chapter.pages.map((_, index) => 
-						`<div class="page-placeholder" data-page="${index}" style="height: 100px; background: #333; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; color: #666;">Loading page ${index + 1}...</div>`
+						`<div class="page-placeholder" data-page="${index}" style="height: 100px; background: #333; display: flex; align-items: center; justify-content: center; color: #666;">Loading page ${index + 1}...</div>`
 					).join('');
 					pagesContainer.innerHTML = placeholders;
 

@@ -16,3 +16,4 @@ dist/
 venv/
 manga_log.txt
 .vscode/settings.json
+manga_app.db
