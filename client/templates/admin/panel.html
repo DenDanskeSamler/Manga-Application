@@ -381,6 +381,23 @@
             padding: 1.5rem;
             margin-bottom: 2rem;
         }
+        /* Prevent text cutoff in live progress/history */
+        #liveMessage, #step2ProgressHistory {
+            word-break: break-word;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+        }
+        #step2ProgressHistory ul {
+            padding-left: 0;
+        }
+        #step2ProgressHistory li {
+            word-break: break-word;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+            font-family: monospace;
+            color: #e0e6ed;
+            margin-bottom: 2px;
+        }
 
         .scraper-status-header {
             display: flex;
@@ -738,15 +755,37 @@
 
             const data = await response.json();
 
+            // Helper: show step2 progress and history
+            function showStep2ProgressAndHistory() {
+                // Only show if step2_progress or step2_history exists
+                let html = '';
+                if (data.step2_progress) {
+                    html += `<div style="color:#10b981; font-weight:600; margin-bottom:0.5rem;">scraper step 2.py Progress: <span style='font-family:monospace;'>${data.step2_progress}</span></div>`;
+                }
+                if (data.step2_history && Array.isArray(data.step2_history) && data.step2_history.length > 0) {
+                    html += `<div style="color:#94a3b8; font-size:0.85rem; margin-bottom:0.25rem;">Recent Updates:</div><ul style='background:#0f172a; border-radius:6px; padding:0.5rem 1rem; margin:0 0 0.5rem 0; list-style:none;'>`;
+                    data.step2_history.slice(-10).reverse().forEach(msg => {
+                        html += `<li style='margin-bottom:2px; font-family:monospace; color:#e0e6ed;'>${msg}</li>`;
+                    });
+                    html += '</ul>';
+                }
+                // Insert into liveMessageContainer below liveMessage
+                let step2Div = document.getElementById('step2ProgressHistory');
+                if (!step2Div) {
+                    step2Div = document.createElement('div');
+                    step2Div.id = 'step2ProgressHistory';
+                    liveMessageContainer.appendChild(step2Div);
+                }
+                step2Div.innerHTML = html;
+                liveMessageContainer.style.display = (html || data.live_message) ? 'block' : 'none';
+            }
+
             if (data.running) {
-                // Scraper is running
                 statusIndicator.className = 'status-indicator active';
                 statusText.textContent = `Scraper is running - Cycle #${data.cycle_number || 1}`;
-                
                 scraperProgress.style.display = 'block';
                 nextRunInfo.style.display = 'none';
 
-                // Show current script with description
                 if (data.current_script) {
                     let scriptText = data.current_script;
                     if (data.current_description) {
@@ -755,15 +794,14 @@
                     currentScript.textContent = scriptText;
                 }
 
-                // Show live message if available
                 if (data.live_message) {
                     liveMessageContainer.style.display = 'block';
                     liveMessage.textContent = data.live_message;
                 } else {
-                    liveMessageContainer.style.display = 'none';
+                    liveMessage.textContent = '-';
                 }
+                showStep2ProgressAndHistory();
 
-                // Calculate progress
                 const completed = data.completed_scripts ? data.completed_scripts.length : 0;
                 const total = data.total_scripts || 4;
                 const percentage = Math.round((completed / total) * 100);
@@ -771,7 +809,6 @@
                 progressBar.style.width = percentage + '%';
                 progressText.textContent = `${completed} / ${total} scripts completed`;
 
-                // Show script list with status
                 if (data.completed_scripts && data.completed_scripts.length > 0) {
                     scriptList.innerHTML = '<div style="margin-top: 0.5rem; font-weight: 500; color: #e0e6ed;">Completed Scripts:</div>';
                     data.completed_scripts.forEach(script => {
@@ -787,10 +824,8 @@
                     });
                 }
             } else {
-                // Scraper is not running
                 statusIndicator.className = 'status-indicator inactive';
                 liveMessageContainer.style.display = 'none';
-                
                 if (data.message) {
                     statusText.textContent = data.message;
                 } else if (data.end_time) {
@@ -799,17 +834,13 @@
                 } else {
                     statusText.textContent = 'Scraper is not running';
                 }
-
                 scraperProgress.style.display = 'none';
                 scriptList.innerHTML = '';
-
-                // Show next run time if available
                 if (data.next_run) {
                     nextRunInfo.style.display = 'block';
                     const nextRun = new Date(data.next_run);
                     const now = new Date();
                     const diff = nextRun - now;
-
                     if (diff > 0) {
                         const hours = Math.floor(diff / (1000 * 60 * 60));
                         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -820,8 +851,6 @@
                 } else {
                     nextRunInfo.style.display = 'none';
                 }
-
-                // Show last cycle results if available
                 if (data.completed_scripts && data.completed_scripts.length > 0) {
                     scraperProgress.style.display = 'block';
                     scriptList.innerHTML = '<div style="margin-top: 0.5rem; font-weight: 500; color: #e0e6ed;">Last Run Results:</div>';

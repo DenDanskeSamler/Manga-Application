@@ -87,26 +87,44 @@ def set_live_message(msg):
 def monitor_scraper_output(process, script_name):
     """Monitor scraper output and extract progress information."""
     try:
+        # For step 2 progress and history
+        global status_data
+        history_limit = 10
         for line in iter(process.stdout.readline, ''):
             if not line:
                 break
             line = line.strip()
             if line:
-                # Log the output
                 print(line)
-                
-                # Try to extract useful info from output
+                # Progress pattern for step 2: "Processed 10/1000 chapters"
+                if script_name == "scraper step 2.py":
+                    progress_match = re.search(r"Processed\s+(\d+)\s*/\s*(\d+)\s*chapters", line, re.IGNORECASE)
+                    if progress_match:
+                        current = int(progress_match.group(1))
+                        total = int(progress_match.group(2))
+                        status_data["step2_progress"] = f"{current}/{total}"
+                        # Add to history
+                        if "step2_history" not in status_data:
+                            status_data["step2_history"] = []
+                        status_data["step2_history"].append(line)
+                        status_data["step2_history"] = status_data["step2_history"][-history_limit:]
+                        update_status(status_data)
+                        set_live_message(f"{script_name}: {status_data['step2_progress']}")
+                        continue
+                    # Add other info lines to history
+                    if "step2_history" not in status_data:
+                        status_data["step2_history"] = []
+                    status_data["step2_history"].append(line)
+                    status_data["step2_history"] = status_data["step2_history"][-history_limit:]
+                    update_status(status_data)
                 # Pattern for "Page X" or "Scraping page X"
                 page_match = re.search(r'(?:page|Page)\s+(\d+)', line, re.IGNORECASE)
                 if page_match:
                     page_num = page_match.group(1)
                     set_live_message(f"{script_name}: Processing page {page_num}")
-                
                 # Pattern for "Processing X" or "Fetching X"
                 elif re.search(r'(?:processing|fetching|scraping)', line, re.IGNORECASE):
-                    # Extract first meaningful word after the action
                     set_live_message(f"{script_name}: {line[:80]}")
-                
                 # Pattern for manga titles or file operations
                 elif re.search(r'(?:manga|chapter|saving|writing)', line, re.IGNORECASE):
                     set_live_message(f"{script_name}: {line[:80]}")
