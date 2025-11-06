@@ -558,7 +558,14 @@
                 <span id="statusText">Checking status...</span>
             </div>
             <div class="scraper-progress" id="scraperProgress" style="display: none;">
-                <div>Current: <strong id="currentScript">-</strong></div>
+                <div style="margin-bottom: 0.75rem;">
+                    <div style="color: #e0e6ed; font-weight: 500; margin-bottom: 0.25rem;">Current Script:</div>
+                    <div id="currentScript" style="color: #3b82f6; font-size: 0.95rem;">-</div>
+                </div>
+                <div id="liveMessageContainer" style="display: none; background: #0f172a; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; border-left: 3px solid #3b82f6;">
+                    <div style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 0.25rem;">Live Progress:</div>
+                    <div id="liveMessage" style="color: #e0e6ed; font-size: 0.875rem; font-family: monospace;">-</div>
+                </div>
                 <div class="progress-bar-container">
                     <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
                 </div>
@@ -719,6 +726,8 @@
     const scriptList = document.getElementById('scriptList');
     const nextRunInfo = document.getElementById('nextRunInfo');
     const nextRunTime = document.getElementById('nextRunTime');
+    const liveMessageContainer = document.getElementById('liveMessageContainer');
+    const liveMessage = document.getElementById('liveMessage');
 
     async function updateScraperStatus() {
         try {
@@ -737,8 +746,21 @@
                 scraperProgress.style.display = 'block';
                 nextRunInfo.style.display = 'none';
 
+                // Show current script with description
                 if (data.current_script) {
-                    currentScript.textContent = data.current_script;
+                    let scriptText = data.current_script;
+                    if (data.current_description) {
+                        scriptText += ' - ' + data.current_description;
+                    }
+                    currentScript.textContent = scriptText;
+                }
+
+                // Show live message if available
+                if (data.live_message) {
+                    liveMessageContainer.style.display = 'block';
+                    liveMessage.textContent = data.live_message;
+                } else {
+                    liveMessageContainer.style.display = 'none';
                 }
 
                 // Calculate progress
@@ -755,10 +777,11 @@
                     data.completed_scripts.forEach(script => {
                         const icon = script.exit_code === 0 ? '✓' : '✗';
                         const color = script.exit_code === 0 ? '#10b981' : '#ef4444';
+                        const desc = script.description ? ` - ${script.description}` : '';
                         scriptList.innerHTML += `
                             <div class="script-item completed" style="color: ${color};">
                                 <span class="script-icon">${icon}</span>
-                                <span>${script.name}</span>
+                                <span>${script.name}${desc}</span>
                             </div>
                         `;
                     });
@@ -766,6 +789,7 @@
             } else {
                 // Scraper is not running
                 statusIndicator.className = 'status-indicator inactive';
+                liveMessageContainer.style.display = 'none';
                 
                 if (data.message) {
                     statusText.textContent = data.message;
