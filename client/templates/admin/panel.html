@@ -372,6 +372,115 @@
                 padding: 0.2rem 0.5rem;
             }
         }
+
+        /* Scraper Status Styles */
+        .scraper-status {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .scraper-status-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .scraper-status h3 {
+            color: #e0e6ed;
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.active {
+            background: #10b981;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+
+        .status-indicator.inactive {
+            background: #6b7280;
+            box-shadow: 0 0 0 4px rgba(107, 114, 128, 0.2);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .scraper-info {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .scraper-progress {
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .progress-bar-container {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            height: 8px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            transition: width 0.3s ease;
+        }
+
+        .script-list {
+            margin-top: 1rem;
+        }
+
+        .script-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .script-item.current {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .script-item.completed {
+            color: #10b981;
+        }
+
+        .script-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .next-run-info {
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
     </style>
 </head>
 <body>
@@ -436,6 +545,30 @@
             <div class="stat-card">
                 <span class="stat-number">{{ stats.total_history }}</span>
                 <div class="stat-label">Reading History Items</div>
+            </div>
+        </div>
+
+        <!-- Scraper Status Section -->
+        <div class="scraper-status" id="scraperStatus">
+            <div class="scraper-status-header">
+                <div class="status-indicator inactive" id="statusIndicator"></div>
+                <h3>Scraper Status</h3>
+            </div>
+            <div class="scraper-info" id="scraperInfo">
+                <span id="statusText">Checking status...</span>
+            </div>
+            <div class="scraper-progress" id="scraperProgress" style="display: none;">
+                <div>Current: <strong id="currentScript">-</strong></div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+                </div>
+                <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.5rem;">
+                    Progress: <span id="progressText">0 / 0</span>
+                </div>
+                <div class="script-list" id="scriptList"></div>
+            </div>
+            <div class="next-run-info" id="nextRunInfo" style="display: none;">
+                Next scraper run: <strong id="nextRunTime">-</strong>
             </div>
         </div>
         
@@ -573,5 +706,125 @@
             hideModal();
         }
     });
+})();
+
+// Scraper Status Polling
+(function() {
+    const statusIndicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
+    const scraperProgress = document.getElementById('scraperProgress');
+    const currentScript = document.getElementById('currentScript');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const scriptList = document.getElementById('scriptList');
+    const nextRunInfo = document.getElementById('nextRunInfo');
+    const nextRunTime = document.getElementById('nextRunTime');
+
+    async function updateScraperStatus() {
+        try {
+            const response = await fetch('/api/scraper/status');
+            if (!response.ok) {
+                throw new Error('Failed to fetch status');
+            }
+
+            const data = await response.json();
+
+            if (data.running) {
+                // Scraper is running
+                statusIndicator.className = 'status-indicator active';
+                statusText.textContent = `Scraper is running - Cycle #${data.cycle_number || 1}`;
+                
+                scraperProgress.style.display = 'block';
+                nextRunInfo.style.display = 'none';
+
+                if (data.current_script) {
+                    currentScript.textContent = data.current_script;
+                }
+
+                // Calculate progress
+                const completed = data.completed_scripts ? data.completed_scripts.length : 0;
+                const total = data.total_scripts || 4;
+                const percentage = Math.round((completed / total) * 100);
+
+                progressBar.style.width = percentage + '%';
+                progressText.textContent = `${completed} / ${total} scripts completed`;
+
+                // Show script list with status
+                if (data.completed_scripts && data.completed_scripts.length > 0) {
+                    scriptList.innerHTML = '<div style="margin-top: 0.5rem; font-weight: 500; color: #e0e6ed;">Completed Scripts:</div>';
+                    data.completed_scripts.forEach(script => {
+                        const icon = script.exit_code === 0 ? '✓' : '✗';
+                        const color = script.exit_code === 0 ? '#10b981' : '#ef4444';
+                        scriptList.innerHTML += `
+                            <div class="script-item completed" style="color: ${color};">
+                                <span class="script-icon">${icon}</span>
+                                <span>${script.name}</span>
+                            </div>
+                        `;
+                    });
+                }
+            } else {
+                // Scraper is not running
+                statusIndicator.className = 'status-indicator inactive';
+                
+                if (data.message) {
+                    statusText.textContent = data.message;
+                } else if (data.end_time) {
+                    const endTime = new Date(data.end_time);
+                    statusText.textContent = `Last run completed at ${endTime.toLocaleString()}`;
+                } else {
+                    statusText.textContent = 'Scraper is not running';
+                }
+
+                scraperProgress.style.display = 'none';
+                scriptList.innerHTML = '';
+
+                // Show next run time if available
+                if (data.next_run) {
+                    nextRunInfo.style.display = 'block';
+                    const nextRun = new Date(data.next_run);
+                    const now = new Date();
+                    const diff = nextRun - now;
+
+                    if (diff > 0) {
+                        const hours = Math.floor(diff / (1000 * 60 * 60));
+                        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        nextRunTime.textContent = `${nextRun.toLocaleString()} (in ${hours}h ${minutes}m)`;
+                    } else {
+                        nextRunTime.textContent = 'Soon...';
+                    }
+                } else {
+                    nextRunInfo.style.display = 'none';
+                }
+
+                // Show last cycle results if available
+                if (data.completed_scripts && data.completed_scripts.length > 0) {
+                    scraperProgress.style.display = 'block';
+                    scriptList.innerHTML = '<div style="margin-top: 0.5rem; font-weight: 500; color: #e0e6ed;">Last Run Results:</div>';
+                    data.completed_scripts.forEach(script => {
+                        const icon = script.exit_code === 0 ? '✓' : '✗';
+                        const color = script.exit_code === 0 ? '#10b981' : '#ef4444';
+                        scriptList.innerHTML += `
+                            <div class="script-item" style="color: ${color};">
+                                <span class="script-icon">${icon}</span>
+                                <span>${script.name}</span>
+                                <span style="margin-left: auto; font-size: 0.75rem;">(exit code: ${script.exit_code})</span>
+                            </div>
+                        `;
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching scraper status:', error);
+            statusIndicator.className = 'status-indicator inactive';
+            statusText.textContent = 'Could not fetch scraper status';
+            scraperProgress.style.display = 'none';
+            nextRunInfo.style.display = 'none';
+        }
+    }
+
+    // Update immediately and then every 10 seconds
+    updateScraperStatus();
+    setInterval(updateScraperStatus, 10000);
 })();
 </script>

@@ -638,6 +638,28 @@ def clear_history():
     db.session.commit()
     return jsonify({"status": "cleared"})
 
+@app.route("/api/scraper/status")
+def scraper_status():
+    """Get the current status of the scraper daemon."""
+    status_file = Path("scraper_status.json")
+    
+    if not status_file.exists():
+        return jsonify({
+            "running": False,
+            "message": "Scraper daemon not active"
+        })
+    
+    try:
+        with open(status_file, "r", encoding="utf-8") as f:
+            status_data = json.load(f)
+        return jsonify(status_data)
+    except Exception as e:
+        app.logger.error(f"Error reading scraper status: {e}")
+        return jsonify({
+            "running": False,
+            "error": "Could not read status file"
+        }), 500
+
 # --- Admin routes ---
 @app.route('/admin')
 @admin_required
