@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Scraper Step 1: Fetch manga list from website
+"""
 import requests
 import json
 import os

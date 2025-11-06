@@ -35,6 +35,12 @@ ps uxa | grep python
 step2 kill the process:
 kill 141381
 
+pkill -f "all_scraper.py"
+pkill -f "scraper step 2.py"
+pkill -f "scraper.py"
+
+
+
 
 update repo:
 git pull origin main

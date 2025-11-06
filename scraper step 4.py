@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Scraper Step 4: Build catalog and organize data
+"""
 import os
 import json
 import re

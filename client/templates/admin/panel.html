@@ -766,10 +766,7 @@
             if (!response.ok) {
                 throw new Error('Failed to fetch status');
             }
-
             const data = await response.json();
-
-            // Helper: show step2 progress and history
             function showStep2ProgressAndHistory() {
                 let html = '';
                 if (data.step2_progress) {
@@ -791,26 +788,22 @@
                 step2Div.innerHTML = html;
                 liveMessageContainer.style.display = (html || data.live_message) ? 'block' : 'none';
             }
-
             function showLiveLogScroll() {
                 const liveLogScroll = document.getElementById('liveLogScroll');
                 if (data.live_log && Array.isArray(data.live_log) && data.live_log.length > 0) {
                     liveLogScroll.innerHTML = data.live_log.map(line => `<div>${line}</div>`).join('');
                     liveLogScroll.style.display = 'block';
-                    // Auto-scroll to bottom
                     liveLogScroll.scrollTop = liveLogScroll.scrollHeight;
                 } else {
                     liveLogScroll.innerHTML = '';
                     liveLogScroll.style.display = 'none';
                 }
             }
-
             if (data.running) {
                 statusIndicator.className = 'status-indicator active';
                 statusText.textContent = `Scraper is running - Cycle #${data.cycle_number || 1}`;
                 scraperProgress.style.display = 'block';
                 nextRunInfo.style.display = 'none';
-
                 if (data.current_script) {
                     let scriptText = data.current_script;
                     if (data.current_description) {
@@ -818,7 +811,6 @@
                     }
                     currentScript.textContent = scriptText;
                 }
-
                 if (data.live_message) {
                     liveMessageContainer.style.display = 'block';
                     liveMessage.textContent = data.live_message;
@@ -827,14 +819,11 @@
                 }
                 showLiveLogScroll();
                 showStep2ProgressAndHistory();
-
                 const completed = data.completed_scripts ? data.completed_scripts.length : 0;
                 const total = data.total_scripts || 4;
                 const percentage = Math.round((completed / total) * 100);
-
                 progressBar.style.width = percentage + '%';
                 progressText.textContent = `${completed} / ${total} scripts completed`;
-
                 if (data.completed_scripts && data.completed_scripts.length > 0) {
                     scriptList.innerHTML = '<div style="margin-top: 0.5rem; font-weight: 500; color: #e0e6ed;">Completed Scripts:</div>';
                     data.completed_scripts.forEach(script => {
@@ -1001,5 +990,5 @@
     // Update immediately and then every 10 seconds
     updateScraperStatus();
     setInterval(updateScraperStatus, 10000);
-})();
+    })();
 </script>

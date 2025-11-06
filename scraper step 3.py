@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Scraper Step 3: Download chapter images
+"""
 import os
 import re
 import json

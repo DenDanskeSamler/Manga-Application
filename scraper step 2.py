@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Scraper Step 2: Fetch manga details and chapters
+"""
 import os
 import json
 import requests
