@@ -143,6 +143,14 @@
             gap: 1rem;
             padding: 1rem;
             border-bottom: 1px solid #334155;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 120ms ease;
+        }
+
+        .bookmark-item:hover,
+        .history-item:hover {
+            background-color: rgba(59, 130, 246, 0.05);
         }
         
         .bookmark-item:last-child,
@@ -279,6 +287,21 @@
             gap: 1rem;
             padding: 1rem;
         }
+
+        /* Make manga header clickable */
+        .manga-header-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 120ms ease;
+        }
+
+        .manga-header-link:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
         
         .manga-header .manga-thumbnail {
             width: 60px;
@@ -311,11 +334,41 @@
             border-bottom: none;
         }
         
-        .chapter-number {
-            color: #3b82f6;
+        /* Chapter link styling: remove default blue + underline and use site accent color */
+        .chapter-number,
+        .chapter-number:link,
+        .chapter-number:visited {
+            color: #60a5fa; /* soft accent */
             font-weight: 500;
             min-width: 60px;
+            text-decoration: none;
+            border-bottom: 1px dashed transparent;
+            transition: color 120ms ease, border-bottom-color 120ms ease;
         }
+        .chapter-number:hover,
+        .chapter-number:focus {
+            color: #3b82f6;
+            border-bottom-color: rgba(59,130,246,0.45);
+            outline: none;
+        }
+
+        /* make the entire chapter row clickable when it's an anchor */
+        .manga-history-item a.chapter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            border-bottom: 1px dashed rgba(51,65,85,0.6);
+            font-size: 0.9rem;
+            color: inherit;
+            text-decoration: none;
+        }
+        .manga-history-item a.chapter-item:last-child { border-bottom: none }
+        .manga-history-item a.chapter-item:focus {
+            outline: 2px solid rgba(59,130,246,0.25);
+            outline-offset: 2px;
+        }
+        .manga-history-item a.chapter-item:hover .chapter-number { color: #3b82f6 }
         
         .chapter-date {
             color: #94a3b8;
@@ -403,7 +456,7 @@
             <div class="section-content">
                 {% if bookmarks %}
                     {% for bookmark in bookmarks %}
-                    <div class="bookmark-item">
+                    <a href="/manga/{{ bookmark.manga_slug }}" class="bookmark-item">
                         <div class="manga-thumbnail">
                             {% if bookmark.manga_thumbnail %}
                                 {# Remote absolute URL -> use as-is #}
@@ -430,7 +483,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
+                    </a>
                     {% endfor %}
                 {% else %}
                     <div class="empty-state">
@@ -456,7 +509,7 @@
                     <div class="manga-history-list">
                         {% for manga in grouped_history %}
                         <div class="manga-history-item" data-manga-title="{{ manga.manga_title|lower }}">
-                            <div class="manga-header">
+                            <a href="/manga/{{ manga.manga_slug }}" class="manga-header-link">
                                 <div class="manga-thumbnail">
                                     {% if manga.manga_thumbnail %}
                                         {% if manga.manga_thumbnail.startswith('http') %}
@@ -477,13 +530,13 @@
                                         • Latest: {{ manga.latest_read.strftime('%B %d, %Y') }}
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                             <div class="chapters-list">
                                 {% for chapter in manga.chapters|sort(attribute='number', reverse=true) %}
-                                <div class="chapter-item">
+                                <a href="/manga/{{ manga.manga_slug }}/chapter-{{ chapter.number }}" class="chapter-item">
                                     <span class="chapter-number">Ch. {{ chapter.number }}</span>
                                     <span class="chapter-date">{{ chapter.read_at.strftime('%b %d, %Y at %H:%M') }}</span>
-                                </div>
+                                </a>
                                 {% endfor %}
                             </div>
                         </div>
