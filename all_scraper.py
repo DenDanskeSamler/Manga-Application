@@ -107,22 +107,34 @@ def run_all_scrapers():
     }
     update_status(status_data)
     
-    for script in SCRAPER_SCRIPTS:
+    for idx, script in enumerate(SCRAPER_SCRIPTS):
         if not running:
             log_message("Shutdown requested, stopping scraper execution.")
             break
-            
+
+        # Set current script and update status before running
+        status_data["current_script"] = script
+        status_data["last_update"] = datetime.now().isoformat()
+        update_status(status_data)
+
         exit_code = run_scraper(script)
-        
-        # Update completed scripts list
+
+        # Immediately update completed scripts and progress
         status_data["completed_scripts"].append({
             "name": script,
             "exit_code": exit_code,
             "completed_at": datetime.now().isoformat()
         })
         status_data["last_update"] = datetime.now().isoformat()
+
+        # If not last script, set next script as current for status
+        if idx + 1 < len(SCRAPER_SCRIPTS):
+            status_data["current_script"] = SCRAPER_SCRIPTS[idx + 1]
+        else:
+            status_data["current_script"] = None
+
         update_status(status_data)
-        
+
         # Check for critical failures (except scraper.py which can exit with 1 on 404)
         if exit_code != 0 and script != "scraper.py":
             log_message(f"Critical error in {script}, stopping cycle.")
