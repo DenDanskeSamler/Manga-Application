@@ -584,6 +584,13 @@
                 <div class="status-indicator inactive" id="statusIndicator"></div>
                 <h3>Scraper Status</h3>
                 <button id="startScraperBtn" class="btn-sm btn-view" style="margin-left:auto;">Start Scraping Cycle</button>
+                <span id="scraperLoadingSpinner" style="display:none; margin-left:8px; vertical-align:middle;">
+                    <svg width="18" height="18" viewBox="0 0 50 50" style="display:inline-block;">
+                        <circle cx="25" cy="25" r="20" fill="none" stroke="#3b82f6" stroke-width="5" stroke-linecap="round" stroke-dasharray="31.4 31.4" stroke-dashoffset="0">
+                            <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </span>
             </div>
             <div class="scraper-info" id="scraperInfo">
                 <span id="statusText">Checking status...</span>
@@ -760,13 +767,14 @@
     const nextRunTime = document.getElementById('nextRunTime');
     const liveMessageContainer = document.getElementById('liveMessageContainer');
     const liveMessage = document.getElementById('liveMessage');
-
-    // Start Scraper Button logic
     const startScraperBtn = document.getElementById('startScraperBtn');
+    const scraperLoadingSpinner = document.getElementById('scraperLoadingSpinner');
+
     if (startScraperBtn) {
         startScraperBtn.addEventListener('click', async () => {
             startScraperBtn.disabled = true;
-            startScraperBtn.textContent = 'Starting...';
+            scraperLoadingSpinner.style.display = 'inline-block';
+            statusText.textContent = 'Starting scraper...';
             try {
                 const resp = await fetch('/api/scraper/start', {
                     method: 'POST',
@@ -777,22 +785,28 @@
                 });
                 if (resp.ok) {
                     startScraperBtn.textContent = 'Started!';
+                    statusText.textContent = 'Scraper started!';
                     setTimeout(() => {
                         startScraperBtn.textContent = 'Start Scraping Cycle';
                         startScraperBtn.disabled = false;
+                        scraperLoadingSpinner.style.display = 'none';
                     }, 2000);
                 } else {
                     startScraperBtn.textContent = 'Failed!';
+                    statusText.textContent = 'Failed to start scraper.';
                     setTimeout(() => {
                         startScraperBtn.textContent = 'Start Scraping Cycle';
                         startScraperBtn.disabled = false;
+                        scraperLoadingSpinner.style.display = 'none';
                     }, 2000);
                 }
             } catch (err) {
                 startScraperBtn.textContent = 'Error!';
+                statusText.textContent = 'Error starting scraper.';
                 setTimeout(() => {
                     startScraperBtn.textContent = 'Start Scraping Cycle';
                     startScraperBtn.disabled = false;
+                    scraperLoadingSpinner.style.display = 'none';
                 }, 2000);
             }
         });
