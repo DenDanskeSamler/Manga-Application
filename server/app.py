@@ -820,7 +820,7 @@ def start_scraper_cycle():
     import sys
     try:
         # Use sys.executable for correct Python interpreter
-        subprocess.Popen([sys.executable, 'run_scrapers.py'], cwd=Path(__file__).parent.parent)
+        subprocess.Popen([sys.executable, 'all_scraper.py'], cwd=Path(__file__).parent.parent)
         return jsonify({'status': 'started'}), 200
     except Exception as e:
         app.logger.error(f"Error starting scraper: {e}")
