@@ -90,12 +90,19 @@ def monitor_scraper_output(process, script_name):
         # For step 2 progress and history
         global status_data
         history_limit = 10
+        live_log_limit = 200
+        if "live_log" not in status_data:
+            status_data["live_log"] = []
         for line in iter(process.stdout.readline, ''):
             if not line:
                 break
             line = line.strip()
             if line:
                 print(line)
+                # Add every line to live_log
+                status_data["live_log"].append(line)
+                status_data["live_log"] = status_data["live_log"][-live_log_limit:]
+                update_status(status_data)
                 # Progress pattern for step 2: "Processed 10/1000 chapters"
                 if script_name == "scraper step 2.py":
                     progress_match = re.search(r"Processed\s+(\d+)\s*/\s*(\d+)\s*chapters", line, re.IGNORECASE)
