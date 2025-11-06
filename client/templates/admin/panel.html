@@ -583,6 +583,7 @@
             <div class="scraper-status-header">
                 <div class="status-indicator inactive" id="statusIndicator"></div>
                 <h3>Scraper Status</h3>
+                <button id="startScraperBtn" class="btn-sm btn-view" style="margin-left:auto;">Start Scraping Cycle</button>
             </div>
             <div class="scraper-info" id="scraperInfo">
                 <span id="statusText">Checking status...</span>
@@ -759,6 +760,43 @@
     const nextRunTime = document.getElementById('nextRunTime');
     const liveMessageContainer = document.getElementById('liveMessageContainer');
     const liveMessage = document.getElementById('liveMessage');
+
+    // Start Scraper Button logic
+    const startScraperBtn = document.getElementById('startScraperBtn');
+    if (startScraperBtn) {
+        startScraperBtn.addEventListener('click', async () => {
+            startScraperBtn.disabled = true;
+            startScraperBtn.textContent = 'Starting...';
+            try {
+                const resp = await fetch('/api/scraper/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                });
+                if (resp.ok) {
+                    startScraperBtn.textContent = 'Started!';
+                    setTimeout(() => {
+                        startScraperBtn.textContent = 'Start Scraping Cycle';
+                        startScraperBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    startScraperBtn.textContent = 'Failed!';
+                    setTimeout(() => {
+                        startScraperBtn.textContent = 'Start Scraping Cycle';
+                        startScraperBtn.disabled = false;
+                    }, 2000);
+                }
+            } catch (err) {
+                startScraperBtn.textContent = 'Error!';
+                setTimeout(() => {
+                    startScraperBtn.textContent = 'Start Scraping Cycle';
+                    startScraperBtn.disabled = false;
+                }, 2000);
+            }
+        });
+    }
 
     async function updateScraperStatus() {
         try {
