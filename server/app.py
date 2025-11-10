@@ -638,28 +638,6 @@ def clear_history():
     db.session.commit()
     return jsonify({"status": "cleared"})
 
-@app.route("/api/scraper/status")
-def scraper_status():
-    """Get the current status of the scraper daemon."""
-    status_file = Path("scraper_status.json")
-    
-    if not status_file.exists():
-        return jsonify({
-            "running": False,
-            "message": "Scraper daemon not active"
-        })
-    
-    try:
-        with open(status_file, "r", encoding="utf-8") as f:
-            status_data = json.load(f)
-        return jsonify(status_data)
-    except Exception as e:
-        app.logger.error(f"Error reading scraper status: {e}")
-        return jsonify({
-            "running": False,
-            "error": "Could not read status file"
-        }), 500
-
 # --- Admin routes ---
 @app.route('/admin')
 @admin_required
@@ -812,43 +790,6 @@ def admin_delete_user_direct(user_id):
 
     return redirect(url_for('admin_panel'))
 
-@app.route('/api/scraper/start', methods=['POST'])
-@admin_required
-def start_scraper_cycle():
-    """Trigger the scraping cycle by running all_scraper.py in the background."""
-    import subprocess
-    import sys
-    try:
-        scraper_path = Path(__file__).parent.parent / 'all_scraper.py'
-        if not scraper_path.exists():
-            app.logger.error(f"all_scraper.py not found at {scraper_path}")
-            return jsonify({'status': 'error', 'message': 'Scraper script not found'}), 500
-        
-        # Check if scraper is already running
-        status_file = Path(__file__).parent.parent / 'scraper_status.json'
-        if status_file.exists():
-            try:
-                with open(status_file, 'r', encoding='utf-8') as f:
-                    status = json.load(f)
-                    if status.get('running'):
-                        return jsonify({'status': 'already_running', 'message': 'Scraper is already running'}), 200
-            except Exception as e:
-                app.logger.warning(f"Could not read status file: {e}")
-        
-        # Start the scraper in the background
-        process = subprocess.Popen(
-            [sys.executable, str(scraper_path)],
-            cwd=Path(__file__).parent.parent,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            start_new_session=True  # Detach from parent process
-        )
-        
-        app.logger.info(f"Started scraper with PID {process.pid}")
-        return jsonify({'status': 'started', 'pid': process.pid}), 200
-    except Exception as e:
-        app.logger.error(f"Error starting scraper: {e}")
-        return jsonify({'status': 'error', 'message': str(e)}), 500
 @app.route('/admin/settings', methods=['GET', 'POST'])
 @admin_required
 def admin_settings():
@@ -874,30 +815,6 @@ def admin_settings():
 if __name__ == "__main__":
     app.logger.info(f"[server] Static dir: {config.STATIC_DIR}")
     app.logger.info(f"[server] Template dir: {config.TEMPLATE_DIR}")
-    
-    # Auto-start scrapers in background when app starts
-    import subprocess
-    import sys
-    auto_start_scrapers = os.environ.get('AUTO_START_SCRAPERS', 'true').lower() == 'true'
-    
-    if auto_start_scrapers:
-        try:
-            scraper_path = Path(__file__).parent.parent / 'all_scraper.py'
-            if scraper_path.exists():
-                subprocess.Popen(
-                    [sys.executable, str(scraper_path)],
-                    cwd=Path(__file__).parent.parent,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    start_new_session=True  # Detach from parent process
-                )
-                app.logger.info("[server] Auto-started scraper daemon in background")
-            else:
-                app.logger.warning(f"[server] Could not find all_scraper.py at {scraper_path}")
-        except Exception as e:
-            app.logger.error(f"[server] Failed to auto-start scrapers: {e}")
-    else:
-        app.logger.info("[server] Auto-start scrapers disabled (set AUTO_START_SCRAPERS=true to enable)")
     
     # Use environment variables for configuration
     debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
