@@ -173,10 +173,30 @@ Important settings (common):
 - FLASK_HOST — host to bind (default `127.0.0.1`)
 - FLASK_PORT — port to bind (default `8000`)
 - DATABASE_URL — optional SQLAlchemy connection string (sqlite by default)
+- AUTO_START_SCRAPERS — `true`/`false` (default: `true`) — automatically start the scraper daemon when the app starts
 
 app.py at project root reads `.env` (if present) and configures the server accordingly.
 
 Security note: Never commit secrets or production `SECRET_KEY` into the repository.
+
+## Scraper System
+
+The application includes an automated scraping system that runs continuously in the background:
+
+- **Auto-start**: By default, the scraper daemon (`all_scraper.py`) starts automatically when you run `app.py`. This can be disabled by setting `AUTO_START_SCRAPERS=false` in your `.env` file.
+- **Manual control**: Admins can start the scraper cycle manually from the Admin Panel using the "Start Scraping Cycle" button.
+- **Live status**: The Admin Panel displays real-time scraper status, progress, and logs.
+- **Continuous operation**: The scraper runs in a loop with configurable intervals (default: 2 hours between cycles).
+
+### Scraper scripts
+
+The scraping process consists of 4 sequential steps:
+1. `scraper.py` — Scrape manga list from website
+2. `scraper step 2.py` — Fetch manga details and chapters
+3. `scraper step 3.py` — Download chapter images
+4. `scraper step 4.py` — Build catalog and organize data
+
+Status and progress are tracked in `scraper_status.json` at the project root.
 
 ## Running in production
 
