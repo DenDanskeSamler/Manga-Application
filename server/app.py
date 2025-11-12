@@ -224,35 +224,35 @@ def manga_page(slug):
 def chapter_page(slug, chapter_num):
     # Record reading history if user is logged in
     if current_user.is_authenticated:
-        # Get manga details for history
-        catalog_path = config.DATA_DIR / "catalog.json"
-        if catalog_path.exists():
-            try:
-                catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-                manga_entry = next((m for m in catalog if m["slug"] == slug), None)
-                if manga_entry:
-                    # Get or create history entry
-                    history_entry = ReadingHistory.query.filter_by(
+        # Get manga details for history using manga_loader
+        from server.src.utils.manga_loader import load_manga_by_slug
+        manga_data_dir = config.BASE_DIR / "manga_data"
+        
+        try:
+            manga = load_manga_by_slug(slug, manga_data_dir)
+            if manga:
+                # Get or create history entry
+                history_entry = ReadingHistory.query.filter_by(
+                    user_id=current_user.id,
+                    manga_slug=slug,
+                    chapter_number=chapter_num
+                ).first()
+                
+                if history_entry:
+                    history_entry.last_read_at = datetime.utcnow()
+                else:
+                    history_entry = ReadingHistory(
                         user_id=current_user.id,
                         manga_slug=slug,
+                        manga_title=manga.get("title", ""),
+                        manga_thumbnail=manga.get("thumbnail", ""),
                         chapter_number=chapter_num
-                    ).first()
-                    
-                    if history_entry:
-                        history_entry.last_read_at = datetime.utcnow()
-                    else:
-                        history_entry = ReadingHistory(
-                            user_id=current_user.id,
-                            manga_slug=slug,
-                            manga_title=manga_entry.get("title", ""),
-                            manga_thumbnail=manga_entry.get("thumbnail", ""),
-                            chapter_number=chapter_num
-                        )
-                        db.session.add(history_entry)
-                    
-                    db.session.commit()
-            except Exception as e:
-                print(f"Error recording reading history: {e}")
+                    )
+                    db.session.add(history_entry)
+                
+                db.session.commit()
+        except Exception as e:
+            print(f"Error recording reading history: {e}")
     
     return render_template("chapter.html", slug=slug, chapter_num=chapter_num)
 
@@ -272,54 +272,37 @@ def history():
         user_history = ReadingHistory.query.filter_by(user_id=current_user.id).order_by(ReadingHistory.last_read_at.desc()).all()
 
         # Group reading history by manga
-        # Try to load catalog to determine total chapter counts for each manga
+        # Load manga data to determine total chapter counts
+        from server.src.utils.manga_loader import load_manga_by_slug
+        manga_data_dir = config.BASE_DIR / "manga_data"
+        
         grouped_history = {}
-        catalog_map = {}
-        # also prepare a title->total map in case stored slugs differ from catalog slugs
-        catalog_title_map = {}
-        try:
-            catalog_path = config.DATA_DIR / "catalog.json"
-            if catalog_path.exists():
-                catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-                for m in catalog:
-                    slug = m.get('slug')
-                    title = (m.get('title') or '').strip().lower()
-                    chapters = m.get('chapters') or []
-                    # prefer explicit chapters list length, fall back to latest_chapter or explicit total_chapters
-                    total = 0
-                    if isinstance(chapters, list) and len(chapters) > 0:
-                        total = len(chapters)
-                    else:
-                        total = m.get('total_chapters') or m.get('latest_chapter') or 0
-
-                    if slug:
-                        catalog_map[slug] = total
-                    if title:
-                        catalog_title_map[title] = total
-        except Exception as e:
-            app.logger.debug(f'Could not read catalog for totals: {e}')
+        
         for item in user_history:
             manga_key = item.manga_slug
             if manga_key not in grouped_history:
+                # Try to load manga data to get total chapters
+                total_chapters = 0
+                try:
+                    manga = load_manga_by_slug(manga_key, manga_data_dir)
+                    if manga:
+                        total_chapters = manga.get('total_chapters', 0)
+                except Exception as e:
+                    app.logger.debug(f'Could not load manga {manga_key}: {e}')
+                
                 grouped_history[manga_key] = {
                     'manga_title': item.manga_title,
                     'manga_thumbnail': item.manga_thumbnail,
                     'manga_slug': item.manga_slug,
                     'chapters': [],
                     'latest_read': item.last_read_at,
-                    'total_chapters': (
-                        (catalog_map.get(item.manga_slug) if catalog_map.get(item.manga_slug) else None)
-                        if catalog_map else None
-                    ) or (
-                        (catalog_title_map.get((item.manga_title or '').strip().lower()) if catalog_title_map.get((item.manga_title or '').strip().lower()) else None)
-                        if catalog_title_map else None
-                    )
+                    'total_chapters': total_chapters
                 }
 
             grouped_history[manga_key]['chapters'].append({
                 'number': item.chapter_number,
-            'title': item.chapter_title,
-            'read_at': item.last_read_at,
+                'title': item.chapter_title,
+                'read_at': item.last_read_at,
                 'scroll_position': getattr(item, 'scroll_position', None),
                 'scroll_percent': getattr(item, 'scroll_percent', None)
             })
@@ -416,17 +399,14 @@ def random_manga():
 
     If the catalog cannot be read or is empty, fall back to the homepage.
     """
-    catalog_path = config.BASE_DIR / "data" / "catalog.json"
+    from server.src.utils.manga_loader import load_catalog_slugs
+    
+    catalog_path = config.DATA_DIR / "catalog.json"
     if not catalog_path.exists():
         return redirect(url_for('root'))
 
     try:
-        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-        if not isinstance(catalog, list) or len(catalog) == 0:
-            return redirect(url_for('root'))
-
-        # Pick only entries that have a slug
-        slugs = [m.get('slug') for m in catalog if m.get('slug')]
+        slugs = load_catalog_slugs(catalog_path)
         if not slugs:
             return redirect(url_for('root'))
 
@@ -478,38 +458,36 @@ def api_stats():
         return jsonify({"manga_count": 0, "chapter_count": 0})
 
 @app.get("/api/manga/<slug>")
-def api_manga(slug: str):
-    catalog_path = config.DATA_DIR / "catalog.json"
+def api_manga_old(slug: str):
+    """OLD endpoint - redirect to new one or use manga_loader."""
+    from server.src.utils.manga_loader import load_manga_by_slug
+    
     try:
-        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-    except Exception:
-        return jsonify({}), 404
-
-    manga_entry = next((m for m in catalog if m["slug"] == slug), None)
-    if not manga_entry:
-        return jsonify({}), 404
-
-    folder_name = "".join([c for c in slug if c.isalnum()]).title()
-    manga_file = config.DATA_DIR / "manga" / folder_name / f"{folder_name}.json"
-    if not manga_file.exists():
-        return jsonify({}), 404
-
-    try:
-        return jsonify(json.loads(manga_file.read_text(encoding="utf-8")))
-    except Exception:
+        manga_data_dir = config.BASE_DIR / "manga_data"
+        manga = load_manga_by_slug(slug, manga_data_dir)
+        
+        if not manga:
+            return jsonify({}), 404
+        
+        return jsonify(manga)
+    except Exception as e:
+        app.logger.error(f"Error loading manga {slug}: {e}")
         return jsonify({}), 404
 
 @app.get("/api/manga/<slug>/all_chapters")
 def api_manga_all_chapters(slug: str):
-    folder_name = "".join(c for c in slug if c.isalnum()).title()
-    manga_file = config.DATA_DIR / "manga" / folder_name / f"{folder_name}.json"
-
-    if not manga_file.exists():
-        return jsonify({}), 404
-
+    """Get manga with chapters, fixing page URLs if needed."""
+    from server.src.utils.manga_loader import load_manga_by_slug
+    
     try:
-        data = json.loads(manga_file.read_text(encoding="utf-8"))
-        for chapter in data.get("chapters", []):
+        manga_data_dir = config.BASE_DIR / "manga_data"
+        manga = load_manga_by_slug(slug, manga_data_dir)
+        
+        if not manga:
+            return jsonify({}), 404
+        
+        # Fix page URLs to ensure they're absolute or correctly prefixed
+        for chapter in manga.get("chapters", []):
             if "pages" in chapter:
                 fixed_pages = []
                 for p in chapter["pages"]:
@@ -518,7 +496,8 @@ def api_manga_all_chapters(slug: str):
                     else:
                         fixed_pages.append(f"/Manga/{slug}/{p.lstrip('/')}")
                 chapter["pages"] = fixed_pages
-        return jsonify(data)
+        
+        return jsonify(manga)
     except Exception as e:
         app.logger.error(f"Error loading chapters for {slug}: {e}")
         return jsonify({"error": "Failed to load chapters"}), 500
@@ -637,6 +616,29 @@ def clear_history():
     ReadingHistory.query.filter_by(user_id=current_user.id).delete()
     db.session.commit()
     return jsonify({"status": "cleared"})
+
+# --- New API routes for manga catalog ---
+@app.route("/api/catalog")
+def api_catalog():
+    """
+    Get the full manga catalog built from manga_data files.
+    Returns catalog entries with essential metadata.
+    """
+    from server.src.utils.manga_loader import load_catalog_slugs, build_catalog_from_manga_data
+    
+    try:
+        # Load slugs from catalog.json
+        catalog_path = config.DATA_DIR / "catalog.json"
+        slugs = load_catalog_slugs(catalog_path)
+        
+        # Build full catalog from manga_data files
+        manga_data_dir = config.BASE_DIR / "manga_data"
+        catalog = build_catalog_from_manga_data(manga_data_dir, slugs)
+        
+        return jsonify(catalog)
+    except Exception as e:
+        app.logger.error(f"Error loading catalog: {e}")
+        return jsonify({"error": "Failed to load catalog"}), 500
 
 @app.route("/api/scraper/status")
 def scraper_status():
