@@ -2,7 +2,7 @@
   {
     "slug": "one-punch-man",
     "title": "One Punch Man",
-    "author": "",
+    "author": "One",
     "thumbnail": "static/thumbnail/one-punch-man-thumb.png",
     "status": "OnGoing",
     "genres": [
@@ -12,7 +12,7 @@
       "Science Fiction"
     ],
     "bookmarked": 0,
-    "total_chapters": 1,
+    "total_chapters": 311,
     "latest_chapters": [
       {
         "number": 217,

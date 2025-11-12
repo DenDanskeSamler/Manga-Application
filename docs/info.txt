@@ -25,9 +25,6 @@ run server:
 nohup python3 app.py &
 
 
-run all scrapers (loops every 2 hours):
-nohup python3 all_scraper.py &
-
 
 kill server
 step 1 find it:
