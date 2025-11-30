@@ -2,8 +2,10 @@ import json
 import random
 import os
 import logging
+import re
 from datetime import datetime, timedelta
 from pathlib import Path
+from threading import Lock
 from flask import Flask, render_template, jsonify, send_file, redirect, url_for, request, flash
 from sqlalchemy import text
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -18,6 +20,11 @@ load_dotenv()
 from server.src.database.models import db, User, Bookmark, ReadingHistory, AppSettings
 from server.src.web.forms import LoginForm, RegistrationForm, DeleteUserForm, MakeAdminForm, RemoveAdminForm, SettingsForm
 from server.src.config import config_map
+from server.src.utils.manga_loader import (
+    load_catalog_slugs,
+    build_catalog_from_manga_data,
+    load_manga_by_slug,
+)
 
 # Get configuration based on environment
 config_name = os.environ.get('FLASK_ENV', 'development')
@@ -51,8 +58,217 @@ logging.basicConfig(
 )
 app.logger.setLevel(log_level)
 
+# Catalog cache (avoid rebuilding on every request)
+CATALOG_CACHE_TTL = int(os.environ.get('CATALOG_CACHE_TTL', '60'))
+_catalog_cache = {
+    'data': [],
+    'expires_at': datetime.min,
+    'catalog_mtime': 0.0,
+    'manga_mtime': 0.0,
+}
+_catalog_lock = Lock()
+
 # Initialize extensions
 db.init_app(app)
+
+
+def _safe_mtime(path: Path) -> float:
+    try:
+        return path.stat().st_mtime
+    except OSError:
+        return 0.0
+
+
+def _latest_manga_mtime(manga_dir: Path) -> float:
+    try:
+        return max((f.stat().st_mtime for f in manga_dir.glob('*.json')), default=0.0)
+    except OSError:
+        return 0.0
+
+
+def _parse_chapter_number(value):
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        try:
+            return int(value) if float(value).is_integer() else float(value)
+        except Exception:
+            return None
+    text = str(value).strip()
+    if not text:
+        return None
+    match = re.search(r'(\d+(?:\.\d+)?)', text)
+    if not match:
+        return None
+    number = float(match.group(1))
+    return int(number) if number.is_integer() else number
+
+
+def _normalize_manga_payload(manga: dict | None) -> dict | None:
+    if not manga or not isinstance(manga, dict):
+        return None
+
+    normalized = dict(manga)  # shallow copy so we do not mutate original
+
+    # Required identifiers
+    slug = str(normalized.get('slug') or '').strip()
+    title = str(normalized.get('title') or '').strip()
+    if not slug or not title:
+        return None
+
+    normalized['slug'] = slug
+    normalized['title'] = title
+
+    # Preferred normalized keys
+    normalized['thumbnail'] = normalized.get('thumbnail') or normalized.get('cover') or ''
+    normalized['description'] = normalized.get('description') or normalized.get('summary') or ''
+
+    # Chapters normalization keeps only expected keys and ensures numeric chapter numbers
+    raw_chapters = normalized.get('chapters') or []
+    normalized_chapters = []
+    for item in raw_chapters:
+        if not isinstance(item, dict):
+            continue
+        number = _parse_chapter_number(item.get('number', item.get('chapter')))
+        title_val = str(item.get('title') or item.get('chapter') or '').strip()
+        release_date = item.get('release_date') or item.get('date') or ''
+        raw_pages = item.get('pages') or item.get('images') or []
+        pages = [str(p) for p in raw_pages if isinstance(p, (str, bytes))]
+        normalized_chapters.append({
+            'number': number,
+            'title': title_val,
+            'release_date': release_date,
+            'pages': pages,
+        })
+
+    # Sort chapters ascending by number (None goes last)
+    normalized_chapters.sort(key=lambda c: (c['number'] is None, c['number'] or 0))
+    normalized['chapters'] = normalized_chapters
+
+    total = normalized.get('total_chapters')
+    if not isinstance(total, int) or total <= 0:
+        total = sum(1 for c in normalized_chapters if c['number'] is not None)
+    normalized['total_chapters'] = total
+
+    latest_meta = normalized.get('latest_chapters') or []
+    if not latest_meta:
+        recent = [c for c in normalized_chapters if c['number'] is not None][-2:]
+        latest_meta = [{
+            'number': c['number'],
+            'title': c['title'],
+            'release_date': c['release_date'],
+        } for c in recent]
+    normalized['latest_chapters'] = latest_meta
+
+    genres = normalized.get('genres') or []
+    normalized['genres'] = sorted(dict.fromkeys(str(g).strip() for g in genres if g))
+
+    return normalized
+
+
+def _normalize_catalog_entry(entry: dict, full_manga: dict | None = None) -> None:
+    chapters = entry.get('latest_chapters') or []
+    latest_number = 0
+    for chapter in chapters:
+        number = chapter.get('number')
+        if number is None:
+            continue
+        try:
+            value = float(number)
+        except (TypeError, ValueError):
+            continue
+        latest_number = max(latest_number, int(value) if value.is_integer() else value)
+    if not latest_number and full_manga:
+        chapters = full_manga.get('chapters', [])
+        candidates = [c for c in chapters if c.get('number') is not None]
+        if candidates:
+            latest_number = candidates[-1].get('number') or 0
+    if not latest_number:
+        total = (full_manga or {}).get('total_chapters') or entry.get('total_chapters') or 0
+        try:
+            latest_number = int(total)
+        except (TypeError, ValueError):
+            latest_number = 0
+    entry['latest_chapter'] = latest_number
+    genres = (full_manga or {}).get('genres') or entry.get('genres') or []
+    entry['genres'] = sorted(dict.fromkeys(genres))
+    if full_manga:
+        entry['thumbnail'] = full_manga.get('thumbnail') or entry.get('thumbnail') or ''
+        entry['total_chapters'] = full_manga.get('total_chapters') or entry.get('total_chapters') or 0
+        entry['latest_chapters'] = full_manga.get('latest_chapters') or entry.get('latest_chapters') or []
+
+
+def _build_catalog_payload() -> list:
+    manga_dir = config.BASE_DIR / 'manga_data'
+    if not manga_dir.exists():
+        return []
+    slugs = load_catalog_slugs(config.DATA_DIR / 'catalog.json')
+    raw_catalog = build_catalog_from_manga_data(manga_dir, slugs or None)
+    catalog = []
+    skipped_missing_fields = []
+    skipped_failed_load = []
+
+    for entry in raw_catalog:
+        slug = (entry.get('slug') or '').strip()
+        title = (entry.get('title') or '').strip()
+        if not slug or not title:
+            skipped_missing_fields.append(slug or 'unknown')
+            continue
+
+        full_payload = _normalize_manga_payload(load_manga_by_slug(slug, manga_dir))
+        if not full_payload:
+            skipped_failed_load.append(slug)
+            continue
+
+        entry['slug'] = full_payload['slug']
+        entry['title'] = full_payload['title']
+        entry['thumbnail'] = entry.get('thumbnail') or full_payload.get('thumbnail') or ''
+        entry['total_chapters'] = entry.get('total_chapters') or full_payload.get('total_chapters') or 0
+        entry['latest_chapters'] = entry.get('latest_chapters') or full_payload.get('latest_chapters') or []
+        entry['genres'] = entry.get('genres') or full_payload.get('genres') or []
+
+        _normalize_catalog_entry(entry, full_payload)
+        catalog.append(entry)
+
+    if skipped_missing_fields:
+        app.logger.warning('Skipping %d catalog entries missing title/slug: %s',
+                           len(skipped_missing_fields), ', '.join(skipped_missing_fields[:5]))
+    if skipped_failed_load:
+        app.logger.warning('Skipping %d catalog entries that failed to load: %s',
+                           len(skipped_failed_load), ', '.join(skipped_failed_load[:5]))
+
+    catalog.sort(key=lambda item: (item.get('title') or '').lower())
+    return catalog
+
+
+def _get_catalog_payload() -> list:
+    now = datetime.utcnow()
+    catalog_path = config.DATA_DIR / 'catalog.json'
+    manga_dir = config.BASE_DIR / 'manga_data'
+    catalog_mtime = _safe_mtime(catalog_path)
+    manga_mtime = _latest_manga_mtime(manga_dir)
+
+    with _catalog_lock:
+        needs_refresh = (
+            not _catalog_cache['data']
+            or now >= _catalog_cache['expires_at']
+            or _catalog_cache['catalog_mtime'] != catalog_mtime
+            or _catalog_cache['manga_mtime'] != manga_mtime
+        )
+        if needs_refresh:
+            try:
+                payload = _build_catalog_payload()
+            except Exception as exc:
+                app.logger.error(f'Failed to rebuild catalog payload: {exc}')
+                _catalog_cache['expires_at'] = now + timedelta(seconds=CATALOG_CACHE_TTL)
+            else:
+                _catalog_cache.update({
+                    'data': payload,
+                    'expires_at': now + timedelta(seconds=CATALOG_CACHE_TTL),
+                    'catalog_mtime': catalog_mtime,
+                    'manga_mtime': manga_mtime,
+                })
+        return list(_catalog_cache['data'])
 
 # Initialize database and run migrations
 with app.app_context():
@@ -428,22 +644,6 @@ def genre_page(genre, page_num=1):
     # pass the raw genre slug (usually lowercased) to the template
     return render_template("index.html", current_page=page_num, genre=genre)
 
-# --- Catalog and manga APIs ---
-@app.get("/api/catalog")
-def api_catalog():
-    catalog_path = config.DATA_DIR / "catalog.json"
-    if not catalog_path.exists():
-        return jsonify([])
-
-    try:
-        data = json.loads(catalog_path.read_text(encoding="utf-8"))
-        for manga in data:
-            chapters = manga.get("chapters", [])
-            manga["latest_chapter"] = max((c.get("number", 0) for c in chapters), default=0)
-        return jsonify(data)
-    except Exception:
-        return jsonify([])
-
 @app.get("/api/stats")
 def api_stats():
     """Get statistics about the manga catalog."""
@@ -460,15 +660,13 @@ def api_stats():
 @app.get("/api/manga/<slug>")
 def api_manga_old(slug: str):
     """OLD endpoint - redirect to new one or use manga_loader."""
-    from server.src.utils.manga_loader import load_manga_by_slug
-    
     try:
         manga_data_dir = config.BASE_DIR / "manga_data"
-        manga = load_manga_by_slug(slug, manga_data_dir)
-        
+        manga = _normalize_manga_payload(load_manga_by_slug(slug, manga_data_dir))
+
         if not manga:
             return jsonify({}), 404
-        
+
         return jsonify(manga)
     except Exception as e:
         app.logger.error(f"Error loading manga {slug}: {e}")
@@ -477,11 +675,9 @@ def api_manga_old(slug: str):
 @app.get("/api/manga/<slug>/all_chapters")
 def api_manga_all_chapters(slug: str):
     """Get manga with chapters, fixing page URLs if needed."""
-    from server.src.utils.manga_loader import load_manga_by_slug
-    
     try:
         manga_data_dir = config.BASE_DIR / "manga_data"
-        manga = load_manga_by_slug(slug, manga_data_dir)
+        manga = _normalize_manga_payload(load_manga_by_slug(slug, manga_data_dir))
         
         if not manga:
             return jsonify({}), 404
@@ -620,25 +816,20 @@ def clear_history():
 # --- New API routes for manga catalog ---
 @app.route("/api/catalog")
 def api_catalog():
-    """
-    Get the full manga catalog built from manga_data files.
-    Returns catalog entries with essential metadata.
-    """
-    from server.src.utils.manga_loader import load_catalog_slugs, build_catalog_from_manga_data
-    
-    try:
-        # Load slugs from catalog.json
-        catalog_path = config.DATA_DIR / "catalog.json"
-        slugs = load_catalog_slugs(catalog_path)
-        
-        # Build full catalog from manga_data files
-        manga_data_dir = config.BASE_DIR / "manga_data"
-        catalog = build_catalog_from_manga_data(manga_data_dir, slugs)
-        
-        return jsonify(catalog)
-    except Exception as e:
-        app.logger.error(f"Error loading catalog: {e}")
-        return jsonify({"error": "Failed to load catalog"}), 500
+    payload = _get_catalog_payload()
+    if payload:
+        return jsonify(payload)
+
+    manga_dir = config.BASE_DIR / 'manga_data'
+    if not manga_dir.exists():
+        app.logger.warning('Catalog request but manga_data directory is missing')
+        return jsonify([])
+
+    catalog_path = config.DATA_DIR / 'catalog.json'
+    app.logger.info('Catalog request returned 0 items (catalog.json=%s, manga_data files=%s)',
+                    'missing' if not catalog_path.exists() else 'present',
+                    sum(1 for _ in manga_dir.glob('*.json')))
+    return jsonify([])
 
 @app.route("/api/scraper/status")
 def scraper_status():
