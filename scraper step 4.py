@@ -43,6 +43,27 @@ def get_chapter_number(chapter_title):
     return int(float(num_str)) if float(num_str).is_integer() else float(num_str)
 
 
+def normalize_catalog_entries(raw_catalog):
+    """Ensure catalog entries are dictionaries with required keys."""
+    normalized = []
+    for item in raw_catalog or []:
+        if isinstance(item, dict):
+            normalized.append(item)
+        elif isinstance(item, str):
+            normalized.append({
+                "slug": item,
+                "title": "",
+                "author": "",
+                "thumbnail": "",
+                "status": "",
+                "genres": [],
+                "bookmarked": 0,
+                "total_chapters": 0,
+                "latest_chapters": []
+            })
+    return normalized
+
+
 def convert_manga_file(input_file, catalog):
     with open(input_file, "r", encoding="utf-8") as f:
         manga = json.load(f)
@@ -145,7 +166,7 @@ def main():
     if os.path.exists(CATALOG_FILE):
         with open(CATALOG_FILE, "r", encoding="utf-8") as f:
             try:
-                catalog = json.load(f)
+                catalog = normalize_catalog_entries(json.load(f))
             except:
                 catalog = []
     else:

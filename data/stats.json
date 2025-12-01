@@ -1,26 +1,26 @@
 {
-  "manga_count": 1223,
-  "chapter_count": 134803,
+  "manga_count": 1238,
+  "chapter_count": 138018,
   "genres": [
     {
       "name": "Action",
-      "count": 1143
+      "count": 1157
     },
     {
       "name": "Fantasy",
-      "count": 1023
+      "count": 1037
     },
     {
       "name": "Adventure",
-      "count": 719
+      "count": 734
     },
     {
       "name": "Martial Arts",
-      "count": 718
+      "count": 732
     },
     {
       "name": "Drama",
-      "count": 684
+      "count": 698
     },
     {
       "name": "Shounen",
@@ -127,6 +127,10 @@
       "count": 2
     },
     {
+      "name": "",
+      "count": 1
+    },
+    {
       "name": "Adult",
       "count": 1
     },
@@ -143,23 +147,11 @@
       "count": 1
     },
     {
-      "name": "Parody",
-      "count": 1
-    },
-    {
-      "name": "Science Fiction",
-      "count": 1
-    },
-    {
       "name": "Smut",
       "count": 1
     },
     {
       "name": "Sports",
-      "count": 1
-    },
-    {
-      "name": "Superhero",
       "count": 1
     }
   ]

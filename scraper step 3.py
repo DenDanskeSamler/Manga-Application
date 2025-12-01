@@ -52,7 +52,12 @@ def fetch_html(url, retries=MAX_RETRIES):
 
 def chapter_number(ch):
     """Extract numeric part from 'Chapter X' string for sorting"""
-    match = re.search(r'(\d+)', ch.get("chapter", ""))
+    title = ""
+    if isinstance(ch, dict):
+        title = ch.get("chapter") or ""
+    elif ch is not None:
+        title = str(ch)
+    match = re.search(r'(\d+)', str(title))
     return int(match.group(1)) if match else 0
 
 
@@ -275,8 +280,9 @@ def process_manga_file(file_path, manga_index, total_manga):
             failed_chapters = new_failures
 
     if failed_chapters:
-        logger.error(f"❌ {manga_name}: Some chapters still failed: " +
-                    ", ".join(ch.get("chapter") for ch in failed_chapters))
+        # Guard against missing chapter labels to keep logging safe
+        failed_list = ", ".join((ch.get("chapter") or "<unknown>") for ch in failed_chapters)
+        logger.error(f"❌ {manga_name}: Some chapters still failed: {failed_list}")
 
 
     # Save final data
