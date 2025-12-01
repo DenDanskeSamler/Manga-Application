@@ -292,10 +292,20 @@ def process_manga_file(file_path, manga_index, total_manga):
         json.dump(manga_data, f, ensure_ascii=False, indent=2)
 
 # --- Main loop ---
+IGNORE_LIST_FILE = "ignore_list.json"
+ignore_list = []
+if os.path.exists(IGNORE_LIST_FILE):
+    with open(IGNORE_LIST_FILE, "r", encoding="utf-8") as f:
+        ignore_list = json.load(f)
+
 manga_files = [f for f in os.listdir(OUTPUT_FOLDER) if f.endswith(".json")]
 total_manga = len(manga_files)
 
 for idx, filename in enumerate(manga_files, start=1):
+    slug = filename.replace(".json", "")
+    if slug in ignore_list:
+        logger.info(f"⏭️ Skipping ignored manga: {slug}")
+        continue
     file_path = os.path.join(OUTPUT_FOLDER, filename)
     logger.info(f"🔄 Processing {filename} ({idx}/{total_manga} manga)")
     process_manga_file(file_path, idx, total_manga)

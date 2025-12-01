@@ -162,6 +162,13 @@ def convert_manga_file(input_file, catalog):
 
 
 def main():
+    # Load ignore list
+    IGNORE_LIST_FILE = "ignore_list.json"
+    ignore_list = []
+    if os.path.exists(IGNORE_LIST_FILE):
+        with open(IGNORE_LIST_FILE, "r", encoding="utf-8") as f:
+            ignore_list = json.load(f)
+
     # Load catalog.json or create new
     if os.path.exists(CATALOG_FILE):
         with open(CATALOG_FILE, "r", encoding="utf-8") as f:
@@ -175,6 +182,10 @@ def main():
     # Loop through input folder
     for filename in os.listdir(INPUT_FOLDER):
         if filename.endswith(".json"):
+            slug = filename.replace(".json", "")
+            if slug in ignore_list:
+                print(f"⏭️ Skipping ignored manga: {slug}")
+                continue
             input_file = os.path.join(INPUT_FOLDER, filename)
             convert_manga_file(input_file, catalog)
 

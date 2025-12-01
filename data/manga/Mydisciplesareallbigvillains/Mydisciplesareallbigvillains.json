@@ -20,14 +20,14 @@
   ],
   "status": "OnGoing",
   "bookmarked": 1,
-  "total_chapters": 425,
+  "total_chapters": 427,
   "latest_chapters": [
     {
-      "number": 423,
+      "number": 425,
       "release_date": "01-12-2025"
     },
     {
-      "number": 424,
+      "number": 426,
       "release_date": "01-12-2025"
     }
   ],
@@ -8464,6 +8464,30 @@
         "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_638056831459132223/a36c75202a9dbd9ac95cb934503e3f17/018-vert.webp",
         "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_638056831459132223/a36c75202a9dbd9ac95cb934503e3f17/026-vert.webp",
         "https://manhuaus.com/wp-content/uploads/WP-manga/data/manga_638056831459132223/a36c75202a9dbd9ac95cb934503e3f17/033-vert.webp"
+      ]
+    },
+    {
+      "number": 425,
+      "title": "Chapter 425",
+      "release_date": "01-12-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/260c15789a4c542dbd22a878f3f12516/001-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/260c15789a4c542dbd22a878f3f12516/006-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/260c15789a4c542dbd22a878f3f12516/013-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/260c15789a4c542dbd22a878f3f12516/021-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/260c15789a4c542dbd22a878f3f12516/028-vert.webp"
+      ]
+    },
+    {
+      "number": 426,
+      "title": "Chapter 426",
+      "release_date": "01-12-2025",
+      "pages": [
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/05fcdb526b665c144b7505ea2a66ae62/001-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/05fcdb526b665c144b7505ea2a66ae62/006-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/05fcdb526b665c144b7505ea2a66ae62/012-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/05fcdb526b665c144b7505ea2a66ae62/018-vert.webp",
+        "https://img.manhuaus.com/image2025/manga_638056831459132223/05fcdb526b665c144b7505ea2a66ae62/024-vert.webp"
       ]
     }
   ]

@@ -180,8 +180,20 @@ def save_manga(manga):
 
 
 # Multithreading
+IGNORE_LIST_FILE = "ignore_list.json"
+ignore_list = []
+if os.path.exists(IGNORE_LIST_FILE):
+    with open(IGNORE_LIST_FILE, "r", encoding="utf-8") as f:
+        ignore_list = json.load(f)
+
 with ThreadPoolExecutor(max_workers=NUM_THREADS) as executor:
-    futures = [executor.submit(save_manga, manga) for name, manga in manga_list.items()]
+    futures = []
+    for name, manga in manga_list.items():
+        if slugify(manga["title"]) in ignore_list:
+            print(f"⏭️ Skipping ignored manga: {manga['title']}")
+            continue
+        futures.append(executor.submit(save_manga, manga))
+
     for future in as_completed(futures):
         try:
             future.result()
